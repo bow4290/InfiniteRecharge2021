@@ -11,20 +11,26 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final Spark rightSpark1;
     private final Spark rightSpark2;
 
-
-    public void drive(double leftspeed) {
-        System.out.println("Left value is "+leftspeed);
-        leftSpark1.setSpeed(leftspeed);
-        leftSpark2.setSpeed(leftspeed);
-        rightSpark1.setSpeed(leftspeed);
-        rightSpark2.setSpeed(leftspeed);
-    }
-
     public DriveTrainSubsystem() {
-        leftSpark1 = new Spark(0);
-        leftSpark2 = new Spark(1);
-        rightSpark1 = new Spark(2);
+        leftSpark1 = new Spark(1);
+        leftSpark2 = new Spark(2);
+        rightSpark1 = new Spark(0);
         rightSpark2 = new Spark(3);
         setDefaultCommand(new SparkDriveCommand(this));
     }
+
+    /**
+     * sets power of left and right speed controllers respectively.
+     * @param leftspeed
+     * @param rightspeed
+     */
+    public void drive(double leftspeed, double rightspeed) {
+        System.out.println("Left value is "+leftspeed);
+        System.out.println("Right value is "+rightspeed);
+        leftSpark1.setSpeed(leftspeed);
+        leftSpark2.setSpeed(leftspeed);
+        rightSpark1.setSpeed(rightspeed);
+        rightSpark2.setSpeed(rightspeed);
+    }
+
 }
