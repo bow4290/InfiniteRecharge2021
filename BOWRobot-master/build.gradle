@@ -46,6 +46,11 @@ test {
 }
         
 dependencies {
+
+    implementation files('colorSensorLibraries/ColorSensorV3-java-1.0.1.jar')
+    implementation files('colorSensorLibraries/ColorSensorV3-java-1.0.1-javadoc.jar')
+    implementation files('colorSensorLibraries/ColorSensorV3-java-1.0.1-sources.jar')
+    
     def junit5Version = '5.5.2'
     implementation wpi.deps.wpilib()
     nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)

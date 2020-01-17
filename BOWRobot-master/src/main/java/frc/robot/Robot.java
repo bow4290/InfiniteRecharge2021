@@ -66,7 +66,6 @@ public class Robot extends TimedRobot
 
         Color detectedColor = m_colorSensor.getColor();
         System.out.println("The color is " + detectedColor.toString());
-
     }
 
     /**
