@@ -7,9 +7,13 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 /**
@@ -25,6 +29,9 @@ public class Robot extends TimedRobot
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
+    private static I2C.Port i2cPort = I2C.Port.kOnboard;
+
+    public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
     /**
      * This method is run when the robot is first started up and should be used for any
@@ -56,6 +63,10 @@ public class Robot extends TimedRobot
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         System.out.println("here");
+
+        Color detectedColor = m_colorSensor.getColor();
+        System.out.println("The color is " + detectedColor.toString());
+
     }
 
     /**
