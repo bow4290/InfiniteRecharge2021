@@ -74,8 +74,10 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Green", detectedColor.green);
         SmartDashboard.putNumber("Blue", detectedColor.blue);
         SmartDashboard.putNumber("IR", IR);
-//        SmartDashboard.putNumber("Proximity", proximity);
-        // yet another comment
+
+        int proximity = m_colorSensor.getProximity();
+        SmartDashboard.putNumber("Proximity", proximity);
+        
     }
 
     /**
