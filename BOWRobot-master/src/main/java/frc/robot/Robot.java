@@ -69,12 +69,15 @@ public class Robot extends TimedRobot
         System.out.println("The color is " + detectedColor.toString());
 
         double IR = m_colorSensor.getIR();
+
         SmartDashboard.putNumber("Red", detectedColor.red);
         SmartDashboard.putNumber("Green", detectedColor.green);
         SmartDashboard.putNumber("Blue", detectedColor.blue);
         SmartDashboard.putNumber("IR", IR);
+
         int proximity = m_colorSensor.getProximity();
         SmartDashboard.putNumber("Proximity", proximity);
+        
     }
 
     /**
