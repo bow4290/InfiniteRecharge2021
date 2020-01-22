@@ -41,7 +41,15 @@ public class Robot extends TimedRobot
     @Override
     public void robotInit()
     {
-        driveTrainSubsystem = new DriveTrainSubsystem();
+        int leftSparkChannel1 = 1;
+        int leftSparkChannel2 = 2;
+        int leftSparkChannel3 = 3;
+        int rightSparkChannel1 = 4;
+        int rightSparkChannel2 = 5;
+        int rightSparkChannel3 = 6;
+
+        driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
+                rightSparkChannel1, rightSparkChannel2, rightSparkChannel3);
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
