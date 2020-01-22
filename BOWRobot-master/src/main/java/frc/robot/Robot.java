@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+
+import static frc.robot.subsystems.ColorSensorSubsystem.m_colorMatcher;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,9 +52,16 @@ public class Robot extends TimedRobot
         int rightSparkChannel2 = 5;
         int rightSparkChannel3 = 6;
 
+    //these are placeholders
+        final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        final Color kGreenTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        final Color kRedTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        final Color kYellowTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+
+
         driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
                 rightSparkChannel1, rightSparkChannel2, rightSparkChannel3);
-        colorSensorSubsystem = new ColorSensorSubsystem();
+        colorSensorSubsystem = new ColorSensorSubsystem( kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
