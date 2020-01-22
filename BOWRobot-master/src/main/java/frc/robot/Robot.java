@@ -27,6 +27,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 public class Robot extends TimedRobot
 {
     public static DriveTrainSubsystem driveTrainSubsystem;
+    public static ColorSensorSubsystem colorSensorSubsystem;
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
@@ -50,9 +51,9 @@ public class Robot extends TimedRobot
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
                 rightSparkChannel1, rightSparkChannel2, rightSparkChannel3);
+        colorSensorSubsystem = new ColorSensorSubsystem();
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        robotContainer = new RobotContainer();
         robotContainer = new RobotContainer();
     }
 
