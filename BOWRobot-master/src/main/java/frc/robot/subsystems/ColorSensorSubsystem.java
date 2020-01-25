@@ -11,9 +11,9 @@ import frc.robot.Robot;
 public class ColorSensorSubsystem extends SubsystemBase {
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
 
-    public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+    public ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
-    public static ColorMatch m_colorMatcher = new ColorMatch();
+    public ColorMatch m_colorMatcher = new ColorMatch();
 
     private Color kBlueTarget;
     private Color kGreenTarget;
@@ -48,6 +48,8 @@ public class ColorSensorSubsystem extends SubsystemBase {
          } else {
              colorString = "Unknown";
          }
+         System.out.println("The color is" + colorString);
+
         return colorString;
 
      }

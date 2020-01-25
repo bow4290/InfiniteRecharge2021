@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-import static frc.robot.subsystems.ColorSensorSubsystem.m_colorMatcher;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,8 +26,7 @@ import static frc.robot.subsystems.ColorSensorSubsystem.m_colorMatcher;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot
-{
+public class Robot extends TimedRobot {
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ColorSensorSubsystem colorSensorSubsystem;
     private Command autonomousCommand;
@@ -43,8 +41,7 @@ public class Robot extends TimedRobot
      * initialization code.
      */
     @Override
-    public void robotInit()
-    {
+    public void robotInit() {
         int leftSparkChannel1 = 1;
         int leftSparkChannel2 = 2;
         int leftSparkChannel3 = 3;
@@ -52,7 +49,7 @@ public class Robot extends TimedRobot
         int rightSparkChannel2 = 5;
         int rightSparkChannel3 = 6;
 
-    //these are placeholders
+        //these are placeholders
         final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
         final Color kGreenTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
         final Color kRedTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
@@ -61,7 +58,7 @@ public class Robot extends TimedRobot
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
                 rightSparkChannel1, rightSparkChannel2, rightSparkChannel3);
-        colorSensorSubsystem = new ColorSensorSubsystem( kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
+        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
@@ -75,8 +72,7 @@ public class Robot extends TimedRobot
      * LiveWindow and SmartDashboard integrated updating.
      */
     @Override
-    public void robotPeriodic()
-    {
+    public void robotPeriodic() {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -96,33 +92,29 @@ public class Robot extends TimedRobot
 
         int proximity = m_colorSensor.getProximity();
         SmartDashboard.putNumber("Proximity", proximity);
-        
+
     }
 
     /**
      * This method is called once each time the robot enters Disabled mode.
      */
     @Override
-    public void disabledInit()
-    {
+    public void disabledInit() {
     }
 
     @Override
-    public void disabledPeriodic()
-    {
+    public void disabledPeriodic() {
     }
 
     /**
      * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
      */
     @Override
-    public void autonomousInit()
-    {
+    public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null)
-        {
+        if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
     }
@@ -131,19 +123,16 @@ public class Robot extends TimedRobot
      * This method is called periodically during autonomous.
      */
     @Override
-    public void autonomousPeriodic()
-    {
+    public void autonomousPeriodic() {
     }
 
     @Override
-    public void teleopInit()
-    {
+    public void teleopInit() {
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null)
-        {
+        if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
     }
@@ -152,13 +141,12 @@ public class Robot extends TimedRobot
      * This method is called periodically during operator control.
      */
     @Override
-    public void teleopPeriodic()
-    {
+    public void teleopPeriodic() {
+        System.out.println("Raw color is" + colorSensorSubsystem.m_colorSensor.getRawColor());
     }
 
     @Override
-    public void testInit()
-    {
+    public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
     }
@@ -167,7 +155,6 @@ public class Robot extends TimedRobot
      * This method is called periodically during test mode.
      */
     @Override
-    public void testPeriodic()
-    {
+    public void testPeriodic() {
     }
 }
