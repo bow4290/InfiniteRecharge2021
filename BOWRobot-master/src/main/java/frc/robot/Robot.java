@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +27,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
  */
 public class Robot extends TimedRobot
 {
+    public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     private Command autonomousCommand;
 
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot
     @Override
     public void robotInit()
     {
+        shootingSubsystem = new ShootingSubsystem();
         driveTrainSubsystem = new DriveTrainSubsystem();
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
