@@ -50,10 +50,11 @@ public class Robot extends TimedRobot {
         int rightSparkChannel3 = 6;
 
         //these are placeholders
-        final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        final Color kGreenTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        final Color kRedTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        final Color kYellowTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        final Color kBlueTarget = ColorMatch.makeColor(0, 255, 255);
+        final Color kGreenTarget = ColorMatch.makeColor(0, 255, 0);
+
+        final Color kRedTarget = ColorMatch.makeColor(255, 0, 0);
+        final Color kYellowTarget = ColorMatch.makeColor(255, 255, 0);
 
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
@@ -78,10 +79,12 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        System.out.println("here");
 
         Color detectedColor = m_colorSensor.getColor();
-        System.out.println("The color is " + detectedColor.toString());
+//        System.out.println("The red is " + detectedColor.red);
+//        System.out.println("The green is " + detectedColor.green);
+//        System.out.println("The blue is " + detectedColor.blue);
+
 
         double IR = m_colorSensor.getIR();
 
@@ -92,6 +95,10 @@ public class Robot extends TimedRobot {
 
         int proximity = m_colorSensor.getProximity();
         SmartDashboard.putNumber("Proximity", proximity);
+
+        System.out.println("Blue color is " + colorSensorSubsystem.m_colorSensor.getColor().blue);
+        System.out.println("Red color is " + colorSensorSubsystem.m_colorSensor.getColor().red);
+        System.out.println("Green color is " + colorSensorSubsystem.m_colorSensor.getColor().green);
 
     }
 
@@ -142,7 +149,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        System.out.println("Raw color is" + colorSensorSubsystem.m_colorSensor.getRawColor());
+        System.out.println("Blue color is" + colorSensorSubsystem.m_colorSensor.getRawColor().blue);
+        System.out.println("Red color is" + colorSensorSubsystem.m_colorSensor.getRawColor().red);
+        System.out.println("Green color is" + colorSensorSubsystem.m_colorSensor.getRawColor().green);
     }
 
     @Override
