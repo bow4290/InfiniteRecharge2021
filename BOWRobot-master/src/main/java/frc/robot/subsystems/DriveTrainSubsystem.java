@@ -29,8 +29,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
      * @param rightspeed
      */
     public void drive(double leftspeed, double rightspeed) {
-        System.out.println("Left value is "+leftspeed);
-        System.out.println("Right value is "+rightspeed);
+//        System.out.println("Left value is "+leftspeed);
+//        System.out.println("Right value is "+rightspeed);
         leftSpark1.setSpeed(leftspeed);
         leftSpark2.setSpeed(leftspeed);
         leftSpark3.setSpeed(leftspeed);
