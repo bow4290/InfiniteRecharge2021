@@ -34,7 +34,6 @@ public class Robot extends TimedRobot {
     private RobotContainer robotContainer;
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
 
-    public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
     /**
      * This method is run when the robot is first started up and should be used for any
@@ -80,18 +79,20 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         System.out.println("here");
 
-        Color detectedColor = m_colorSensor.getColor();
+        Color detectedColor = colorSensorSubsystem.getcolor();
+
         System.out.println("The color is " + detectedColor.toString());
 
-        double IR = m_colorSensor.getIR();
+        double getIR = colorSensorSubsystem.getIR();
 
-        SmartDashboard.putNumber("Red", detectedColor.red);
-        SmartDashboard.putNumber("Green", detectedColor.green);
-        SmartDashboard.putNumber("Blue", detectedColor.blue);
-        SmartDashboard.putNumber("IR", IR);
+//        SmartDashboard.putNumber("IR", getIR);
+//        SmartDashboard.putNumber("Red", detectedColor.red);
+//        SmartDashboard.putNumber("Green", detectedColor.green);
+//        SmartDashboard.putNumber("Blue", detectedColor.blue);
+//        SmartDashboard.putNumber("IR", IR);
 
-        int proximity = m_colorSensor.getProximity();
-        SmartDashboard.putNumber("Proximity", proximity);
+        int getProximity = colorSensorSubsystem.getProximity();
+        SmartDashboard.putNumber("Proximity", getProximity);
 
     }
 

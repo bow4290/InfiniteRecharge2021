@@ -53,4 +53,18 @@ public class ColorSensorSubsystem extends SubsystemBase {
         return colorString;
 
      }
+
+     public Color getcolor(){
+
+        return m_colorSensor.getColor();
+     }
+
+     public int getProximity(){
+
+        return m_colorSensor.getProximity();
+     }
+     public double getIR(){
+
+        return m_colorSensor.getIR();
+     }
 }
