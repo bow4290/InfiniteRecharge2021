@@ -20,7 +20,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightSpark1 = new Spark(rightSpark1Channel);
         rightSpark2 = new Spark(rightSpark2Channel);
         rightSpark3 = new Spark(rightSpark3Channel);
-        setDefaultCommand(new SparkDriveCommand(this));
+
+      setDefaultCommand(new SparkDriveCommand(this));
     }
 
     /**
