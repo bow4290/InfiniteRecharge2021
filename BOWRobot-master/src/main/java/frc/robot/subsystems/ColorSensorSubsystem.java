@@ -50,17 +50,21 @@ public class ColorSensorSubsystem extends SubsystemBase {
      * @param match this is matching the colors with the color values
      * @return the color that is found
      */
-    public String matchColor(ColorMatchResult match) {
+    public String matchColor(Color match) {
+
+        System.out.println("red is " + match.red);
+        System.out.println("green is" + match.green);
+        System.out.println("blue is" + match.blue);
 
         String colorString;
 
-        if (match.color == this.kBlueTarget) {
+        if (match.blue >= this.kBlueTarget.blue && match.green >= this.kGreenTarget.green) {
             colorString = "Blue";
-        } else if (match.color == this.kRedTarget) {
+        } else if (match.red >= this.kRedTarget.red) {
             colorString = "Red";
-        } else if (match.color == this.kGreenTarget) {
+        } else if (match.green >= this.kGreenTarget.green) {
             colorString = "Green";
-        } else if (match.color == this.kYellowTarget) {
+        } else if (match.red >= this.kRedTarget.red && match.green >= this.kGreenTarget.green) {
             colorString = "Yellow";
         } else {
             colorString = "Unknown";

@@ -48,11 +48,10 @@ public class Robot extends TimedRobot {
         int rightSparkChannel2 = 5;
         int rightSparkChannel3 = 6;
 
-        //these are placeholders
-        final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        final Color kGreenTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        final Color kRedTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        final Color kYellowTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
+        final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
+        final Color kRedTarget = ColorMatch.makeColor(.4, 0, 0);
+        final Color kYellowTarget = ColorMatch.makeColor(.3, .3, 0);
 
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
@@ -77,11 +76,11 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        System.out.println("here");
+//        System.out.println("here");
 
         Color detectedColor = colorSensorSubsystem.getcolor();
 
-        System.out.println("The color is " + detectedColor.toString());
+        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
         double getIR = colorSensorSubsystem.getIR();
 
