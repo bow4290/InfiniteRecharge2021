@@ -52,20 +52,21 @@ public class ColorSensorSubsystem extends SubsystemBase {
      */
     public String matchColor(Color match) {
 
-        System.out.println("red is " + match.red);
-        System.out.println("green is" + match.green);
-        System.out.println("blue is" + match.blue);
+//        System.out.println("red is " + match.red);
+//        System.out.println("green is" + match.green);
+//        System.out.println("blue is" + match.blue);
 
         String colorString;
 
-        if (match.blue >= this.kBlueTarget.blue && match.green >= this.kGreenTarget.green) {
+        if (match.blue >= this.kBlueTarget.blue && match.green >= this.kBlueTarget.green) {
             colorString = "Blue";
         } else if (match.red >= this.kRedTarget.red) {
             colorString = "Red";
+        } else if (match.red >= this.kYellowTarget.red && match.green >= this.kYellowTarget.green) {
+            colorString = "Yellow";
         } else if (match.green >= this.kGreenTarget.green) {
             colorString = "Green";
-        } else if (match.red >= this.kRedTarget.red && match.green >= this.kGreenTarget.green) {
-            colorString = "Yellow";
+
         } else {
             colorString = "Unknown";
         }
