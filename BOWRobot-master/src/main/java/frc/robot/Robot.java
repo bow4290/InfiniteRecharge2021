@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 
 /**
@@ -26,7 +27,10 @@ import frc.robot.subsystems.DriveTrainSubsystem;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+
+public class Robot extends TimedRobot
+{
+    public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ColorSensorSubsystem colorSensorSubsystem;
     private Command autonomousCommand;
@@ -40,6 +44,7 @@ public class Robot extends TimedRobot {
      * initialization code.
      */
     @Override
+
     public void robotInit() {
         int leftSparkChannel1 = 1;
         int leftSparkChannel2 = 2;
@@ -58,6 +63,8 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
                 rightSparkChannel1, rightSparkChannel2, rightSparkChannel3);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
+        shootingSubsystem = new ShootingSubsystem();
+
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
