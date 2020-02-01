@@ -8,11 +8,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 /**
  * this subsystem creates the main functions for the limelight
  */
-public class LimeLIghtSubSystem {
+public class LimelightSubsystem {
 
     public NetworkTable networkTable;
 
-    public LimeLIghtSubSystem() {
+    public LimelightSubsystem() {
 
         networkTable = NetworkTableInstance.getDefault().getTable("limelight");
 
