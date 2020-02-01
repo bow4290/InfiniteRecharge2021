@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        System.out.println("Raw color is" + colorSensorSubsystem.m_colorSensor.getRawColor());
+//        System.out.println("Raw color is" + colorSensorSubsystem.m_colorSensor.getRawColor());
     }
 
     @Override
