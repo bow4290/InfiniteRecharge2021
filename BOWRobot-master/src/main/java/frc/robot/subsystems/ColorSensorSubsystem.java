@@ -58,13 +58,13 @@ public class ColorSensorSubsystem extends SubsystemBase {
 
         String colorString;
 
-        if (match.blue == this.kBlueTarget.blue) {
+        if (match.blue >= this.kBlueTarget.blue && match.green >= this.kGreenTarget.green) {
             colorString = "Blue";
-        } else if (match.red == this.kRedTarget.red) {
+        } else if (match.red >= this.kRedTarget.red) {
             colorString = "Red";
-        } else if (match.green == this.kGreenTarget.green) {
+        } else if (match.green >= this.kGreenTarget.green) {
             colorString = "Green";
-        } else if (match.green + match.blue == this.kYellowTarget.green + this.kYellowTarget.blue) {
+        } else if (match.red >= this.kRedTarget.red && match.green >= this.kGreenTarget.green) {
             colorString = "Yellow";
         } else {
             colorString = "Unknown";
