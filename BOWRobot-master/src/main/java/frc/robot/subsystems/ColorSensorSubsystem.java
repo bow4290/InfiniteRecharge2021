@@ -1,9 +1,103 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
-public class ColorSensorSubsystem {
+/**
+ * this are the main functions for the color sensor
+ */
+public class ColorSensorSubsystem extends SubsystemBase {
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
-    public static ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+
+    public ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+
+    public ColorMatch m_colorMatcher = new ColorMatch();
+
+    private Color kBlueTarget;
+    private Color kGreenTarget;
+    private Color kRedTarget;
+    private Color kYellowTarget;
+
+    /**
+     * this constructs the color values
+     *
+     * @param kBlueTarget   this makes the blue value
+     * @param kGreenTarget  this makes the green value
+     * @param kRedTarget    this makes the red value
+     * @param kYellowTarget this makes the yellow value
+     */
+    public ColorSensorSubsystem(Color kBlueTarget, Color kGreenTarget, Color kRedTarget, Color kYellowTarget) {
+
+        this.kBlueTarget = kBlueTarget;
+        this.kGreenTarget = kGreenTarget;
+        this.kRedTarget = kRedTarget;
+        this.kYellowTarget = kYellowTarget;
+
+        m_colorMatcher.addColorMatch(kBlueTarget);
+        m_colorMatcher.addColorMatch(kGreenTarget);
+        m_colorMatcher.addColorMatch(kRedTarget);
+        m_colorMatcher.addColorMatch(kYellowTarget);
+    }
+
+    /**
+     * this is comparing the color values and connecting them to the correct color
+     *
+     * @param match this is matching the colors with the color values
+     * @return the color that is found
+     */
+    public String matchColor(ColorMatchResult match) {
+
+        String colorString;
+
+        if (match.color == this.kBlueTarget) {
+            colorString = "Blue";
+        } else if (match.color == this.kRedTarget) {
+            colorString = "Red";
+        } else if (match.color == this.kGreenTarget) {
+            colorString = "Green";
+        } else if (match.color == this.kYellowTarget) {
+            colorString = "Yellow";
+        } else {
+            colorString = "Unknown";
+        }
+        System.out.println("The color is" + colorString);
+
+        return colorString;
+
+    }
+
+    /**
+     * this is getting the color that is being sensed
+     *
+     * @return the color that sensed
+     */
+    public Color getcolor() {
+
+        return m_colorSensor.getColor();
+    }
+
+    /**
+     * this is getting the proximity from the sensed color
+     *
+     * @return the proximity value
+     */
+    public int getProximity() {
+
+        return m_colorSensor.getProximity();
+    }
+
+    /**
+     * this is getting the IR values
+     *
+     * @return the IR value
+     */
+    public double getIR() {
+
+        return m_colorSensor.getIR();
+    }
 }
