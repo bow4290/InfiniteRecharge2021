@@ -1,27 +1,28 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.SparkDriveCommand;
+import frc.robot.commands.VictorSPDriveCommand;
 
 public class DriveTrainSubsystem extends SubsystemBase {
-    private final Spark leftSpark1;
-    private final Spark leftSpark2;
-    private final Spark leftSpark3;
-    private final Spark rightSpark1;
-    private final Spark rightSpark2;
-    private final Spark rightSpark3;
+    private final VictorSP leftVictorSP1;
+    private final VictorSP leftVictorSP2;
+    private final VictorSP leftVictorSP3;
+    private final VictorSP rightVictorSP1;
+    private final VictorSP rightVictorSP2;
+    private final VictorSP rightVictorSP3;
 
-    public DriveTrainSubsystem(int leftSpark1Channel, int leftSpark2Channel, int leftSpark3Channel,
-                               int rightSpark1Channel, int rightSpark2Channel, int rightSpark3Channel) {
-        leftSpark1 = new Spark(leftSpark1Channel);
-        leftSpark2 = new Spark(leftSpark2Channel);
-        leftSpark3 = new Spark(leftSpark3Channel);
-        rightSpark1 = new Spark(rightSpark1Channel);
-        rightSpark2 = new Spark(rightSpark2Channel);
-        rightSpark3 = new Spark(rightSpark3Channel);
+    public DriveTrainSubsystem(int leftVictorSP1Channel, int leftVictorSP2Channel, int leftVictorSP3Channel,
+                               int rightVictorSP1Channel, int rightVictorSP2Channel, int rightVictorSP3Channel) {
+        leftVictorSP1 = new VictorSP(leftVictorSP1Channel);
+        leftVictorSP2 = new VictorSP(leftVictorSP2Channel);
+        leftVictorSP3 = new VictorSP(leftVictorSP3Channel);
+        rightVictorSP1 = new VictorSP(rightVictorSP1Channel);
+        rightVictorSP2 = new VictorSP(rightVictorSP2Channel);
+        rightVictorSP3 = new VictorSP(rightVictorSP3Channel);
 
-      setDefaultCommand(new SparkDriveCommand(this));
+      setDefaultCommand(new VictorSPDriveCommand(this));
     }
 
     /**
@@ -32,12 +33,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
     public void drive(double leftspeed, double rightspeed) {
 //        System.out.println("Left value is "+leftspeed);
 //        System.out.println("Right value is "+rightspeed);
-        leftSpark1.setSpeed(leftspeed);
-        leftSpark2.setSpeed(leftspeed);
-        leftSpark3.setSpeed(leftspeed);
-        rightSpark1.setSpeed(rightspeed);
-        rightSpark2.setSpeed(rightspeed);
-        rightSpark3.setSpeed(rightspeed);
+        leftVictorSP1.setSpeed(leftspeed);
+        leftVictorSP2.setSpeed(leftspeed);
+        leftVictorSP3.setSpeed(leftspeed);
+        rightVictorSP1.setSpeed(rightspeed);
+        rightVictorSP2.setSpeed(rightspeed);
+        rightVictorSP3.setSpeed(rightspeed);
 
     }
 
