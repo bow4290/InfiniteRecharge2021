@@ -8,12 +8,12 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import java.util.List;
 import java.util.Set;
 
-public class SparkDriveCommand extends CommandBase {
+public class VictorSPDriveCommand extends CommandBase {
 
     private DriveTrainSubsystem driveTrainSubsystem;
     private final Set<Subsystem> subsystems;
 
-    public SparkDriveCommand(DriveTrainSubsystem driveTrainSubsystem) {
+    public VictorSPDriveCommand(DriveTrainSubsystem driveTrainSubsystem) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.subsystems = Set.of(driveTrainSubsystem);
     }

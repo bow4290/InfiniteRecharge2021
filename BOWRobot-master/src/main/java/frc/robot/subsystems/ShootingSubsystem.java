@@ -23,3 +23,4 @@ public class ShootingSubsystem extends SubsystemBase {
         rightShooter.set(shooterSpeed);
     }
 }
+

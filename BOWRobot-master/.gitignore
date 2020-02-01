@@ -207,5 +207,7 @@ gradle-app.setting
 
 gradle/.idea/
 
+!SparkMaxLibrary/**
+
 # End of https://www.gitignore.io/api/java,gradle,intellij+iml,visualstudiocode,linux,macos,windows
 
