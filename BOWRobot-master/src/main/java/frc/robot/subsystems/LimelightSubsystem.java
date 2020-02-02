@@ -4,11 +4,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * this subsystem creates the main functions for the limelight
  */
-public class LimelightSubsystem {
+public class LimelightSubsystem extends SubsystemBase {
 
     public static NetworkTableInstance table = null;
 
