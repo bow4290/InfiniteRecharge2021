@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.SparkDriveCommand;
+import frc.robot.commands.VictorSPDriveCommand;
 
 public class DriveTrainSubsystem extends SubsystemBase {
     private final Spark leftSpark1;
@@ -21,7 +21,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightSpark2 = new Spark(rightSpark2Channel);
         rightSpark3 = new Spark(rightSpark3Channel);
 
-      setDefaultCommand(new SparkDriveCommand(this));
+      setDefaultCommand(new VictorSPDriveCommand(this));
     }
 
     /**
