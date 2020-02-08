@@ -17,6 +17,9 @@ public class ShootingCommand extends CommandBase {
         this.subsystems = Set.of(shootingSubsystem);
     }
 
+    /**
+     * this will display the y value of the left joystcik
+     */
     public void execute() {
         shootingSubsystem.shootBall(RobotContainer.joystickLeft.getY());
 
