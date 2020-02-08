@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShootingSubsystem;
 
 import java.util.Set;
 
@@ -18,7 +17,7 @@ public class IntakeCommand extends CommandBase{
     }
 
     public void execute() {
-        intakeSubsystem.eatBall(RobotContainer.joystickLeft.getY());
+        intakeSubsystem.intakeBall(RobotContainer.joystickLeft.getY());
     }
 
     @Override
