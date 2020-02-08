@@ -18,10 +18,10 @@ public class ColorSensorSubsystem extends SubsystemBase {
 
     public ColorMatch m_colorMatcher = new ColorMatch();
 
-    private Color kBlueTarget;
-    private Color kGreenTarget;
-    private Color kRedTarget;
-    private Color kYellowTarget;
+    public Color kBlueTarget;
+    public Color kGreenTarget;
+    public Color kRedTarget;
+    public Color kYellowTarget;
 
     /**
      * this constructs the color values
