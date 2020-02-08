@@ -13,8 +13,8 @@ public class ShootingSubsystem extends SubsystemBase {
     private static final int rightDeviceID = 1;
 
     public ShootingSubsystem() {
-        leftShooter = new CANSparkMax(leftDeviceID, CANSparkMaxLowLevel.MotorType.kBrushless);
-        rightShooter = new CANSparkMax(rightDeviceID, CANSparkMaxLowLevel.MotorType.kBrushless);
+        leftShooter = new CANSparkMax(leftDeviceID, CANSparkMaxLowLevel.MotorType.kBrushed);
+        rightShooter = new CANSparkMax(rightDeviceID, CANSparkMaxLowLevel.MotorType.kBrushed);
     }
 
     public void shootBall(double shooterSpeed) {
