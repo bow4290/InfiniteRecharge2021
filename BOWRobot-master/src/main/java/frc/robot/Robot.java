@@ -49,9 +49,11 @@ public class Robot extends TimedRobot
         int leftVictorSPChannel1 = 1;
         int leftVictorSPChannel2 = 2;
         int leftVictorSPChannel3 = 3;
+        int leftVictorSPChannel4 = 3;
         int rightVictorSPChannel1 = 4;
         int rightVictorSPChannel2 = 5;
         int rightVictorSPChannel3 = 6;
+        int rightVictorSPChannel4 = 7;
 
         int intakeMotorChannel = 7;
 
@@ -61,8 +63,10 @@ public class Robot extends TimedRobot
         final Color kYellowTarget = ColorMatch.makeColor(.3, .3, 0);
 
 
+
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPChannel1, leftVictorSPChannel2, leftVictorSPChannel3,
-                rightVictorSPChannel1, rightVictorSPChannel2, rightVictorSPChannel3);
+                leftVictorSPChannel4, rightVictorSPChannel1, rightVictorSPChannel2,
+                rightVictorSPChannel3, rightVictorSPChannel4);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         shootingSubsystem = new ShootingSubsystem();
 
