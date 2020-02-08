@@ -46,12 +46,14 @@ public class Robot extends TimedRobot
     @Override
 
     public void robotInit() {
-        int leftSparkChannel1 = 1;
-        int leftSparkChannel2 = 2;
-        int leftSparkChannel3 = 3;
-        int rightSparkChannel1 = 4;
-        int rightSparkChannel2 = 5;
-        int rightSparkChannel3 = 6;
+        int leftVictorSPChannel1 = 1;
+        int leftVictorSPChannel2 = 2;
+        int leftVictorSPChannel3 = 3;
+        int rightVictorSPChannel1 = 4;
+        int rightVictorSPChannel2 = 5;
+        int rightVictorSPChannel3 = 6;
+
+        int intakeMotorChannel = 7;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -59,8 +61,8 @@ public class Robot extends TimedRobot
         final Color kYellowTarget = ColorMatch.makeColor(.3, .3, 0);
 
 
-        driveTrainSubsystem = new DriveTrainSubsystem(leftSparkChannel1, leftSparkChannel2, leftSparkChannel3,
-                rightSparkChannel1, rightSparkChannel2, rightSparkChannel3);
+        driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPChannel1, leftVictorSPChannel2, leftVictorSPChannel3,
+                rightVictorSPChannel1, rightVictorSPChannel2, rightVictorSPChannel3);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         shootingSubsystem = new ShootingSubsystem();
 
