@@ -10,7 +10,7 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor = new VictorSP(intakeMotorChannel);
     }
 
-    public void eatBall(double intakeSpeed) {
+    public void intakeBall(double intakeSpeed) {
         intakeMotor.set(intakeSpeed);
 
     }

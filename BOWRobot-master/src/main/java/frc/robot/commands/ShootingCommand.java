@@ -18,8 +18,6 @@ public class ShootingCommand extends CommandBase {
     }
 
     public void execute() {
-        System.out.println(shootingSubsystem);
-        //shootingSubsystem.shootBall(.65);
         shootingSubsystem.shootBall(RobotContainer.joystickLeft.getY());
 
     }
