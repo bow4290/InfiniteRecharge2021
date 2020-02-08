@@ -93,11 +93,11 @@ public class Robot extends TimedRobot
 
         double getIR = colorSensorSubsystem.getIR();
 
-//        SmartDashboard.putNumber("IR", getIR);
-//        SmartDashboard.putNumber("Red", detectedColor.red);
-//        SmartDashboard.putNumber("Green", detectedColor.green);
-//        SmartDashboard.putNumber("Blue", detectedColor.blue);
-//        SmartDashboard.putNumber("IR", IR);
+        SmartDashboard.putNumber("IR", getIR);
+        SmartDashboard.putNumber("Red", detectedColor.red);
+        SmartDashboard.putNumber("Green", detectedColor.green);
+        SmartDashboard.putNumber("Blue", detectedColor.blue);
+        SmartDashboard.putNumber("IR", getIR);
 
         int getProximity = colorSensorSubsystem.getProximity();
         SmartDashboard.putNumber("Proximity", getProximity);

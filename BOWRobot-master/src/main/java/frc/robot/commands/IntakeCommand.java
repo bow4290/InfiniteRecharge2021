@@ -12,11 +12,18 @@ public class IntakeCommand extends CommandBase{
     private IntakeSubsystem intakeSubsystem;
     public final Set<Subsystem> subsystems;
 
+    /**
+     * establishes the intake  subsystem
+     * @param intakeSubsystem
+     */
     private IntakeCommand(IntakeSubsystem intakeSubsystem){
         this.intakeSubsystem = intakeSubsystem;
         this.subsystems = Set.of(intakeSubsystem);
     }
 
+    /**
+     * this makes the intake activate when left joystick is move
+     */
     public void execute() {
         intakeSubsystem.eatBall(RobotContainer.joystickLeft.getY());
     }
