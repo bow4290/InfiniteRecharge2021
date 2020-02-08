@@ -12,10 +12,6 @@ public class ConveyorCommand extends CommandBase {
     private ConveyorSubsystem conveyorSubsystem;
     public final Set<Subsystem> subsystems;
 
-    private ConveyorCommand(ConveyorSubsystem conveyorSubsystem, Set<Subsystem> subsystems) {
-
-        this.subsystems = subsystems;
-    }
     public ConveyorCommand(ConveyorSubsystem conveyorSubsystem) {
         this.conveyorSubsystem = conveyorSubsystem;
         this.subsystems = Set.of(conveyorSubsystem);
