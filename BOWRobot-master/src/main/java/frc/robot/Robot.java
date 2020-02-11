@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +34,9 @@ public class Robot extends TimedRobot
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ColorSensorSubsystem colorSensorSubsystem;
+    public Robot robot;
     private Command autonomousCommand;
+
 
     private RobotContainer robotContainer;
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -56,6 +59,8 @@ public class Robot extends TimedRobot
         int rightVictorSPChannel4 = 7;
 
         int intakeMotorChannel = 7;
+
+        int wheelSpinner = 9;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -91,7 +96,7 @@ public class Robot extends TimedRobot
         CommandScheduler.getInstance().run();
 //        System.out.println("here");
 
-        Color detectedColor = colorSensorSubsystem.getcolor();
+        Color detectedColor = colorSensorSubsystem.getColor();
 
         System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
@@ -170,4 +175,41 @@ public class Robot extends TimedRobot
     @Override
     public void testPeriodic() {
     }
+
+    public String getGameSpecificMethod(){
+        char gameDataColor;
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if(gameData.length() > 0)
+        {
+            switch (gameData.charAt(0))
+            {
+                case 'B' :
+                    gameDataColor = 'B';
+                    //Blue case code
+                    break;
+                case 'G' :
+                    gameDataColor = 'G';
+
+                    //Green case code
+                    break;
+                case 'R' :
+                    gameDataColor = 'R';
+
+                    //Red case code
+                    break;
+                case 'Y' :
+                    gameDataColor = 'Y';
+                    //Yellow case code
+                    break;
+                default :
+                    //This is corrupt data
+                    break;
+            }
+        } else {
+            //Code for no data received yet
+        }
+        return gameData;
+    }
+
 }
