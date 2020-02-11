@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
@@ -20,12 +19,10 @@ public class ColorSensorCommand extends CommandBase {
 
         this.colorSensorSubsystem = colorSensorSubsystem;
         this.subsystems = Set.of(colorSensorSubsystem);
-        int rotations;
     }
 
     public void execute(){
-        if (match.red >= this.kRedTarget.red) {
-            int rotations + 1;
+
     }
 
     @Override

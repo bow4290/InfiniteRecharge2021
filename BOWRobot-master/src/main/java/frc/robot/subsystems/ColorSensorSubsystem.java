@@ -81,7 +81,7 @@ public class ColorSensorSubsystem extends SubsystemBase {
      *
      * @return the color that sensed
      */
-    public Color getcolor() {
+    public Color getColor() {
 
         return m_colorSensor.getColor();
     }
@@ -105,4 +105,9 @@ public class ColorSensorSubsystem extends SubsystemBase {
 
         return m_colorSensor.getIR();
     }
+
+    public Color getkRedTarget(){
+        return this.kRedTarget;
+    }
+
 }
