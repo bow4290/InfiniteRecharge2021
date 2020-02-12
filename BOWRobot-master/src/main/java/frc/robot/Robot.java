@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ColorSensorCommand;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
@@ -174,42 +175,6 @@ public class Robot extends TimedRobot
      */
     @Override
     public void testPeriodic() {
-    }
-
-    public String getGameSpecificMethod(){
-        char gameDataColor;
-        String gameData;
-        gameData = DriverStation.getInstance().getGameSpecificMessage();
-        if(gameData.length() > 0)
-        {
-            switch (gameData.charAt(0))
-            {
-                case 'B' :
-                    gameDataColor = 'B';
-                    //Blue case code
-                    break;
-                case 'G' :
-                    gameDataColor = 'G';
-
-                    //Green case code
-                    break;
-                case 'R' :
-                    gameDataColor = 'R';
-
-                    //Red case code
-                    break;
-                case 'Y' :
-                    gameDataColor = 'Y';
-                    //Yellow case code
-                    break;
-                default :
-                    //This is corrupt data
-                    break;
-            }
-        } else {
-            //Code for no data received yet
-        }
-        return gameData;
     }
 
 }

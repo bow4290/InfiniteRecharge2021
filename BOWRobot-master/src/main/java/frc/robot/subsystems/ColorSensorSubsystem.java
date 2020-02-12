@@ -3,10 +3,12 @@ package frc.robot.subsystems;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.commands.ColorSensorCommand;
 
 /**
  * this are the main functions for the color sensor
@@ -110,4 +112,43 @@ public class ColorSensorSubsystem extends SubsystemBase {
         return this.kRedTarget;
     }
 
+        public Color getGameSpecificMethod(){
+            char gameDataColor;
+            Color gameColor;
+            gameColor = Color.kBlack;
+            String gameData;
+            gameData = DriverStation.getInstance().getGameSpecificMessage();
+            if(gameData.length() > 0)
+            {
+                switch (gameData.charAt(0))
+                {
+                    case 'B' :
+                        gameDataColor = 'B';
+                        gameColor = kBlueTarget;
+                        break;
+
+                    case 'G' :
+                        gameDataColor = 'G';
+                        gameColor = kGreenTarget;
+                        break;
+
+                    case 'R' :
+                        gameDataColor = 'R';
+                        gameColor = kRedTarget;
+                        break;
+
+                    case 'Y' :
+                        gameDataColor = 'Y';
+                        gameColor = kYellowTarget;
+                        break;
+
+                    default :
+                        //This is corrupt data
+                        break;
+                }
+            } else {
+                //Code for no data received yet
+            }
+            return gameColor;
+        }
 }
