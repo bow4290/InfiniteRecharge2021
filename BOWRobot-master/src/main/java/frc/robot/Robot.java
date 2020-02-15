@@ -131,6 +131,19 @@ public class Robot extends TimedRobot
      */
     @Override
     public void autonomousPeriodic() {
+
+    }
+
+    public void rotate(double degrees){
+        //rotate robot x degrees
+    }
+
+    public void move(double distance){
+        //move x units far
+    }
+
+    public void sense(){
+        //call various methods from limelight subsystem
     }
 
     @Override
