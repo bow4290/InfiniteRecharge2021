@@ -37,6 +37,10 @@ public class Robot extends TimedRobot {
     public Robot robot;
     private Command autonomousCommand;
 
+    boolean PositionPhase = true;
+    boolean ShootPhase = false;
+    boolean AwayPhase = false;
+
     double heightDifferenceInches = 83.25;
 
     private RobotContainer robotContainer;
@@ -144,11 +148,32 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        RotationData rotationData = sense();
-        rotateWithTime(90);
-//        move();
-        rotateWithLime(limelightSubsystem.getTx());
-//        move();
+        do{
+            RotationData rotationData = sense();
+            rotateWithTime(90);
+            move(calculateOffset(limelightSubsystem.getTx()));
+            rotateWithLime(limelightSubsystem.getTx());
+            move(calculateDistance(limelightSubsystem.getTy()));
+
+            ShootPhase = true;
+            PositionPhase = false;
+        }while(PositionPhase = true);
+
+        do{
+
+            //shoot'n stuff
+
+            AwayPhase = true;
+            ShootPhase = false;
+        }while(ShootPhase = true);
+
+        do{
+            rotateWithTime(90);
+            move(45);
+            rotateWithTime(-90);
+            
+            AwayPhase = false;
+        }while(AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -172,6 +197,8 @@ public class Robot extends TimedRobot {
     public void rotateWithTime(double degrees){
         double turnSpeed = .6;
 
+        //for time, measure how long it take to turn 360 degrees, then divide by 360.
+
         long t= System.currentTimeMillis();
         long end = t + 15000;
         while(System.currentTimeMillis() < end) {
@@ -179,8 +206,16 @@ public class Robot extends TimedRobot {
         }
     }
 
-    public void move(double distance) {
-        //move x units far
+    public void move(double inches) {
+        double turnSpeed = .6;
+
+        //for time, measure how long it take to move 5 feet, then divide by 60.
+
+        long t= System.currentTimeMillis();
+        long end = t + 15000;
+        while(System.currentTimeMillis() < end) {
+            driveTrainSubsystem.drive(turnSpeed, turnSpeed);
+        }
     }
 
     public RotationData sense() {
