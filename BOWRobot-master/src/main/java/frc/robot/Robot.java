@@ -9,12 +9,14 @@ package frc.robot;
 
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ColorSensorCommand;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
@@ -33,7 +35,9 @@ public class Robot extends TimedRobot
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ColorSensorSubsystem colorSensorSubsystem;
+    public Robot robot;
     private Command autonomousCommand;
+
 
     private RobotContainer robotContainer;
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -56,6 +60,8 @@ public class Robot extends TimedRobot
         int rightVictorSPChannel4 = 7;
 
         int intakeMotorChannel = 7;
+
+        int wheelSpinner = 9;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -91,17 +97,17 @@ public class Robot extends TimedRobot
         CommandScheduler.getInstance().run();
 //        System.out.println("here");
 
-        Color detectedColor = colorSensorSubsystem.getcolor();
+        Color detectedColor = colorSensorSubsystem.getColor();
 
         System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
         double getIR = colorSensorSubsystem.getIR();
 
-//        SmartDashboard.putNumber("IR", getIR);
-//        SmartDashboard.putNumber("Red", detectedColor.red);
-//        SmartDashboard.putNumber("Green", detectedColor.green);
-//        SmartDashboard.putNumber("Blue", detectedColor.blue);
-//        SmartDashboard.putNumber("IR", IR);
+        SmartDashboard.putNumber("IR", getIR);
+        SmartDashboard.putNumber("Red", detectedColor.red);
+        SmartDashboard.putNumber("Green", detectedColor.green);
+        SmartDashboard.putNumber("Blue", detectedColor.blue);
+        SmartDashboard.putNumber("IR", getIR);
 
         int getProximity = colorSensorSubsystem.getProximity();
         SmartDashboard.putNumber("Proximity", getProximity);
@@ -170,4 +176,5 @@ public class Robot extends TimedRobot
     @Override
     public void testPeriodic() {
     }
+
 }
