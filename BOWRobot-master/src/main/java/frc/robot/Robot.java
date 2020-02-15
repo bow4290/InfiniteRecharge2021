@@ -8,16 +8,12 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ColorSensorCommand;
-import frc.robot.commands.VictorSPDriveCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -41,6 +37,7 @@ public class Robot extends TimedRobot {
     public Robot robot;
     private Command autonomousCommand;
 
+    double heightDifferenceInches = 83.25;
 
     private RobotContainer robotContainer;
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -148,11 +145,13 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         RotationData rotationData = sense();
-        rotate(rotationData.getDegrees());
+        rotateWithTime(90);
+//        move();
+        rotateWithLime(limelightSubsystem.getTx());
 //        move();
     }
 
-    public void rotate(double degrees) {
+    public void rotateWithLime(double degrees) {
         double turnSpeed = .5;
 
         /**
@@ -168,9 +167,16 @@ public class Robot extends TimedRobot {
                 driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
             } while (degrees != 0);
         }
+    }
 
+    public void rotateWithTime(double degrees){
+        double turnSpeed = .6;
 
-
+        long t= System.currentTimeMillis();
+        long end = t + 15000;
+        while(System.currentTimeMillis() < end) {
+            driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+        }
     }
 
     public void move(double distance) {
@@ -179,16 +185,25 @@ public class Robot extends TimedRobot {
 
     public RotationData sense() {
         double degrees = limelightSubsystem.getTx();
-        double distance = calculateDistance();
+        double verticalDegrees = limelightSubsystem.getTy();
+        double distance = calculateDistance(verticalDegrees);
+        double offset = calculateOffset(distance);
         RotationData rotationData = new RotationData(degrees, distance);
         return rotationData;
     }
 
-    public double calculateDistance(){
-        //do distance math
-        double distance = 10.6;
+    public double calculateDistance(double verticalDegrees){
+
+        double distance = heightDifferenceInches / Math.atan(verticalDegrees);
         return distance;
     }
+
+    public double calculateOffset(double degrees){
+
+        double offset = Math.atan(degrees) * calculateDistance(limelightSubsystem.getTy());
+        return offset;
+    }
+
     @Override
     public void teleopInit() {
         // This makes sure that the autonomous stops running when
