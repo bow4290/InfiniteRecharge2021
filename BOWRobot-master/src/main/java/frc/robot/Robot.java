@@ -17,8 +17,11 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ColorSensorCommand;
+import frc.robot.commands.VictorSPDriveCommand;
+import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
 
 
@@ -30,11 +33,11 @@ import frc.robot.subsystems.ShootingSubsystem;
  * project.
  */
 
-public class Robot extends TimedRobot
-{
+public class Robot extends TimedRobot {
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ColorSensorSubsystem colorSensorSubsystem;
+    public static LimelightSubsystem limelightSubsystem;
     public Robot robot;
     private Command autonomousCommand;
 
@@ -69,12 +72,13 @@ public class Robot extends TimedRobot
         final Color kYellowTarget = ColorMatch.makeColor(.3, .3, 0);
 
 
-
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPChannel1, leftVictorSPChannel2, leftVictorSPChannel3,
                 leftVictorSPChannel4, rightVictorSPChannel1, rightVictorSPChannel2,
                 rightVictorSPChannel3, rightVictorSPChannel4);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         shootingSubsystem = new ShootingSubsystem();
+
+        limelightSubsystem = new LimelightSubsystem();
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -143,21 +147,48 @@ public class Robot extends TimedRobot
      */
     @Override
     public void autonomousPeriodic() {
+        RotationData rotationData = sense();
+        rotate(rotationData.getDegrees());
+//        move();
+    }
+
+    public void rotate(double degrees) {
+        double turnSpeed = .5;
+
+        /**
+         * if the target is to the right, move left side forward and right side back.
+         * if the target is to the left, move right side forward and left side back.
+         */
+        if (degrees > 0) {
+            do {
+                driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+            } while (degrees != 0);
+        } else if (degrees < 0) {
+            do {
+                driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
+            } while (degrees != 0);
+        }
+
+
 
     }
 
-    public void rotate(double degrees){
-        //rotate robot x degrees
-    }
-
-    public void move(double distance){
+    public void move(double distance) {
         //move x units far
     }
 
-    public void sense(){
-        //call various methods from limelight subsystem
+    public RotationData sense() {
+        double degrees = limelightSubsystem.getTx();
+        double distance = calculateDistance();
+        RotationData rotationData = new RotationData(degrees, distance);
+        return rotationData;
     }
 
+    public double calculateDistance(){
+        //do distance math
+        double distance = 10.6;
+        return distance;
+    }
     @Override
     public void teleopInit() {
         // This makes sure that the autonomous stops running when
