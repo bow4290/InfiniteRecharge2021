@@ -34,7 +34,6 @@ public class ColorSensorSubsystem extends SubsystemBase {
      * @param kYellowTarget this makes the yellow value
      */
     public ColorSensorSubsystem(Color kBlueTarget, Color kGreenTarget, Color kRedTarget, Color kYellowTarget) {
-
         this.kBlueTarget = kBlueTarget;
         this.kGreenTarget = kGreenTarget;
         this.kRedTarget = kRedTarget;
@@ -53,11 +52,6 @@ public class ColorSensorSubsystem extends SubsystemBase {
      * @return the color that is found
      */
     public String matchColor(Color match) {
-
-//        System.out.println("red is " + match.red);
-//        System.out.println("green is" + match.green);
-//        System.out.println("blue is" + match.blue);
-
         String colorString;
 
         if (match.blue >= this.kBlueTarget.blue && match.green >= this.kBlueTarget.green) {
@@ -72,10 +66,8 @@ public class ColorSensorSubsystem extends SubsystemBase {
         } else {
             colorString = "Unknown";
         }
-        System.out.println("The color is" + colorString);
 
         return colorString;
-
     }
 
     /**
@@ -108,47 +100,45 @@ public class ColorSensorSubsystem extends SubsystemBase {
         return m_colorSensor.getIR();
     }
 
-    public Color getkRedTarget(){
+    public Color getkRedTarget() {
         return this.kRedTarget;
     }
 
-        public Color getGameSpecificMethod(){
-            char gameDataColor;
-            Color gameColor;
-            gameColor = Color.kBlack;
-            String gameData;
-            gameData = DriverStation.getInstance().getGameSpecificMessage();
-            if(gameData.length() > 0)
-            {
-                switch (gameData.charAt(0))
-                {
-                    case 'B' :
-                        gameDataColor = 'B';
-                        gameColor = kBlueTarget;
-                        break;
+    public Color getGameSpecificMethod() {
+        char gameDataColor;
+        Color gameColor;
+        gameColor = Color.kBlack;
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if (gameData.length() > 0) {
+            switch (gameData.charAt(0)) {
+                case 'B':
+                    gameDataColor = 'B';
+                    gameColor = kBlueTarget;
+                    break;
 
-                    case 'G' :
-                        gameDataColor = 'G';
-                        gameColor = kGreenTarget;
-                        break;
+                case 'G':
+                    gameDataColor = 'G';
+                    gameColor = kGreenTarget;
+                    break;
 
-                    case 'R' :
-                        gameDataColor = 'R';
-                        gameColor = kRedTarget;
-                        break;
+                case 'R':
+                    gameDataColor = 'R';
+                    gameColor = kRedTarget;
+                    break;
 
-                    case 'Y' :
-                        gameDataColor = 'Y';
-                        gameColor = kYellowTarget;
-                        break;
+                case 'Y':
+                    gameDataColor = 'Y';
+                    gameColor = kYellowTarget;
+                    break;
 
-                    default :
-                        //This is corrupt data
-                        break;
-                }
-            } else {
-                //Code for no data received yet
+                default:
+                    //This is corrupt data
+                    break;
             }
-            return gameColor;
+        } else {
+            //Code for no data received yet
         }
+        return gameColor;
+    }
 }

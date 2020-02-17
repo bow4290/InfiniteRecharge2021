@@ -54,18 +54,19 @@ public class Robot extends TimedRobot {
     @Override
 
     public void robotInit() {
-        int leftVictorSPChannel1 = 1;
-        int leftVictorSPChannel2 = 2;
-        int leftVictorSPChannel3 = 3;
-        int leftVictorSPChannel4 = 3;
-        int rightVictorSPChannel1 = 4;
-        int rightVictorSPChannel2 = 5;
-        int rightVictorSPChannel3 = 6;
-        int rightVictorSPChannel4 = 7;
+        int leftVictorSPChannel1 = 0;
+        int leftVictorSPChannel2 = 0;
+        int leftVictorSPChannel3 = 0;
+        int rightVictorSPChannel1 = 0;
+        int rightVictorSPChannel2 = 0;
+        int rightVictorSPChannel3 = 0;
 
-        int intakeMotorChannel = 7;
+        int leftShooterChannel = 0;
+        int rightShooterChannel = 0;
 
-        int wheelSpinner = 9;
+        int intakeMotorChannel = 0;
+
+        int wheelSpinner = 0;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -74,10 +75,9 @@ public class Robot extends TimedRobot {
 
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPChannel1, leftVictorSPChannel2, leftVictorSPChannel3,
-                leftVictorSPChannel4, rightVictorSPChannel1, rightVictorSPChannel2,
-                rightVictorSPChannel3, rightVictorSPChannel4);
+                                                    rightVictorSPChannel1, rightVictorSPChannel2, rightVictorSPChannel3);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-        shootingSubsystem = new ShootingSubsystem();
+        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
 
         limelightSubsystem = new LimelightSubsystem();
 
@@ -171,7 +171,7 @@ public class Robot extends TimedRobot {
             rotateWithTime(90);
             move(45);
             rotateWithTime(-90);
-            
+
             AwayPhase = false;
         }while(AwayPhase = true);
     }

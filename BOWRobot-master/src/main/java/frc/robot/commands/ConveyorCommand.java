@@ -1,11 +1,10 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
-import frc.robot.subsystems.ShootingSubsystem;
-
 import java.util.Set;
 
 public class ConveyorCommand extends CommandBase {
@@ -17,7 +16,7 @@ public class ConveyorCommand extends CommandBase {
         this.subsystems = Set.of(conveyorSubsystem);
     }
     public void execute() {
-        conveyorSubsystem.conveyBall(RobotContainer.joystickLeft.getY());
+        conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
     }
 
     @Override
