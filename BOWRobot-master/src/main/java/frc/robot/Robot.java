@@ -15,10 +15,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.dataStructures.RotationData;
-import frc.robot.subsystems.ColorSensorSubsystem;
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.ShootingSubsystem;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -34,6 +31,7 @@ public class Robot extends TimedRobot {
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
+    public static ConveyorSubsystem conveyorSubsystem;
     public Robot robot;
     private Command autonomousCommand;
 
@@ -64,6 +62,9 @@ public class Robot extends TimedRobot {
         int leftShooterChannel = 0;
         int rightShooterChannel = 0;
 
+        int topMotorChannel = 0;
+        int bottomMotorChannel = 0;
+
         int intakeMotorChannel = 0;
 
         int wheelSpinner = 0;
@@ -78,6 +79,8 @@ public class Robot extends TimedRobot {
                                                     rightVictorSPChannel1, rightVictorSPChannel2, rightVictorSPChannel3);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
+
+        conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
         limelightSubsystem = new LimelightSubsystem();
 
@@ -160,7 +163,11 @@ public class Robot extends TimedRobot {
         }while(PositionPhase = true);
 
         do{
-
+            shoot(.6);
+//            wait();
+            convey(.6);
+            shoot(0);
+            convey(0);
             //shoot'n stuff
 
             AwayPhase = true;
@@ -204,6 +211,23 @@ public class Robot extends TimedRobot {
         while(System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
         }
+    }
+
+    public void shoot(double speedPercentage) {
+        shootingSubsystem.shootBall(speedPercentage);
+    }
+
+    public void convey(double speedPercentage) {
+        conveyorSubsystem.conveyBall(speedPercentage);
+    }
+
+    public void wait(int timeInMillis) {
+//        long t= System.currentTimeMillis();
+//        long end = t + timeInMillis;
+//
+//        while(System.currentTimeMillis() < end) {
+//
+//        }
     }
 
     public void move(double inches) {

@@ -8,9 +8,9 @@ public class ConveyorSubsystem extends SubsystemBase {
     private final VictorSP bottomConveyorShooter;
 
     double speedFactor = 1.1;
-    public ConveyorSubsystem(){
-        topConveyorShooter = new VictorSP(1);
-        bottomConveyorShooter = new VictorSP(0);
+    public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel){
+        topConveyorShooter = new VictorSP(topMotorChannel);
+        bottomConveyorShooter = new VictorSP(bottomMotorChannel);
     }
 
     public void conveyBall(double conveyorSpeed){
