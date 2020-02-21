@@ -219,15 +219,18 @@ public class Robot extends TimedRobot {
 
     public void convey(double speedPercentage) {
         conveyorSubsystem.conveyBall(speedPercentage);
+
     }
 
-    public void wait(int timeInMillis) {
-//        long t= System.currentTimeMillis();
-//        long end = t + timeInMillis;
-//
-//        while(System.currentTimeMillis() < end) {
-//
-//        }
+
+    public  void wait(int timeInMillis) {
+        long t = System.currentTimeMillis();
+        long end = t + timeInMillis;
+
+        while(System.currentTimeMillis() < end) {
+            conveyorSubsystem.conveyBall(0);
+        }
+
     }
 
     public void move(double inches) {
