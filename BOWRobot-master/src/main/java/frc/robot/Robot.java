@@ -207,7 +207,9 @@ public class Robot extends TimedRobot {
         //for time, measure how long it take to turn 360 degrees, then divide by 360.
 
         long t= System.currentTimeMillis();
-        long end = t + 15000;
+        double degreeToTime = 15000 * degrees;
+        long time = (long) degreeToTime;
+        long end = t + time;
         while(System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
         }
@@ -236,10 +238,12 @@ public class Robot extends TimedRobot {
     public void move(double inches) {
         double turnSpeed = .6;
 
-        //for time, measure how long it take to move 5 feet, then divide by 60.
+        //for time, measure how long it take to move 10 feet, then divide by 120.
 
         long t= System.currentTimeMillis();
-        long end = t + 15000;
+        double distanceToTime = 15000 * inches;
+        long time = (long) distanceToTime;
+        long end = t + time;
         while(System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
         }
