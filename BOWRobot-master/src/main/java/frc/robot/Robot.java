@@ -256,13 +256,13 @@ public class Robot extends TimedRobot {
 
     public double calculateDistance(double verticalDegrees){
 
-        double distance = heightDifferenceInches / Math.atan(verticalDegrees);
+        double distance = heightDifferenceInches / Math.tan(verticalDegrees);
         return distance;
     }
 
     public double calculateOffset(double degrees){
 
-        double offset = Math.atan(degrees) * calculateDistance(limelightSubsystem.getTy());
+        double offset = Math.tan(degrees) * calculateDistance(limelightSubsystem.getTy());
         return offset;
     }
 
