@@ -7,7 +7,6 @@ public class WheelSpinnerSubsystem extends SubsystemBase {
     public final VictorSP wheelSpinner;
 
     /**
-     *
      * @param wheelSpinnerChannel
      */
     public WheelSpinnerSubsystem(int wheelSpinnerChannel) {
@@ -15,10 +14,9 @@ public class WheelSpinnerSubsystem extends SubsystemBase {
     }
 
     /**
-     *
      * @param spinSpeed
      */
-    public void spin(double spinSpeed){
+    public void spin(double spinSpeed) {
         wheelSpinner.setSpeed(spinSpeed);
     }
 }

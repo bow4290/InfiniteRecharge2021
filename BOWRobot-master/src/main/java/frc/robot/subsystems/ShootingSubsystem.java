@@ -3,24 +3,28 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.SparkMax;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShootingSubsystem extends SubsystemBase {
-    private final CANSparkMax leftShooter;
-    private final CANSparkMax rightShooter;
+    private final VictorSP leftShooter;
+    private final VictorSP rightShooter;
 
-    private static final int leftDeviceID = 0;
-    private static final int rightDeviceID = 1;
-
-    public ShootingSubsystem() {
-        leftShooter = new CANSparkMax(leftDeviceID, CANSparkMaxLowLevel.MotorType.kBrushed);
-        rightShooter = new CANSparkMax(rightDeviceID, CANSparkMaxLowLevel.MotorType.kBrushed);
+    public ShootingSubsystem(int leftShooterChannel, int rightShooterChannel) {
+        leftShooter = new VictorSP(leftShooterChannel);
+        rightShooter = new VictorSP(rightShooterChannel);
     }
 
     public void shootBall(double shooterSpeed) {
         leftShooter.set(shooterSpeed);
         rightShooter.setInverted(true);
         rightShooter.set(shooterSpeed);
+    }
+
+    public void manualShoot(boolean shooterActive){
+           leftShooter.set(.65);
+           rightShooter.setInverted(true);
+           rightShooter.set(.65);
     }
 }
 

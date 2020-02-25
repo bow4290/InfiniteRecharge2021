@@ -1,10 +1,10 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
-
 import java.util.Set;
 
 public class IntakeCommand extends CommandBase{
@@ -24,7 +24,7 @@ public class IntakeCommand extends CommandBase{
      * this makes the intake activate when left joystick is move
      */
     public void execute() {
-        intakeSubsystem.intakeBall(RobotContainer.joystickLeft.getY());
+        intakeSubsystem.intakeBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kRight));
     }
 
     @Override

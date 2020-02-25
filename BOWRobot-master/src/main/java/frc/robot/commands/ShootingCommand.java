@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
@@ -21,8 +22,7 @@ public class ShootingCommand extends CommandBase {
      * this will display the y value of the left joystcik
      */
     public void execute() {
-        shootingSubsystem.shootBall(RobotContainer.joystickLeft.getY());
-
+        shootingSubsystem.manualShoot(RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight));
     }
 
     @Override
@@ -34,9 +34,4 @@ public class ShootingCommand extends CommandBase {
     public Set<Subsystem> getRequirements() {
         return this.subsystems;
     }
-
-//    @Override
-//    public void end(boolean interrupted) {
-//        shootingSubsystem.shootBall(0);
-//    }
 }
