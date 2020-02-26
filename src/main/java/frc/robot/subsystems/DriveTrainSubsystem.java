@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.VictorSPDriveCommand;
@@ -11,6 +13,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final VictorSP rightVictorSP1;
     private final VictorSP rightVictorSP2;
     private final VictorSP rightVictorSP3;
+    private final VictorSPX victorSPX;
 
     public DriveTrainSubsystem(int leftVictorSP1Channel, int leftVictorSP2Channel, int leftVictorSP3Channel,
                                int rightVictorSP1Channel, int rightVictorSP2Channel, int rightVictorSP3Channel) {
@@ -20,6 +23,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSP1 = new VictorSP(rightVictorSP1Channel);
         rightVictorSP2 = new VictorSP(rightVictorSP2Channel);
         rightVictorSP3 = new VictorSP(rightVictorSP3Channel);
+        victorSPX = new VictorSPX(0);
 
       setDefaultCommand(new VictorSPDriveCommand(this));
     }
