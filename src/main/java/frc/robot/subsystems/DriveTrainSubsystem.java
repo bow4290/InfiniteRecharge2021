@@ -1,31 +1,29 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.VictorSPDriveCommand;
+import frc.robot.commands.VictorSPXDriveCommand;
 
 public class DriveTrainSubsystem extends SubsystemBase {
-    private final VictorSP leftVictorSP1;
-    private final VictorSP leftVictorSP2;
-    private final VictorSP leftVictorSP3;
-    private final VictorSP rightVictorSP1;
-    private final VictorSP rightVictorSP2;
-    private final VictorSP rightVictorSP3;
-    private final VictorSPX victorSPX;
+    private final VictorSPX leftVictorSPX1;
+    private final VictorSPX leftVictorSPX2;
+    private final VictorSPX leftVictorSPX3;
+    private final VictorSPX rightVictorSPX1;
+    private final VictorSPX rightVictorSPX2;
+    private final VictorSPX rightVictorSPX3;
 
-    public DriveTrainSubsystem(int leftVictorSP1Channel, int leftVictorSP2Channel, int leftVictorSP3Channel,
-                               int rightVictorSP1Channel, int rightVictorSP2Channel, int rightVictorSP3Channel) {
-        leftVictorSP1 = new VictorSP(leftVictorSP1Channel);
-        leftVictorSP2 = new VictorSP(leftVictorSP2Channel);
-        leftVictorSP3 = new VictorSP(leftVictorSP3Channel);
-        rightVictorSP1 = new VictorSP(rightVictorSP1Channel);
-        rightVictorSP2 = new VictorSP(rightVictorSP2Channel);
-        rightVictorSP3 = new VictorSP(rightVictorSP3Channel);
-        victorSPX = new VictorSPX(0);
+    public DriveTrainSubsystem(int leftVictorSPX1Channel, int leftVictorSPX2Channel, int leftVictorSPX3Channel,
+                               int rightVictorSPX1Channel, int rightVictorSPX2Channel, int rightVictorSPX3Channel) {
+        leftVictorSPX1 = new VictorSPX(leftVictorSPX1Channel);
+        leftVictorSPX2 = new VictorSPX(leftVictorSPX2Channel);
+        leftVictorSPX3 = new VictorSPX(leftVictorSPX3Channel);
+        rightVictorSPX1 = new VictorSPX(rightVictorSPX1Channel);
+        rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
+        rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
 
-      setDefaultCommand(new VictorSPDriveCommand(this));
+      setDefaultCommand(new VictorSPXDriveCommand(this));
     }
 
     /**
@@ -34,12 +32,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
      * @param rightspeed
      */
     public void drive(double leftspeed, double rightspeed) {
-        leftVictorSP1.setSpeed(leftspeed);
-        leftVictorSP2.setSpeed(leftspeed);
-        leftVictorSP3.setSpeed(leftspeed);
-        rightVictorSP1.setSpeed(rightspeed);
-        rightVictorSP2.setSpeed(rightspeed);
-        rightVictorSP3.setSpeed(rightspeed);
+        leftVictorSPX1.set(VictorSPXControlMode.PercentOutput, leftspeed);
+        leftVictorSPX2.set(VictorSPXControlMode.PercentOutput, leftspeed);
+        leftVictorSPX3.set(VictorSPXControlMode.PercentOutput, leftspeed);
+        rightVictorSPX1.set(VictorSPXControlMode.PercentOutput, rightspeed);
+        rightVictorSPX2.set(VictorSPXControlMode.PercentOutput, rightspeed);
+        rightVictorSPX3.set(VictorSPXControlMode.PercentOutput, rightspeed);
     }
 
 }
