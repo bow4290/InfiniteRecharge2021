@@ -53,21 +53,21 @@ public class Robot extends TimedRobot {
 
     public void robotInit() {
         int leftVictorSPX1Channel = 0;
-        int leftVictorSPX2Channel = 0;
-        int leftVictorSPX3Channel = 0;
-        int rightVictorSPX1Channel = 0;
-        int rightVictorSPX2Channel = 0;
-        int rightVictorSPX3Channel = 0;
+        int leftVictorSPX2Channel = 1;
+        int leftVictorSPX3Channel = 13;
+        int rightVictorSPX1Channel = 12;
+        int rightVictorSPX2Channel = 14;
+        int rightVictorSPX3Channel = 15;
 
         int leftShooterChannel = 0;
-        int rightShooterChannel = 0;
+        int rightShooterChannel = 9;
 
         int topMotorChannel = 0;
         int bottomMotorChannel = 0;
 
         int intakeMotorChannel = 0;
 
-        int wheelSpinner = 0;
+        int wheelSpinner = 10;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
