@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
@@ -21,7 +22,7 @@ public class ColorSensorCommand extends CommandBase {
 
     public void wheelSpin() {
         do {
-            wheelSpinnerSubsystem.wheelSpinner.setSpeed(.25);
+            wheelSpinnerSubsystem.wheelSpinner.set(VictorSPXControlMode.PercentOutput, .25);
         } while (colorSensorSubsystem.getGameSpecificMethod() != colorSensorSubsystem.getColor());
     }
 
