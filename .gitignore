@@ -14,6 +14,9 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+#build
+build/**/*.*
+
 # Generated files
 .idea/**/contentModel.xml
 
@@ -204,6 +207,11 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+
+gradle/.idea/
+
+!SparkMaxLibrary/**
+!colorSensorLibraries/**
 
 # End of https://www.gitignore.io/api/java,gradle,intellij+iml,visualstudiocode,linux,macos,windows
 
