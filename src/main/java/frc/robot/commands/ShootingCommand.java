@@ -22,10 +22,9 @@ public class ShootingCommand extends CommandBase {
      * this will display the y value of the left joystcik
      */
     public void execute() {
-        while (RobotContainer.xboxController.getBumperPressed(GenericHID.Hand.kRight)) {
+        while (RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)) {
             this.shootingSubsystem.manualShoot(true);
         }
-
         this.shootingSubsystem.manualShoot(false);
     }
 
