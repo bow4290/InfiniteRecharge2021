@@ -52,22 +52,22 @@ public class Robot extends TimedRobot {
     @Override
 
     public void robotInit() {
-        int leftVictorSPChannel1 = 0;
-        int leftVictorSPChannel2 = 0;
-        int leftVictorSPChannel3 = 0;
-        int rightVictorSPChannel1 = 0;
-        int rightVictorSPChannel2 = 0;
-        int rightVictorSPChannel3 = 0;
+        int leftVictorSPX1Channel = 12;
+        int leftVictorSPX2Channel = 11;
+        int leftVictorSPX3Channel = 10;
+        int rightVictorSPX1Channel = 5;
+        int rightVictorSPX2Channel = 3;
+        int rightVictorSPX3Channel = 6;
 
-        int leftShooterChannel = 0;
-        int rightShooterChannel = 0;
+        int leftShooterChannel = 8;
+        int rightShooterChannel = 1;
 
-        int topMotorChannel = 0;
-        int bottomMotorChannel = 0;
+        int topMotorChannel = 9;
+        int bottomMotorChannel = 7;
 
-        int intakeMotorChannel = 0;
+        int intakeMotorChannel = 13;
 
-        int wheelSpinner = 0;
+        int wheelSpinner = 10;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -75,8 +75,8 @@ public class Robot extends TimedRobot {
         final Color kYellowTarget = ColorMatch.makeColor(.3, .3, 0);
 
 
-        driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPChannel1, leftVictorSPChannel2, leftVictorSPChannel3,
-                                                    rightVictorSPChannel1, rightVictorSPChannel2, rightVictorSPChannel3);
+        driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
+                                                    rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
 
