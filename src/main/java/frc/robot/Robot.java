@@ -52,20 +52,20 @@ public class Robot extends TimedRobot {
     @Override
 
     public void robotInit() {
-        int leftVictorSPX1Channel = 0;
-        int leftVictorSPX2Channel = 1;
-        int leftVictorSPX3Channel = 13;
-        int rightVictorSPX1Channel = 12;
-        int rightVictorSPX2Channel = 14;
-        int rightVictorSPX3Channel = 15;
+        int leftVictorSPX1Channel = 12;
+        int leftVictorSPX2Channel = 11;
+        int leftVictorSPX3Channel = 10;
+        int rightVictorSPX1Channel = 5;
+        int rightVictorSPX2Channel = 3;
+        int rightVictorSPX3Channel = 6;
 
-        int leftShooterChannel = 0;
-        int rightShooterChannel = 9;
+        int leftShooterChannel = 8;
+        int rightShooterChannel = 1;
 
-        int topMotorChannel = 0;
-        int bottomMotorChannel = 0;
+        int topMotorChannel = 9;
+        int bottomMotorChannel = 7;
 
-        int intakeMotorChannel = 0;
+        int intakeMotorChannel = 13;
 
         int wheelSpinner = 10;
 
