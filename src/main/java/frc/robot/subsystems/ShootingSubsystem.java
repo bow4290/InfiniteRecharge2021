@@ -29,8 +29,8 @@ public class ShootingSubsystem extends SubsystemBase {
         leftShooter.setInverted(true);
         rightShooter.setInverted(true);
         if(shooterActive) {
-            leftShooter.set(VictorSPXControlMode.PercentOutput, .65);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, .65);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, .9);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, .9);
         } else {
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
