@@ -25,6 +25,14 @@ public class LimelightSubsystem extends SubsystemBase {
         eVision, eDriver
     }
 
+    public  void turnOffLED(){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    }
+
+    public  void turnOnLED(){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    }
+
     /**
      * Gets whether a target is detected by the Limelight.
      *

@@ -160,6 +160,7 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
         // add something to turn on limelight
         do {
+            limelightSubsystem.turnOnLED();
             RotationData rotationData = sense();
             rotateWithTime(90);
             move(calculateOffset(limelightSubsystem.getTx()));
@@ -172,7 +173,7 @@ public class Robot extends TimedRobot {
 
         do {
             shoot(.6);
-//            wait();
+            wait(1000);
             convey(.6);
             shoot(0);
             convey(0);
@@ -186,6 +187,7 @@ public class Robot extends TimedRobot {
             rotateWithTime(90);
             move(45);
             rotateWithTime(-90);
+            limelightSubsystem.turnOffLED();
 
             AwayPhase = false;
         } while (AwayPhase = true);
