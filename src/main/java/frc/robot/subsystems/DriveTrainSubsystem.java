@@ -24,15 +24,31 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
 
-      setDefaultCommand(new VictorSPXDriveCommand(this));
+        setDefaultCommand(new VictorSPXDriveCommand(this));
     }
 
     /**
      * sets power of left and right speed controllers respectively.
+     *
      * @param leftspeed
      * @param rightspeed
      */
     public void drive(double leftspeed, double rightspeed) {
+        if (Math.abs(leftspeed) < 0.05) {
+            leftspeed = 0;
+        }
+
+        if (Math.abs(rightspeed) < 0.05) {
+            rightspeed = 0;
+        }
+
+        leftVictorSPX1.setInverted(true);
+        leftVictorSPX2.setInverted(true);
+        leftVictorSPX3.setInverted(true);
+        rightVictorSPX1.setInverted(true);
+        rightVictorSPX2.setInverted(true);
+        rightVictorSPX3.setInverted(true);
+
         leftVictorSPX1.set(VictorSPXControlMode.PercentOutput, leftspeed);
         leftVictorSPX2.set(VictorSPXControlMode.PercentOutput, leftspeed);
         leftVictorSPX3.set(VictorSPXControlMode.PercentOutput, leftspeed);
