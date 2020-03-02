@@ -226,6 +226,8 @@ public class Robot extends TimedRobot {
         double degreeToTime = degreeTime * degrees;
         long time = (long) degreeToTime;
         long end = t + time;
+        System.out.println("the time it should take is... " + degreeToTime);
+        System.out.println(degreeToTime + "should be equal to... " + time);
         System.out.println("the rotation end time is... " + end);
         while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
@@ -263,6 +265,8 @@ public class Robot extends TimedRobot {
         double distanceToTime = inchTime * inches;
         long time = (long) distanceToTime;
         long end = t + time;
+        System.out.println("the time it should take is... " + distanceToTime);
+        System.out.println(distanceToTime + "should be equal to... " + time);
         System.out.println("the move end time is... " + end);
         while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
