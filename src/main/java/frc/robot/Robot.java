@@ -18,7 +18,7 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
 
-import static frc.robot.subsystems.LimelightSubsystem.LightMode.eOn;
+
 
 
 /**
@@ -158,39 +158,44 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        // add something to turn on limelight
-        do {
-            limelightSubsystem.turnOnLED();
-            RotationData rotationData = sense();
-            rotateWithTime(90);
-            move(calculateOffset(limelightSubsystem.getTx()));
-            rotateWithLime(limelightSubsystem.getTx());
-            move(calculateDistance(limelightSubsystem.getTy()));
+        System.out.println("I am inside autoPeriodic!");
+        rotateWithTime(270);
+        wait(1000);
+        move(12);
 
-            ShootPhase = true;
-            PositionPhase = false;
-        } while (PositionPhase = true);
-
-        do {
-            shoot(.6);
-            wait(1000);
-            convey(.6);
-            shoot(0);
-            convey(0);
-            //shoot'n stuff
-
-            AwayPhase = true;
-            ShootPhase = false;
-        } while (ShootPhase = true);
-
-        do {
-            rotateWithTime(90);
-            move(45);
-            rotateWithTime(-90);
-            limelightSubsystem.turnOffLED();
-
-            AwayPhase = false;
-        } while (AwayPhase = true);
+//        // uncomment when testing is done.
+//        do {
+//            limelightSubsystem.turnOnLED();
+//            RotationData rotationData = sense();
+//            rotateWithTime(90);
+//            move(calculateOffset(limelightSubsystem.getTx()));
+//            rotateWithLime(limelightSubsystem.getTx());
+//            move(calculateDistance(limelightSubsystem.getTy()));
+//
+//            ShootPhase = true;
+//            PositionPhase = false;
+//        } while (PositionPhase = true);
+//
+//        do {
+//            shoot(.6);
+//            wait(1000);
+//            convey(.6);
+//            shoot(0);
+//            convey(0);
+//            //shoot'n stuff
+//
+//            AwayPhase = true;
+//            ShootPhase = false;
+//        } while (ShootPhase = true);
+//
+//        do {
+//            rotateWithTime(90);
+//            move(45);
+//            rotateWithTime(-90);
+//            limelightSubsystem.turnOffLED();
+//
+//            AwayPhase = false;
+//        } while (AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -212,6 +217,7 @@ public class Robot extends TimedRobot {
     }
 
     public void rotateWithTime(double degrees) {
+        System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
         double degreeTime = 41 / 6000;
         //for time, measure how long it take to turn 360 degrees, then divide by 360.
@@ -220,6 +226,7 @@ public class Robot extends TimedRobot {
         double degreeToTime = degreeTime * degrees;
         long time = (long) degreeToTime;
         long end = t + time;
+        System.out.println("the rotation end time is... " + end);
         while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
         }
@@ -246,6 +253,7 @@ public class Robot extends TimedRobot {
     }
 
     public void move(double inches) {
+        System.out.println("I'm inside the move method!");
         double turnSpeed = -.6;
         double inchTime = 323 / 12000;
 
@@ -255,6 +263,7 @@ public class Robot extends TimedRobot {
         double distanceToTime = inchTime * inches;
         long time = (long) distanceToTime;
         long end = t + time;
+        System.out.println("the move end time is... " + end);
         while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
         }
