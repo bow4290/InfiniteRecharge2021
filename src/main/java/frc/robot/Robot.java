@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
+        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
 
         Color detectedColor = colorSensorSubsystem.getColor();
 
-        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
+//        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
         double getIR = colorSensorSubsystem.getIR();
 

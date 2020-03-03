@@ -14,10 +14,12 @@ public class ShootingSubsystem extends SubsystemBase {
     public Robot robot;
 
 
-    public ShootingSubsystem(int leftShooterChannel, int rightShooterChannel) {
+    public ShootingSubsystem(int leftShooterChannel, int rightShooterChannel, Robot robot) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
         setDefaultCommand(new ShootingCommand(this));
+        limelightSubsystem = new LimelightSubsystem();
+        this.robot = robot;
     }
 
     public void shootBall(double shooterSpeed) {
@@ -61,6 +63,8 @@ public class ShootingSubsystem extends SubsystemBase {
         leftShooter.setInverted(true);
         rightShooter.setInverted(true);
 
+        System.out.println("The auto is " + autoActive +" and the manual"+ manualActive);
+
         if (!autoActive && !manualActive) {
             limelightSubsystem.turnOffLED();
 
@@ -70,9 +74,13 @@ public class ShootingSubsystem extends SubsystemBase {
 
         else if (autoActive && !manualActive) {
             limelightSubsystem.turnOnLED();
+            System.out.println("LB but not RB");
 
             robot.rotateWithLime(limelightSubsystem.getTx());
             robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
+
+            System.out.println("Tx is ... " + limelightSubsystem.getTx() + " and Ty ... " + limelightSubsystem.getTy());
+
             robot.shoot(.6);
             robot.wait(1000);
             robot.convey(.6);
@@ -83,15 +91,19 @@ public class ShootingSubsystem extends SubsystemBase {
         else if (!autoActive && manualActive) {
             limelightSubsystem.turnOffLED();
 
-            leftShooter.set(VictorSPXControlMode.PercentOutput, .9);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, .9);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, .85);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, .85);
         }
 
         else if (autoActive && manualActive) {
             limelightSubsystem.turnOnLED();
+            System.out.println("LB and RB");
 
             robot.rotateWithLime(limelightSubsystem.getTx());
             robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
+
+            System.out.println("Tx is ... " + limelightSubsystem.getTx() + " and Ty ... " + limelightSubsystem.getTy());
+
             robot.shoot(.6);
             robot.wait(1000);
             robot.convey(.6);
@@ -99,6 +111,7 @@ public class ShootingSubsystem extends SubsystemBase {
             robot.shoot(0);
         } else {
             limelightSubsystem.turnOffLED();
+            System.out.println("nope, nu-uh, nada, no way, no siree!");
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
