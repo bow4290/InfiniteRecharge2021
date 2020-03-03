@@ -66,14 +66,14 @@ public class ShootingSubsystem extends SubsystemBase {
         System.out.println("The auto is " + autoActive +" and the manual"+ manualActive);
 
         if (!autoActive && !manualActive) {
-            limelightSubsystem.turnOffLED();
+            limelightSubsystem.ledMode(false);
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
         }
 
         else if (autoActive && !manualActive) {
-            limelightSubsystem.turnOnLED();
+            limelightSubsystem.ledMode(true);
             System.out.println("LB but not RB");
 
             robot.rotateWithLime(limelightSubsystem.getTx());
@@ -89,14 +89,14 @@ public class ShootingSubsystem extends SubsystemBase {
         }
 
         else if (!autoActive && manualActive) {
-            limelightSubsystem.turnOffLED();
+            limelightSubsystem.ledMode(false);
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, .85);
             rightShooter.set(VictorSPXControlMode.PercentOutput, .85);
         }
 
         else if (autoActive && manualActive) {
-            limelightSubsystem.turnOnLED();
+            limelightSubsystem.ledMode(true);
             System.out.println("LB and RB");
 
             robot.rotateWithLime(limelightSubsystem.getTx());
@@ -110,7 +110,7 @@ public class ShootingSubsystem extends SubsystemBase {
             robot.convey(0);
             robot.shoot(0);
         } else {
-            limelightSubsystem.turnOffLED();
+            limelightSubsystem.ledMode(false);
             System.out.println("nope, nu-uh, nada, no way, no siree!");
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);

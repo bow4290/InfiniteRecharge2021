@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -124,6 +125,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Blue", detectedColor.blue);
         SmartDashboard.putNumber("IR", getIR);
 
+//        CameraServer.getInstance().startAutomaticCapture(0);
+
         int getProximity = colorSensorSubsystem.getProximity();
         SmartDashboard.putNumber("Proximity", getProximity);
 
@@ -163,9 +166,9 @@ public class Robot extends TimedRobot {
         wait(1000);
         move(12);
 
-//        // uncomment when testing is done.
+        // uncomment when testing is done.
 //        do {
-//            limelightSubsystem.turnOnLED();
+//            limelightSubsystem.ledMode(true);
 //            RotationData rotationData = sense();
 //            rotateWithTime(90);
 //            move(calculateOffset(limelightSubsystem.getTx()));
@@ -192,7 +195,7 @@ public class Robot extends TimedRobot {
 //            rotateWithTime(90);
 //            move(45);
 //            rotateWithTime(-90);
-//            limelightSubsystem.turnOffLED();
+//            limelightSubsystem.ledMode(false);
 //
 //            AwayPhase = false;
 //        } while (AwayPhase = true);
@@ -304,6 +307,8 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
 
         }
+        limelightSubsystem.ledMode(false);
+        limelightSubsystem.cameraMode(false);
     }
 
     /**

@@ -28,13 +28,13 @@ public class ShootingCommand extends CommandBase {
 //        } else {
 //            this.shootingSubsystem.manualShoot(false);
 //        }
+
+        SmartDashboard.putBoolean("Left value", RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft));
+        SmartDashboard.putBoolean("Left value", RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft));
         shootingSubsystem.dualShoot(
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft),
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
-
-
         );
-
     }
 
     @Override
