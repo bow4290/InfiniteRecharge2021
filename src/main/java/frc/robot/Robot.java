@@ -32,6 +32,8 @@ public class Robot extends TimedRobot {
     public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
+    public static ClimberSubsystem climberSubsystem;
+    public static IntakeSubsystem intakeSubsystem;
     public Robot robot;
     private Command autonomousCommand;
 
@@ -67,6 +69,8 @@ public class Robot extends TimedRobot {
 
         int intakeMotorChannel = 13;
 
+        int climbingMotorChannel = 4;
+
         int wheelSpinner = 10;
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
@@ -77,8 +81,14 @@ public class Robot extends TimedRobot {
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                                                     rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
+
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
+
         shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
+
+        intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
+
+        climberSubsystem = new ClimberSubsystem(climbingMotorChannel);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
