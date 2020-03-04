@@ -5,17 +5,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
+
 import java.util.Set;
 
-public class IntakeCommand extends CommandBase{
+public class IntakeCommand extends CommandBase {
     private IntakeSubsystem intakeSubsystem;
     public final Set<Subsystem> subsystems;
 
     /**
      * establishes the intake  subsystem
+     *
      * @param intakeSubsystem
      */
-    private IntakeCommand(IntakeSubsystem intakeSubsystem){
+    private IntakeCommand(IntakeSubsystem intakeSubsystem) {
         this.intakeSubsystem = intakeSubsystem;
         this.subsystems = Set.of(intakeSubsystem);
     }
@@ -28,8 +30,12 @@ public class IntakeCommand extends CommandBase{
     }
 
     @Override
-    public boolean isFinished() {return false;}
+    public boolean isFinished() {
+        return false;
+    }
 
     @Override
-    public Set<Subsystem> getRequirements() {return this.subsystems;}
+    public Set<Subsystem> getRequirements() {
+        return this.subsystems;
+    }
 }

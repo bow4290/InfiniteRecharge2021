@@ -13,9 +13,10 @@ public class ClimberCommand extends CommandBase {
 
     /**
      * establishes the intake  subsystem
+     *
      * @param climberSubsystem
      */
-    public ClimberCommand(ClimberSubsystem climberSubsystem){
+    public ClimberCommand(ClimberSubsystem climberSubsystem) {
         this.climberSubsystem = climberSubsystem;
         this.subsystems = Set.of(climberSubsystem);
     }
@@ -28,9 +29,13 @@ public class ClimberCommand extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {return false;}
+    public boolean isFinished() {
+        return false;
+    }
 
     @Override
-    public Set<Subsystem> getRequirements() {return this.subsystems;}
+    public Set<Subsystem> getRequirements() {
+        return this.subsystems;
+    }
 }
 

@@ -9,15 +9,16 @@ public class ConveyorSubsystem extends SubsystemBase {
     private final VictorSPX bottomConveyor;
 
     double speedFactor = 1.1;
-    public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel){
+
+    public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel) {
         topConveyor = new VictorSPX(topMotorChannel);
         bottomConveyor = new VictorSPX(bottomMotorChannel);
     }
 
-    public void conveyBall(double conveyorSpeed){
+    public void conveyBall(double conveyorSpeed) {
         bottomConveyor.set(VictorSPXControlMode.PercentOutput, conveyorSpeed);
         topConveyor.setInverted(true);
-        topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor*conveyorSpeed);
+        topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor * conveyorSpeed);
     }
 
 }

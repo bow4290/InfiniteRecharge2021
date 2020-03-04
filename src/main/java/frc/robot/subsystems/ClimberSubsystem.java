@@ -13,7 +13,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private final VictorSPX climbingMotor;
 
-    public ClimberSubsystem(int climbingMotorChannel){
+    public ClimberSubsystem(int climbingMotorChannel) {
         climbingMotor = new VictorSPX(climbingMotorChannel);
         setDefaultCommand(new ClimberCommand(this));
     }

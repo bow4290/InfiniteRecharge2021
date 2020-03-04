@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
 
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
-                                                    rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
+                rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
 
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
 
@@ -161,7 +161,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        do{
+        do {
             RotationData rotationData = sense();
             rotateWithTime(90);
             move(calculateOffset(limelightSubsystem.getTx()));
@@ -170,9 +170,9 @@ public class Robot extends TimedRobot {
 
             ShootPhase = true;
             PositionPhase = false;
-        }while(PositionPhase = true);
+        } while (PositionPhase = true);
 
-        do{
+        do {
             shoot(.6);
 //            wait();
             convey(.6);
@@ -182,15 +182,15 @@ public class Robot extends TimedRobot {
 
             AwayPhase = true;
             ShootPhase = false;
-        }while(ShootPhase = true);
+        } while (ShootPhase = true);
 
-        do{
+        do {
             rotateWithTime(90);
             move(45);
             rotateWithTime(-90);
 
             AwayPhase = false;
-        }while(AwayPhase = true);
+        } while (AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -211,16 +211,16 @@ public class Robot extends TimedRobot {
         }
     }
 
-    public void rotateWithTime(double degrees){
+    public void rotateWithTime(double degrees) {
         double turnSpeed = .6;
 
         //for time, measure how long it take to turn 360 degrees, then divide by 360.
 
-        long t= System.currentTimeMillis();
+        long t = System.currentTimeMillis();
         double degreeToTime = 15000 * degrees;
         long time = (long) degreeToTime;
         long end = t + time;
-        while(System.currentTimeMillis() < end) {
+        while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
         }
     }
@@ -235,11 +235,11 @@ public class Robot extends TimedRobot {
     }
 
 
-    public  void wait(int timeInMillis) {
+    public void wait(int timeInMillis) {
         long t = System.currentTimeMillis();
         long end = t + timeInMillis;
 
-        while(System.currentTimeMillis() < end) {
+        while (System.currentTimeMillis() < end) {
             conveyorSubsystem.conveyBall(0);
         }
 
@@ -250,11 +250,11 @@ public class Robot extends TimedRobot {
 
         //for time, measure how long it take to move 10 feet, then divide by 120.
 
-        long t= System.currentTimeMillis();
+        long t = System.currentTimeMillis();
         double distanceToTime = 15000 * inches;
         long time = (long) distanceToTime;
         long end = t + time;
-        while(System.currentTimeMillis() < end) {
+        while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
         }
     }
@@ -268,13 +268,13 @@ public class Robot extends TimedRobot {
         return rotationData;
     }
 
-    public double calculateDistance(double verticalDegrees){
+    public double calculateDistance(double verticalDegrees) {
 
         double distance = heightDifferenceInches / Math.tan(verticalDegrees);
         return distance;
     }
 
-    public double calculateOffset(double degrees){
+    public double calculateOffset(double degrees) {
 
         double offset = Math.tan(degrees) * calculateDistance(limelightSubsystem.getTy());
         return offset;
