@@ -91,8 +91,8 @@ public class ShootingSubsystem extends SubsystemBase {
         else if (!autoActive && manualActive) {
             limelightSubsystem.ledMode(false);
 
-            leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, .9);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, .9);
         }
 
         else if (autoActive && manualActive) {
