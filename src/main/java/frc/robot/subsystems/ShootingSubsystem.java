@@ -81,9 +81,9 @@ public class ShootingSubsystem extends SubsystemBase {
 
             System.out.println("Tx is ... " + limelightSubsystem.getTx() + " and Ty ... " + limelightSubsystem.getTy());
 
-            robot.shoot(.6);
+            robot.shoot(1);
             robot.wait(1000);
-            robot.convey(.6);
+            robot.convey(1);
             robot.convey(0);
             robot.shoot(0);
         }
@@ -91,8 +91,8 @@ public class ShootingSubsystem extends SubsystemBase {
         else if (!autoActive && manualActive) {
             limelightSubsystem.ledMode(false);
 
-            leftShooter.set(VictorSPXControlMode.PercentOutput, .85);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, .85);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
         }
 
         else if (autoActive && manualActive) {
@@ -104,9 +104,9 @@ public class ShootingSubsystem extends SubsystemBase {
 
             System.out.println("Tx is ... " + limelightSubsystem.getTx() + " and Ty ... " + limelightSubsystem.getTy());
 
-            robot.shoot(.6);
+            robot.shoot(1);
             robot.wait(1000);
-            robot.convey(.6);
+            robot.convey(1);
             robot.convey(0);
             robot.shoot(0);
         } else {
