@@ -160,8 +160,8 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
         System.out.println("I am inside autoPeriodic!");
         rotateWithTime(270);
-        wait(1000);
-        move(12);
+        wait(2);
+        move(6);
 
 //        // uncomment when testing is done.
 //        do {
@@ -219,11 +219,12 @@ public class Robot extends TimedRobot {
     public void rotateWithTime(double degrees) {
         System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
-        double degreeTime = 41 / 6000;
+        double secondsPerDegree = 41 / 6000;
+        double millisPerDegree = secondsPerDegree * 1000;
         //for time, measure how long it take to turn 360 degrees, then divide by 360.
 
         long t = System.currentTimeMillis();
-        double degreeToTime = degreeTime * degrees;
+        double degreeToTime = millisPerDegree * degrees;
         long time = (long) degreeToTime;
         long end = t + time;
         System.out.println("the time it should take is... " + degreeToTime);
@@ -234,18 +235,29 @@ public class Robot extends TimedRobot {
         }
     }
 
-    public void shoot(double speedPercentage) {
-        shootingSubsystem.shootBall(speedPercentage);
-    }
-
-    public void convey(double speedPercentage) {
-        conveyorSubsystem.conveyBall(speedPercentage);
-
-    }
-
-
-    public void wait(int timeInMillis) {
+    public void shoot(double speedPercentage, int shootTimeMillis) {
         long t = System.currentTimeMillis();
+        long end = t + shootTimeMillis;
+
+        while (System.currentTimeMillis() < end) {
+            shootingSubsystem.shootBall(speedPercentage);
+        }
+    }
+
+    public void convey(double speedPercentage, int conveyTimeMillis) {
+        long t = System.currentTimeMillis();
+        long end = t + conveyTimeMillis;
+
+        while (System.currentTimeMillis() < end) {
+            conveyorSubsystem.conveyBall(speedPercentage);
+        }
+
+    }
+
+
+    public void wait(int timeInSeconds) {
+        long t = System.currentTimeMillis();
+        long timeInMillis =  timeInSeconds *1000;
         long end = t + timeInMillis;
 
         while (System.currentTimeMillis() < end) {
@@ -257,12 +269,13 @@ public class Robot extends TimedRobot {
     public void move(double inches) {
         System.out.println("I'm inside the move method!");
         double turnSpeed = -.6;
-        double inchTime = 323 / 12000;
+        double secondsPerInch = 323 / 12000;
+        double millisPerInch = secondsPerInch * 1000;
 
         //for time, measure how long it take to move 10 feet, then divide by 120.
 
         long t = System.currentTimeMillis();
-        double distanceToTime = inchTime * inches;
+        double distanceToTime = millisPerInch * inches;
         long time = (long) distanceToTime;
         long end = t + time;
         System.out.println("the time it should take is... " + distanceToTime);

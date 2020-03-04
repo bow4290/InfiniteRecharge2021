@@ -73,11 +73,11 @@ public class ShootingSubsystem extends SubsystemBase {
 
             robot.rotateWithLime(limelightSubsystem.getTx());
             robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
-            robot.shoot(1);
-            robot.wait(1000);
-            robot.convey(1);
-            robot.convey(0);
-            robot.shoot(0);
+            robot.shoot(1, 5000);
+            robot.wait(1);
+            robot.convey(1, 5000);
+            robot.convey(0, 0050);
+            robot.shoot(0, 0050);
         }
 
         else if (!autoActive && manualActive) {
@@ -92,11 +92,11 @@ public class ShootingSubsystem extends SubsystemBase {
 
             robot.rotateWithLime(limelightSubsystem.getTx());
             robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
-            robot.shoot(1);
-            robot.wait(1000);
-            robot.convey(1);
-            robot.convey(0);
-            robot.shoot(0);
+            robot.shoot(1, 5000);
+            robot.wait(1);
+            robot.convey(1, 5000);
+            robot.convey(0, 0050);
+            robot.shoot(0, 0050);
         } else {
             limelightSubsystem.turnOffLED();
 
