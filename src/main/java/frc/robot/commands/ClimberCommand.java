@@ -15,7 +15,7 @@ public class ClimberCommand extends CommandBase {
      * establishes the intake  subsystem
      * @param climberSubsystem
      */
-    private ClimberCommand(ClimberSubsystem climberSubsystem){
+    public ClimberCommand(ClimberSubsystem climberSubsystem){
         this.climberSubsystem = climberSubsystem;
         this.subsystems = Set.of(climberSubsystem);
     }
