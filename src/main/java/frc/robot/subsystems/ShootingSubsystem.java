@@ -13,7 +13,7 @@ public class ShootingSubsystem extends SubsystemBase {
     public Robot robot;
 
 
-    public ShootingSubsystem(int leftShooterChannel, int rightShooterChannel) {
+    public ShootingSubsystem(int leftShooterChannel, int rightShooterChannel, Robot robot) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
         setDefaultCommand(new ShootingCommand(this));
@@ -25,36 +25,6 @@ public class ShootingSubsystem extends SubsystemBase {
         leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
         rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
     }
-
-//    public void manualShoot(boolean shooterActive) {
-//        leftShooter.setInverted(true);
-//        rightShooter.setInverted(true);
-//        if (shooterActive) {
-//            leftShooter.set(VictorSPXControlMode.PercentOutput, .9);
-//            rightShooter.set(VictorSPXControlMode.PercentOutput, .9);
-//        } else {
-//            leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
-//            rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
-//        }
-//    }
-//
-//    public void autoShoot(boolean autoShooterActive) {
-//        leftShooter.setInverted(true);
-//        rightShooter.setInverted(true);
-//        if (autoShooterActive) {
-//            limelightSubsystem.turnOnLED();
-//            robot.rotateWithLime(limelightSubsystem.getTx());
-//            robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
-//            robot.shoot(.6);
-//            robot.wait(1000);
-//            robot.convey(.6);
-//            robot.convey(0);
-//            robot.shoot(0);
-//
-//        } else {
-//            limelightSubsystem.turnOffLED();
-//        }
-//    }
 
     public void dualShoot(boolean autoActive, boolean manualActive) {
         leftShooter.setInverted(true);

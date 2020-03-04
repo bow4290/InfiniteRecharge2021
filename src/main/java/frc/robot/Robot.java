@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     boolean ShootPhase = false;
     boolean AwayPhase = false;
 
-    double heightDifferenceInches = 83.25;
+    double heightDifferenceInches = 78.75;
 
     private RobotContainer robotContainer;
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -165,38 +165,38 @@ public class Robot extends TimedRobot {
         move(6);
 
         // uncomment when testing is done.
-//        do {
-//            limelightSubsystem.ledMode(true);
-//            RotationData rotationData = sense();
-//            rotateWithTime(90);
-//            move(calculateOffset(limelightSubsystem.getTx()));
-//            rotateWithLime(limelightSubsystem.getTx());
-//            move(calculateDistance(limelightSubsystem.getTy()));
-//
-//            ShootPhase = true;
-//            PositionPhase = false;
-//        } while (PositionPhase = true);
-//
-//        do {
-//            shoot(.6);
-//            wait(1000);
-//            convey(.6);
-//            shoot(0);
-//            convey(0);
-//            //shoot'n stuff
-//
-//            AwayPhase = true;
-//            ShootPhase = false;
-//        } while (ShootPhase = true);
-//
-//        do {
-//            rotateWithTime(90);
-//            move(45);
-//            rotateWithTime(-90);
-//            limelightSubsystem.ledMode(false);
-//
-//            AwayPhase = false;
-//        } while (AwayPhase = true);
+        do {
+            limelightSubsystem.limelightIsOn(true);
+            RotationData rotationData = sense();
+            rotateWithTime(90);
+            move(calculateOffset(limelightSubsystem.getTx()));
+            rotateWithLime(limelightSubsystem.getTx());
+            move(calculateDistance(limelightSubsystem.getTy()));
+
+            ShootPhase = true;
+            PositionPhase = false;
+        } while (PositionPhase = true);
+
+        do {
+            shoot(1, 5000);
+            wait(1000);
+            convey(1, 5000);
+            shoot(0, 0050);
+            convey(0, 0050);
+            //shoot'n stuff
+
+            AwayPhase = true;
+            ShootPhase = false;
+        } while (ShootPhase = true);
+
+        do {
+            rotateWithTime(90);
+            move(45);
+            rotateWithTime(-90);
+            limelightSubsystem.limelightIsOn(false);
+
+            AwayPhase = false;
+        } while (AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -298,7 +298,7 @@ public class Robot extends TimedRobot {
 
     public double calculateDistance(double verticalDegrees) {
 
-        double distance = heightDifferenceInches / Math.tan(verticalDegrees);
+        double distance = heightDifferenceInches / Math.tan(verticalDegrees + 38.5);
         return distance;
     }
 
