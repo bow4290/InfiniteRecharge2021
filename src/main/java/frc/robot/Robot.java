@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -83,7 +84,7 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
         colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
+        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
@@ -114,7 +115,7 @@ public class Robot extends TimedRobot {
 
         Color detectedColor = colorSensorSubsystem.getColor();
 
-        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
+//        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
         double getIR = colorSensorSubsystem.getIR();
 
@@ -123,6 +124,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Green", detectedColor.green);
         SmartDashboard.putNumber("Blue", detectedColor.blue);
         SmartDashboard.putNumber("IR", getIR);
+
+//        CameraServer.getInstance().startAutomaticCapture(0);
 
         int getProximity = colorSensorSubsystem.getProximity();
         SmartDashboard.putNumber("Proximity", getProximity);
@@ -163,9 +166,9 @@ public class Robot extends TimedRobot {
         wait(2);
         move(6);
 
-//        // uncomment when testing is done.
+        // uncomment when testing is done.
 //        do {
-//            limelightSubsystem.turnOnLED();
+//            limelightSubsystem.ledMode(true);
 //            RotationData rotationData = sense();
 //            rotateWithTime(90);
 //            move(calculateOffset(limelightSubsystem.getTx()));
@@ -192,7 +195,7 @@ public class Robot extends TimedRobot {
 //            rotateWithTime(90);
 //            move(45);
 //            rotateWithTime(-90);
-//            limelightSubsystem.turnOffLED();
+//            limelightSubsystem.ledMode(false);
 //
 //            AwayPhase = false;
 //        } while (AwayPhase = true);
@@ -317,6 +320,8 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
 
         }
+        limelightSubsystem.ledMode(false);
+        limelightSubsystem.cameraMode(false);
     }
 
     /**
