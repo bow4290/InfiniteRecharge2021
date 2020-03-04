@@ -15,16 +15,13 @@ public class ClimberSubsystem extends SubsystemBase {
         climbingMotor = new VictorSPX(climbingMotorChannel);
     }
 
-    public void climbUp(boolean intakeSpeed) {
-        if (intakeSpeed)
-        climbingMotor.set(VictorSPXControlMode.PercentOutput, .4);
-        else{}
-    }
-
-    public void climbDown(boolean intakeSpeed) {
-        if (intakeSpeed)
+    public void climb(boolean climbingUp, boolean climbingDown) {
+        if (climbingUp)
+            climbingMotor.set(VictorSPXControlMode.PercentOutput, .4);
+        else if (climbingDown)
             climbingMotor.set(VictorSPXControlMode.PercentOutput, -.4);
-        else{}
+        else
+            climbingMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
 
 }

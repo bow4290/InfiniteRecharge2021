@@ -24,8 +24,7 @@ public class ClimberCommand extends CommandBase {
      * this makes the intake activate when left joystick is move
      */
     public void execute() {
-        climberSubsystem.climbUp(RobotContainer.xboxController.getYButton());
-        climberSubsystem.climbDown(RobotContainer.xboxController.getXButton());
+        climberSubsystem.climb(RobotContainer.xboxController.getYButton(), RobotContainer.xboxController.getXButton());
     }
 
     @Override
