@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.commands.ShootingCommand;
-import frc.robot.dataStructures.RotationData;
 
 public class ShootingSubsystem extends SubsystemBase {
     private final VictorSPX leftShooter;
@@ -62,14 +61,14 @@ public class ShootingSubsystem extends SubsystemBase {
         rightShooter.setInverted(true);
 
         if (!autoActive && !manualActive) {
-            limelightSubsystem.turnOffLED();
+            limelightSubsystem.limelightIsOn(false);
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
         }
 
         else if (autoActive && !manualActive) {
-            limelightSubsystem.turnOnLED();
+            limelightSubsystem.limelightIsOn(true);
 
             robot.rotateWithLime(limelightSubsystem.getTx());
             robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
@@ -81,14 +80,14 @@ public class ShootingSubsystem extends SubsystemBase {
         }
 
         else if (!autoActive && manualActive) {
-            limelightSubsystem.turnOffLED();
+            limelightSubsystem.limelightIsOn(false);
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
         }
 
         else if (autoActive && manualActive) {
-            limelightSubsystem.turnOnLED();
+            limelightSubsystem.limelightIsOn(true);
 
             robot.rotateWithLime(limelightSubsystem.getTx());
             robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
@@ -98,10 +97,7 @@ public class ShootingSubsystem extends SubsystemBase {
             robot.convey(0, 0050);
             robot.shoot(0, 0050);
         } else {
-            limelightSubsystem.turnOffLED();
-
-            leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
+            limelightSubsystem.limelightIsOn(false);
         }
 
     }

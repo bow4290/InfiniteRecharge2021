@@ -25,7 +25,7 @@ public class LimelightSubsystem extends SubsystemBase {
         eVision, eDriver
     }
 
-    public void ledMode(boolean isLightOn) {
+    public void limelightIsOn(boolean isLightOn) {
         if (isLightOn)
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         else
