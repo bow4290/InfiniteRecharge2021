@@ -18,6 +18,7 @@ public class ShootingSubsystem extends SubsystemBase {
         rightShooter = new VictorSPX(rightShooterChannel);
         setDefaultCommand(new ShootingCommand(this));
         limelightSubsystem = new LimelightSubsystem();
+        this.robot = robot;
     }
 
     public void shootBall(double shooterSpeed) {

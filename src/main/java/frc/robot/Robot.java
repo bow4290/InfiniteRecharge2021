@@ -277,7 +277,7 @@ public class Robot extends TimedRobot {
 
     public void move(double inches) {
         System.out.println("I'm inside the move method!");
-        double turnSpeed = -.6;
+        double turnSpeed = .6;
         double secondsPerInch = .03;
         double millisPerInch = secondsPerInch * 1000;
 

@@ -132,7 +132,7 @@ public class LimelightSubsystem extends SubsystemBase {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
-
+        System.out.println("key: " + key +";" + table.getTable("limelight").getEntry(key));
         return table.getTable("limelight").getEntry(key);
     }
 }
