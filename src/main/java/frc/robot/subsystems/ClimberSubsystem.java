@@ -20,9 +20,9 @@ public class ClimberSubsystem extends SubsystemBase {
 
     public void climb(boolean climbingUp, boolean climbingDown) {
         if (climbingUp)
-            climbingMotor.set(VictorSPXControlMode.PercentOutput, .4);
+            climbingMotor.set(VictorSPXControlMode.PercentOutput, 1);
         else if (climbingDown)
-            climbingMotor.set(VictorSPXControlMode.PercentOutput, -.4);
+            climbingMotor.set(VictorSPXControlMode.PercentOutput, -1);
         else
             climbingMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
