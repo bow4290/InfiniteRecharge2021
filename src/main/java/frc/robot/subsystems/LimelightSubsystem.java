@@ -17,13 +17,29 @@ public class LimelightSubsystem extends SubsystemBase {
         table = NetworkTableInstance.getDefault();
     }
 
-    public static enum LightMode{
+    public static enum LightMode {
         eOn, eOff, eBlink
     }
 
     public static enum CameraMode {
         eVision, eDriver
     }
+
+    public void limelightIsOn(boolean isLightOn) {
+        if (isLightOn)
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+        else
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    }
+
+    public void cameraMode(boolean isVisionProcessor) {
+        if (isVisionProcessor)
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
+        else
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+
+    }
+
 
     /**
      * Gets whether a target is detected by the Limelight.
@@ -82,8 +98,7 @@ public class LimelightSubsystem extends SubsystemBase {
     /**
      * Sets LED mode of Limelight.
      *
-     * @param mode
-     *            Light mode for Limelight.
+     * @param mode Light mode for Limelight.
      */
     public static void setLedMode(LightMode mode) {
         getValue("ledMode").setNumber(mode.ordinal());
@@ -92,8 +107,7 @@ public class LimelightSubsystem extends SubsystemBase {
     /**
      * Sets camera mode for Limelight.
      *
-     * @param mode
-     *            Camera mode for Limelight.
+     * @param mode Camera mode for Limelight.
      */
     public static void setCameraMode(CameraMode mode) {
         getValue("camMode").setNumber(mode.ordinal());
@@ -102,8 +116,7 @@ public class LimelightSubsystem extends SubsystemBase {
     /**
      * Sets pipeline number (0-9 value).
      *
-     * @param number
-     *            Pipeline number (0-9).
+     * @param number Pipeline number (0-9).
      */
     public static void setPipeline(int number) {
         getValue("pipeline").setNumber(number);
@@ -112,15 +125,14 @@ public class LimelightSubsystem extends SubsystemBase {
     /**
      * Helper method to get an entry from the Limelight NetworkTable.
      *
-     * @param key
-     *            Key for entry.
+     * @param key Key for entry.
      * @return NetworkTableEntry of given entry.
      */
     private static NetworkTableEntry getValue(String key) {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
-
+        System.out.println("key: " + key +";" + table.getTable("limelight").getEntry(key));
         return table.getTable("limelight").getEntry(key);
     }
 }

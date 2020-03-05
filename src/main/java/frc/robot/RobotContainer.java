@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.AutoCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -24,8 +25,13 @@ public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+    // literally making this up
+//    private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+//    private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+//    private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+//    private final ShootingSubsystem shootingSubsystem = new ShootingSubsystem();
 //    private SparkDriveCommand command = new SparkDriveCommand();
-    private final ExampleCommand autonomousCommand = new ExampleCommand(exampleSubsystem);
+//    private final AutoCommand autonomousCommand = new AutoCommand( conveyorSubsystem,  driveTrainSubsystem,  limelightSubsystem,  shootingSubsystem);
     public static Joystick joystickLeft;
     public static Joystick joystickRight;
     public static XboxController xboxController;
@@ -60,9 +66,9 @@ public class RobotContainer
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand()
-    {
-        // An ExampleCommand will run in autonomous
-        return autonomousCommand;
-    }
+//    public Command getAutonomousCommand()
+//    {
+//        // An ExampleCommand will run in autonomous
+//        return autonomousCommand;
+//    }
 }
