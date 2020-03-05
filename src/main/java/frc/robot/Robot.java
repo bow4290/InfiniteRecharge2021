@@ -117,8 +117,6 @@ public class Robot extends TimedRobot {
 
         Color detectedColor = colorSensorSubsystem.getColor();
 
-        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
-
         double getIR = colorSensorSubsystem.getIR();
 
         SmartDashboard.putNumber("IR", getIR);
@@ -161,36 +159,41 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        do {
-            RotationData rotationData = sense();
-            rotateWithTime(90);
-            move(calculateOffset(limelightSubsystem.getTx()));
-            rotateWithLime(limelightSubsystem.getTx());
-            move(calculateDistance(limelightSubsystem.getTy()));
 
-            ShootPhase = true;
-            PositionPhase = false;
-        } while (PositionPhase = true);
+        rotateWithTime(180);
+        wait(3000);
+        move(6);
 
-        do {
-            shoot(.6);
-//            wait();
-            convey(.6);
-            shoot(0);
-            convey(0);
-            //shoot'n stuff
-
-            AwayPhase = true;
-            ShootPhase = false;
-        } while (ShootPhase = true);
-
-        do {
-            rotateWithTime(90);
-            move(45);
-            rotateWithTime(-90);
-
-            AwayPhase = false;
-        } while (AwayPhase = true);
+//        do {
+//            RotationData rotationData = sense();
+//            rotateWithTime(90);
+//            move(calculateOffset(limelightSubsystem.getTx()));
+//            rotateWithLime(limelightSubsystem.getTx());
+//            move(calculateDistance(limelightSubsystem.getTy()));
+//
+//            ShootPhase = true;
+//            PositionPhase = false;
+//        } while (PositionPhase = true);
+//
+//        do {
+//            shoot(.6);
+////            wait();
+//            convey(.6);
+//            shoot(0);
+//            convey(0);
+//            //shoot'n stuff
+//
+//            AwayPhase = true;
+//            ShootPhase = false;
+//        } while (ShootPhase = true);
+//
+//        do {
+//            rotateWithTime(90);
+//            move(45);
+//            rotateWithTime(-90);
+//
+//            AwayPhase = false;
+//        } while (AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -246,9 +249,7 @@ public class Robot extends TimedRobot {
     }
 
     public void move(double inches) {
-        double turnSpeed = .6;
-
-        //for time, measure how long it take to move 10 feet, then divide by 120.
+        double turnSpeed = .8;
 
         long t = System.currentTimeMillis();
         double distanceToTime = 15000 * inches;
