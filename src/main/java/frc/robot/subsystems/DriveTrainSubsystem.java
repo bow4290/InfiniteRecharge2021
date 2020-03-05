@@ -26,7 +26,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
 
-        gearShiftSolenoid = new DoubleSolenoid(0, 1);
+        gearShiftSolenoid = new DoubleSolenoid(4, 5);
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
 
@@ -46,6 +46,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     public void shiftGear(boolean isForward) {
+        System.out.println("trying to shift");
         if (isForward) {
             gearShiftSolenoid.set(DoubleSolenoid.Value.kForward);
         } else {
