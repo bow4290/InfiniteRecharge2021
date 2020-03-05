@@ -227,7 +227,7 @@ public class Robot extends TimedRobot {
     public void rotateWithTime(double degrees) {
         System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
-        double secondsPerDegree = 41 / 6000;
+        double secondsPerDegree = 0.007;
         double millisPerDegree = secondsPerDegree * 1000;
         //for time, measure how long it take to turn 360 degrees, then divide by 360.
 
@@ -235,12 +235,13 @@ public class Robot extends TimedRobot {
         double degreeToTime = millisPerDegree * degrees;
         long time = (long) degreeToTime;
         long end = t + time;
-        System.out.println("the time it should take is... " + degreeToTime);
-        System.out.println(degreeToTime + "should be equal to... " + time);
-        System.out.println("the rotation end time is... " + end);
-        while (System.currentTimeMillis() < end) {
+        System.out.println("the time it should take is... " + degreeToTime + "\n\n\n");
+        System.out.println(degreeToTime + "should be equal to... " + time+ "\n\n\n");
+        System.out.println("the rotation end time is... " + end+ "\n\n\n");
+        do {
+            System.out.println("current time is: " + System.currentTimeMillis());
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
-        }
+        } while (System.currentTimeMillis() < end);
     }
 
     public void shoot(double speedPercentage, int shootTimeMillis) {
@@ -277,7 +278,7 @@ public class Robot extends TimedRobot {
     public void move(double inches) {
         System.out.println("I'm inside the move method!");
         double turnSpeed = -.6;
-        double secondsPerInch = 323 / 12000;
+        double secondsPerInch = .03;
         double millisPerInch = secondsPerInch * 1000;
 
         //for time, measure how long it take to move 10 feet, then divide by 120.
@@ -289,9 +290,9 @@ public class Robot extends TimedRobot {
         System.out.println("the time it should take is... " + distanceToTime);
         System.out.println(distanceToTime + "should be equal to... " + time);
         System.out.println("the move end time is... " + end);
-//        while (System.currentTimeMillis() < end) {
+        do {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
-//        }
+        } while (System.currentTimeMillis() < end);
     }
 
     public RotationData sense() {
