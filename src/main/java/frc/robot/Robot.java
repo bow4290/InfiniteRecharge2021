@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutoCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
 
@@ -31,7 +32,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
-    public static ColorSensorSubsystem colorSensorSubsystem;
+//    public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
     public static IntakeSubsystem intakeSubsystem;
@@ -81,7 +82,7 @@ public class Robot extends TimedRobot {
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
-        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
+//        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
         shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
@@ -89,6 +90,7 @@ public class Robot extends TimedRobot {
         limelightSubsystem = new LimelightSubsystem();
 
         intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
+        autonomousCommand = new AutoCommand(this, conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem);
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -111,22 +113,22 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 //        System.out.println("here");
 
-        Color detectedColor = colorSensorSubsystem.getColor();
+//        Color detectedColor = colorSensorSubsystem.getColor();
 
 //        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
-        double getIR = colorSensorSubsystem.getIR();
-
-        SmartDashboard.putNumber("IR", getIR);
-        SmartDashboard.putNumber("Red", detectedColor.red);
-        SmartDashboard.putNumber("Green", detectedColor.green);
-        SmartDashboard.putNumber("Blue", detectedColor.blue);
-        SmartDashboard.putNumber("IR", getIR);
+//        double getIR = colorSensorSubsystem.getIR();
+//
+//        SmartDashboard.putNumber("IR", getIR);
+//        SmartDashboard.putNumber("Red", detectedColor.red);
+//        SmartDashboard.putNumber("Green", detectedColor.green);
+//        SmartDashboard.putNumber("Blue", detectedColor.blue);
+//        SmartDashboard.putNumber("IR", getIR);
 
 //        CameraServer.getInstance().startAutomaticCapture(0);
 
-        int getProximity = colorSensorSubsystem.getProximity();
-        SmartDashboard.putNumber("Proximity", getProximity);
+//        int getProximity = colorSensorSubsystem.getProximity();
+//        SmartDashboard.putNumber("Proximity", getProximity);
 
     }
 
@@ -146,10 +148,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = robotContainer.getAutonomousCommand();
+        System.out.println("I am inside autoinit!");
 
+//        rotateWithTime(270);
+//        wait(2);
+//        move(6);
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
+            System.out.println("scheduling autocommand");
             autonomousCommand.schedule();
         }
     }
@@ -159,44 +165,45 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        System.out.println("I am inside autoPeriodic!");
-        rotateWithTime(270);
-        wait(2);
-        move(6);
+        CommandScheduler.getInstance().run();
+//        System.out.println("I am inside autoPeriodic!");
+//        rotateWithTime(270);
+//        wait(2);
+//        move(6);
 
         // uncomment when testing is done.
-        do {
-            limelightSubsystem.limelightIsOn(true);
-            RotationData rotationData = sense();
-            rotateWithTime(90);
-            move(calculateOffset(limelightSubsystem.getTx()));
-            rotateWithLime(limelightSubsystem.getTx());
-            move(calculateDistance(limelightSubsystem.getTy()));
-
-            ShootPhase = true;
-            PositionPhase = false;
-        } while (PositionPhase = true);
-
-        do {
-            shoot(1, 5000);
-            wait(1000);
-            convey(1, 5000);
-            shoot(0, 0050);
-            convey(0, 0050);
-            //shoot'n stuff
-
-            AwayPhase = true;
-            ShootPhase = false;
-        } while (ShootPhase = true);
-
-        do {
-            rotateWithTime(90);
-            move(45);
-            rotateWithTime(-90);
-            limelightSubsystem.limelightIsOn(false);
-
-            AwayPhase = false;
-        } while (AwayPhase = true);
+//        do {
+//            limelightSubsystem.limelightIsOn(true);
+//            RotationData rotationData = sense();
+//            rotateWithTime(90);
+//            move(calculateOffset(limelightSubsystem.getTx()));
+//            rotateWithLime(limelightSubsystem.getTx());
+//            move(calculateDistance(limelightSubsystem.getTy()));
+//
+//            ShootPhase = true;
+//            PositionPhase = false;
+//        } while (PositionPhase = true);
+//
+//        do {
+//            shoot(1, 5000);
+//            wait(1000);
+//            convey(1, 5000);
+//            shoot(0, 0050);
+//            convey(0, 0050);
+//            //shoot'n stuff
+//
+//            AwayPhase = true;
+//            ShootPhase = false;
+//        } while (ShootPhase = true);
+//
+//        do {
+//            rotateWithTime(90);
+//            move(45);
+//            rotateWithTime(-90);
+//            limelightSubsystem.limelightIsOn(false);
+//
+//            AwayPhase = false;
+//        } while (AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -282,9 +289,9 @@ public class Robot extends TimedRobot {
         System.out.println("the time it should take is... " + distanceToTime);
         System.out.println(distanceToTime + "should be equal to... " + time);
         System.out.println("the move end time is... " + end);
-        while (System.currentTimeMillis() < end) {
+//        while (System.currentTimeMillis() < end) {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
-        }
+//        }
     }
 
     public RotationData sense() {
