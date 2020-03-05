@@ -32,6 +32,9 @@ public class VictorSPXDriveCommand extends CommandBase {
         if (RobotContainer.joystickRight.getTriggerPressed()){
             isHighGear = !isHighGear;
             driveTrainSubsystem.shiftGear(isHighGear);
+        }else if(RobotContainer.joystickLeft.getTriggerPressed()) {
+            isHighGear = !isHighGear;
+            driveTrainSubsystem.shiftGear(isHighGear);
         }
     }
 
