@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
 //    public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
+    public static ClimberSubsystem climberSubsystem;
+
     public static IntakeSubsystem intakeSubsystem;
     public Robot robot;
     private Command autonomousCommand;
@@ -72,7 +74,10 @@ public class Robot extends TimedRobot {
 
         int intakeMotorChannel = 13;
 
+        int climbingMotorChannel = 4;
+
         int wheelSpinner = 2;
+
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -82,8 +87,14 @@ public class Robot extends TimedRobot {
 
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
+
 //        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
+  
         shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
+
+        intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
+
+        climberSubsystem = new ClimberSubsystem(climbingMotorChannel);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
@@ -165,6 +176,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+
         CommandScheduler.getInstance().run();
 //        System.out.println("I am inside autoPeriodic!");
 //        rotateWithTime(270);
@@ -185,6 +197,7 @@ public class Robot extends TimedRobot {
 //        } while (PositionPhase = true);
 //
 //        do {
+
 //            shoot(1, 5000);
 //            wait(1000);
 //            convey(1, 5000);
@@ -225,7 +238,9 @@ public class Robot extends TimedRobot {
     }
 
     public void rotateWithTime(double degrees) {
+
         System.out.println("I'm inside the rotateWithTime method!");
+
         double turnSpeed = .6;
         double secondsPerDegree = 0.007;
         double millisPerDegree = secondsPerDegree * 1000;
@@ -264,7 +279,7 @@ public class Robot extends TimedRobot {
     }
 
 
-    public void wait(int timeInSeconds) {
+    public void wait(int timeInMillis) {
         long t = System.currentTimeMillis();
         long timeInMillis =  timeInSeconds *1000;
         long end = t + timeInMillis;

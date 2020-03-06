@@ -10,11 +10,13 @@ public class ConveyorSubsystem extends SubsystemBase {
     private final VictorSPX bottomConveyor;
 
     double speedFactor = 1.1;
-    public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel){
+
+    public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel) {
         topConveyor = new VictorSPX(topMotorChannel);
         bottomConveyor = new VictorSPX(bottomMotorChannel);
         setDefaultCommand(new ConveyorCommand(this));
     }
+
 
     public void conveyBall(double conveyorSpeed){
         if (conveyorSpeed > .75) {

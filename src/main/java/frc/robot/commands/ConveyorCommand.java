@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
+
 import java.util.Set;
 
 public class ConveyorCommand extends CommandBase {
@@ -15,6 +16,7 @@ public class ConveyorCommand extends CommandBase {
         this.conveyorSubsystem = conveyorSubsystem;
         this.subsystems = Set.of(conveyorSubsystem);
     }
+
     public void execute() {
         conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
     }

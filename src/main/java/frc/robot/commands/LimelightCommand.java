@@ -11,7 +11,7 @@ public class LimelightCommand extends CommandBase {
     private LimelightSubsystem limelightSubsystem;
     private final Set<Subsystem> subsystems;
 
-    public LimelightCommand(LimelightSubsystem limelightSubsystem){
+    public LimelightCommand(LimelightSubsystem limelightSubsystem) {
         this.limelightSubsystem = limelightSubsystem;
         this.subsystems = Set.of(limelightSubsystem);
     }

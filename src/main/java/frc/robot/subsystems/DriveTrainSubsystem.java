@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.VictorSPXDriveCommand;
 
@@ -14,6 +15,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final VictorSPX rightVictorSPX1;
     private final VictorSPX rightVictorSPX2;
     private final VictorSPX rightVictorSPX3;
+    private final DoubleSolenoid gearShiftSolenoid;
 
     public DriveTrainSubsystem(int leftVictorSPX1Channel, int leftVictorSPX2Channel, int leftVictorSPX3Channel,
                                int rightVictorSPX1Channel, int rightVictorSPX2Channel, int rightVictorSPX3Channel) {
@@ -23,6 +25,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX1 = new VictorSPX(rightVictorSPX1Channel);
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
+
+//         gearShiftSolenoid = new DoubleSolenoid(4, 5);
 
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
@@ -57,4 +61,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX3.set(VictorSPXControlMode.PercentOutput, rightspeed);
     }
 
+    public void shiftGear(boolean isForward) {
+        System.out.println("trying to shift");
+        if (isForward) {
+            gearShiftSolenoid.set(DoubleSolenoid.Value.kForward);
+        } else {
+            gearShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
+        }
+    }
 }

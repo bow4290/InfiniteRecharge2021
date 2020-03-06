@@ -1,33 +1,31 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 
 import java.util.Set;
 
-public class IntakeCommand extends CommandBase {
-    private IntakeSubsystem intakeSubsystem;
+public class ClimberCommand extends CommandBase {
+    private ClimberSubsystem climberSubsystem;
     public final Set<Subsystem> subsystems;
 
     /**
      * establishes the intake  subsystem
      *
-     * @param intakeSubsystem
+     * @param climberSubsystem
      */
-
-    public IntakeCommand(IntakeSubsystem intakeSubsystem){
-        this.intakeSubsystem = intakeSubsystem;
-        this.subsystems = Set.of(intakeSubsystem);
+    public ClimberCommand(ClimberSubsystem climberSubsystem) {
+        this.climberSubsystem = climberSubsystem;
+        this.subsystems = Set.of(climberSubsystem);
     }
 
     /**
      * this makes the intake activate when left joystick is move
      */
     public void execute() {
-        intakeSubsystem.intakeBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kRight));
+        climberSubsystem.climb(RobotContainer.xboxController.getYButton(), RobotContainer.xboxController.getXButton());
     }
 
     @Override
@@ -40,3 +38,4 @@ public class IntakeCommand extends CommandBase {
         return this.subsystems;
     }
 }
+

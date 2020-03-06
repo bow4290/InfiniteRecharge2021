@@ -36,5 +36,6 @@ public class ColorSensorCommand extends CommandBase {
         return this.subsystems;
     }
 
-    public void execute() { }
+    public void execute() {
+    }
 }

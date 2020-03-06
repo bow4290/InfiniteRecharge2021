@@ -21,10 +21,10 @@ import frc.robot.subsystems.*;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer
-{
+public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+
     // literally making this up
 //    private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 //    private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
@@ -40,8 +40,7 @@ public class RobotContainer
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
      */
-    public RobotContainer()
-    {
+    public RobotContainer() {
         joystickLeft = new Joystick(RobotMap.LEFT_JOYSTICK);
         joystickRight = new Joystick(RobotMap.RIGHT_JOYSTICK);
         xboxController = new XboxController(RobotMap.XBOX_CONTROLLER);
@@ -55,9 +54,8 @@ public class RobotContainer
      * edu.wpi.first.wpilibj.Joystick Joystick} or {@link XboxController}), and then passing it to a
      * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton JoystickButton}.
      */
-    private void configureButtonBindings()
-    {
-        
+    private void configureButtonBindings() {
+
     }
 
 
@@ -66,6 +64,7 @@ public class RobotContainer
      *
      * @return the command to run in autonomous
      */
+
 //    public Command getAutonomousCommand()
 //    {
 //        // An ExampleCommand will run in autonomous

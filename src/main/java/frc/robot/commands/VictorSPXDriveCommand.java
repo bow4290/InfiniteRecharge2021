@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-import java.util.List;
 import java.util.Set;
 
 public class VictorSPXDriveCommand extends CommandBase {
 
     private DriveTrainSubsystem driveTrainSubsystem;
     private final Set<Subsystem> subsystems;
+    boolean isHighGear = false;
 
     /**
      * this establishes the drivetrain subsystem
@@ -28,6 +28,14 @@ public class VictorSPXDriveCommand extends CommandBase {
      */
     public void execute() {
         driveTrainSubsystem.drive(RobotContainer.joystickLeft.getY(), RobotContainer.joystickRight.getY());
+
+        if (RobotContainer.joystickRight.getTriggerPressed()){
+            isHighGear = !isHighGear;
+            driveTrainSubsystem.shiftGear(isHighGear);
+        }else if(RobotContainer.joystickLeft.getTriggerPressed()) {
+            isHighGear = !isHighGear;
+            driveTrainSubsystem.shiftGear(isHighGear);
+        }
     }
 
     @Override
