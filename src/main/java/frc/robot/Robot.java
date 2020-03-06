@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -78,6 +79,11 @@ public class Robot extends TimedRobot {
 
         int wheelSpinner = 2;
 
+        Compressor c = new Compressor(0);
+
+        boolean enabled = c.enabled();
+        boolean pressureSwitch = c.getPressureSwitchValue();
+        double current = c.getCompressorCurrent();
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);

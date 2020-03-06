@@ -25,5 +25,11 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public void liftIntake(boolean is)
+    public void liftIntake(boolean isIntakeUp){
+        if (isIntakeUp) {
+            intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+        } else {
+            intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+        }
+    }
 }
