@@ -28,7 +28,7 @@ public class IntakeCommand extends CommandBase {
      */
     public void execute() {
         intakeSubsystem.intakeBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kRight));
-        intakeSubsystem.liftIntake(RobotContainer.xboxController.getBButton());
+        intakeSubsystem.liftIntake(RobotContainer.xboxController.getBButtonPressed());
     }
 
     @Override

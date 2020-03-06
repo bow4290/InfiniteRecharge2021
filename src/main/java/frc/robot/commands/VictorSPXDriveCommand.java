@@ -29,13 +29,8 @@ public class VictorSPXDriveCommand extends CommandBase {
     public void execute() {
         driveTrainSubsystem.drive(RobotContainer.joystickLeft.getY(), RobotContainer.joystickRight.getY());
 
-        if (RobotContainer.joystickRight.getTrigger()){
-            isHighGear = !isHighGear;
-            driveTrainSubsystem.shiftGear(isHighGear);
-        }else if(RobotContainer.joystickLeft.getTrigger()) {
-            isHighGear = !isHighGear;
-            driveTrainSubsystem.shiftGear(isHighGear);
-        }
+        driveTrainSubsystem.shiftGear(RobotContainer.joystickLeft.getTrigger());
+        driveTrainSubsystem.shiftGear(RobotContainer.joystickRight.getTrigger());
     }
 
     @Override

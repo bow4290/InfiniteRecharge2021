@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,16 +37,20 @@ public class Robot extends TimedRobot {
 //    public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
-    public static ClimberSubsystem climberSubsystem;
-
     public static IntakeSubsystem intakeSubsystem;
+    public static ClimberSubsystem climberSubsystem;
     public Robot robot;
     private Command autonomousCommand;
+    private Compressor compressor;
+    private DoubleSolenoid doubleSolenoid;
 
 
     boolean PositionPhase = true;
     boolean ShootPhase = false;
     boolean AwayPhase = false;
+    public DoubleSolenoid intakeSolenoid;
+    public DoubleSolenoid gearShiftSolenoid;
+    public DoubleSolenoid fallStopSolenoid;
 
     double heightDifferenceInches = 78.75;
 
@@ -70,20 +75,25 @@ public class Robot extends TimedRobot {
         int leftShooterChannel = 8;
         int rightShooterChannel = 1;
 
+        int climberMotorChannel = 4;
+
         int topMotorChannel = 9;
         int bottomMotorChannel = 7;
 
         int intakeMotorChannel = 13;
 
-        int climbingMotorChannel = 4;
-
         int wheelSpinner = 2;
 
-        Compressor c = new Compressor(0);
+        compressor = new Compressor(0);
 
-        boolean enabled = c.enabled();
-        boolean pressureSwitch = c.getPressureSwitchValue();
-        double current = c.getCompressorCurrent();
+        boolean enabled = compressor.enabled();
+        boolean pressureSwitch = compressor.getPressureSwitchValue();
+        double current = compressor.getCompressorCurrent();
+
+        intakeSolenoid = new DoubleSolenoid(0,1);
+        fallStopSolenoid = new DoubleSolenoid(2,3);
+        gearShiftSolenoid = new DoubleSolenoid(4, 5);
+
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -91,22 +101,18 @@ public class Robot extends TimedRobot {
         final Color kYellowTarget = ColorMatch.makeColor(.3, .3, 0);
 
 
-        driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
+        driveTrainSubsystem = new DriveTrainSubsystem(gearShiftSolenoid, leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
-
 //        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-  
         shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
-
-        intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
-
-        climberSubsystem = new ClimberSubsystem(climbingMotorChannel);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
+        climberSubsystem = new ClimberSubsystem(fallStopSolenoid, climberMotorChannel);
+
         limelightSubsystem = new LimelightSubsystem();
 
-        intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
+        intakeSubsystem = new IntakeSubsystem(intakeSolenoid, intakeMotorChannel);
         autonomousCommand = new AutoCommand(this, conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem);
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -182,7 +188,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-
         CommandScheduler.getInstance().run();
 //        System.out.println("I am inside autoPeriodic!");
 //        rotateWithTime(270);
@@ -203,7 +208,6 @@ public class Robot extends TimedRobot {
 //        } while (PositionPhase = true);
 //
 //        do {
-
 //            shoot(1, 5000);
 //            wait(1000);
 //            convey(1, 5000);
@@ -244,9 +248,7 @@ public class Robot extends TimedRobot {
     }
 
     public void rotateWithTime(double degrees) {
-
         System.out.println("I'm inside the rotateWithTime method!");
-
         double turnSpeed = .6;
         double secondsPerDegree = 0.007;
         double millisPerDegree = secondsPerDegree * 1000;
@@ -285,8 +287,9 @@ public class Robot extends TimedRobot {
     }
 
 
-    public void wait(int timeInMillis) {
+    public void wait(int timeInSeconds) {
         long t = System.currentTimeMillis();
+        long timeInMillis =  timeInSeconds *1000;
         long end = t + timeInMillis;
 
         while (System.currentTimeMillis() < end) {
