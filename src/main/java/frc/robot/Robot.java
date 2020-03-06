@@ -281,7 +281,6 @@ public class Robot extends TimedRobot {
 
     public void wait(int timeInMillis) {
         long t = System.currentTimeMillis();
-        long timeInMillis =  timeInSeconds *1000;
         long end = t + timeInMillis;
 
         while (System.currentTimeMillis() < end) {

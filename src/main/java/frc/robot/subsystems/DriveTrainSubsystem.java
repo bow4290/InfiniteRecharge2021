@@ -26,7 +26,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
 
-//         gearShiftSolenoid = new DoubleSolenoid(4, 5);
+        gearShiftSolenoid = new DoubleSolenoid(4, 5);
 
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
