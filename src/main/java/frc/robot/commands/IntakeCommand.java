@@ -17,7 +17,8 @@ public class IntakeCommand extends CommandBase {
      *
      * @param intakeSubsystem
      */
-    private IntakeCommand(IntakeSubsystem intakeSubsystem) {
+
+    public IntakeCommand(IntakeSubsystem intakeSubsystem){
         this.intakeSubsystem = intakeSubsystem;
         this.subsystems = Set.of(intakeSubsystem);
     }

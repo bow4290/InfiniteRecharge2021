@@ -26,7 +26,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
 
-        gearShiftSolenoid = new DoubleSolenoid(4, 5);
+//         gearShiftSolenoid = new DoubleSolenoid(4, 5);
+
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
 
@@ -37,6 +38,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
      * @param rightspeed
      */
     public void drive(double leftspeed, double rightspeed) {
+        if (Math.abs(leftspeed) < 0.05) {
+            leftspeed = 0;
+        }
+
+        if (Math.abs(rightspeed) < 0.05) {
+            rightspeed = 0;
+        }
 
         leftVictorSPX1.setInverted(true);
         leftVictorSPX2.setInverted(true);

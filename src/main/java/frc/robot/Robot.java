@@ -14,8 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutoCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
+
+
 
 
 /**
@@ -29,19 +32,21 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
-    public static ColorSensorSubsystem colorSensorSubsystem;
+//    public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
     public static ClimberSubsystem climberSubsystem;
+
     public static IntakeSubsystem intakeSubsystem;
     public Robot robot;
     private Command autonomousCommand;
+
 
     boolean PositionPhase = true;
     boolean ShootPhase = false;
     boolean AwayPhase = false;
 
-    double heightDifferenceInches = 83.25;
+    double heightDifferenceInches = 78.75;
 
     private RobotContainer robotContainer;
     private static I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -71,7 +76,8 @@ public class Robot extends TimedRobot {
 
         int climbingMotorChannel = 4;
 
-        int wheelSpinner = 10;
+        int wheelSpinner = 2;
+
 
         final Color kBlueTarget = ColorMatch.makeColor(0, .3, .3);
         final Color kGreenTarget = ColorMatch.makeColor(0, .4, 0);
@@ -82,9 +88,9 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
 
-        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-
-        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel);
+//        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
+  
+        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
 
         intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
 
@@ -93,6 +99,9 @@ public class Robot extends TimedRobot {
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
         limelightSubsystem = new LimelightSubsystem();
+
+        intakeSubsystem = new IntakeSubsystem(intakeMotorChannel);
+        autonomousCommand = new AutoCommand(this, conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem);
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -115,18 +124,22 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 //        System.out.println("here");
 
-        Color detectedColor = colorSensorSubsystem.getColor();
+//        Color detectedColor = colorSensorSubsystem.getColor();
 
-        double getIR = colorSensorSubsystem.getIR();
+//        System.out.println("The color is " + colorSensorSubsystem.matchColor(detectedColor));
 
-        SmartDashboard.putNumber("IR", getIR);
-        SmartDashboard.putNumber("Red", detectedColor.red);
-        SmartDashboard.putNumber("Green", detectedColor.green);
-        SmartDashboard.putNumber("Blue", detectedColor.blue);
-        SmartDashboard.putNumber("IR", getIR);
+//        double getIR = colorSensorSubsystem.getIR();
+//
+//        SmartDashboard.putNumber("IR", getIR);
+//        SmartDashboard.putNumber("Red", detectedColor.red);
+//        SmartDashboard.putNumber("Green", detectedColor.green);
+//        SmartDashboard.putNumber("Blue", detectedColor.blue);
+//        SmartDashboard.putNumber("IR", getIR);
 
-        int getProximity = colorSensorSubsystem.getProximity();
-        SmartDashboard.putNumber("Proximity", getProximity);
+//        CameraServer.getInstance().startAutomaticCapture(0);
+
+//        int getProximity = colorSensorSubsystem.getProximity();
+//        SmartDashboard.putNumber("Proximity", getProximity);
 
     }
 
@@ -146,10 +159,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = robotContainer.getAutonomousCommand();
+        System.out.println("I am inside autoinit!");
 
+//        rotateWithTime(270);
+//        wait(2);
+//        move(6);
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
+            System.out.println("scheduling autocommand");
             autonomousCommand.schedule();
         }
     }
@@ -160,11 +177,15 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
 
-        rotateWithTime(180);
-        wait(3000);
-        move(6);
+        CommandScheduler.getInstance().run();
+//        System.out.println("I am inside autoPeriodic!");
+//        rotateWithTime(270);
+//        wait(2);
+//        move(6);
 
+        // uncomment when testing is done.
 //        do {
+//            limelightSubsystem.limelightIsOn(true);
 //            RotationData rotationData = sense();
 //            rotateWithTime(90);
 //            move(calculateOffset(limelightSubsystem.getTx()));
@@ -176,11 +197,12 @@ public class Robot extends TimedRobot {
 //        } while (PositionPhase = true);
 //
 //        do {
-//            shoot(.6);
-////            wait();
-//            convey(.6);
-//            shoot(0);
-//            convey(0);
+
+//            shoot(1, 5000);
+//            wait(1000);
+//            convey(1, 5000);
+//            shoot(0, 0050);
+//            convey(0, 0050);
 //            //shoot'n stuff
 //
 //            AwayPhase = true;
@@ -191,6 +213,7 @@ public class Robot extends TimedRobot {
 //            rotateWithTime(90);
 //            move(45);
 //            rotateWithTime(-90);
+//            limelightSubsystem.limelightIsOn(false);
 //
 //            AwayPhase = false;
 //        } while (AwayPhase = true);
@@ -215,31 +238,50 @@ public class Robot extends TimedRobot {
     }
 
     public void rotateWithTime(double degrees) {
-        double turnSpeed = .6;
 
+        System.out.println("I'm inside the rotateWithTime method!");
+
+        double turnSpeed = .6;
+        double secondsPerDegree = 0.007;
+        double millisPerDegree = secondsPerDegree * 1000;
         //for time, measure how long it take to turn 360 degrees, then divide by 360.
 
         long t = System.currentTimeMillis();
-        double degreeToTime = 15000 * degrees;
+        double degreeToTime = millisPerDegree * degrees;
         long time = (long) degreeToTime;
         long end = t + time;
-        while (System.currentTimeMillis() < end) {
+        System.out.println("the time it should take is... " + degreeToTime + "\n\n\n");
+        System.out.println(degreeToTime + "should be equal to... " + time+ "\n\n\n");
+        System.out.println("the rotation end time is... " + end+ "\n\n\n");
+        do {
+            System.out.println("current time is: " + System.currentTimeMillis());
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+        } while (System.currentTimeMillis() < end);
+    }
+
+    public void shoot(double speedPercentage, int shootTimeMillis) {
+        long t = System.currentTimeMillis();
+        long end = t + shootTimeMillis;
+
+        while (System.currentTimeMillis() < end) {
+            shootingSubsystem.shootBall(speedPercentage);
         }
     }
 
-    public void shoot(double speedPercentage) {
-        shootingSubsystem.shootBall(speedPercentage);
-    }
+    public void convey(double speedPercentage, int conveyTimeMillis) {
+        long t = System.currentTimeMillis();
+        long end = t + conveyTimeMillis;
 
-    public void convey(double speedPercentage) {
-        conveyorSubsystem.conveyBall(speedPercentage);
+        while (System.currentTimeMillis() < end) {
+            conveyorSubsystem.conveyBall(speedPercentage);
+        }
 
     }
 
 
     public void wait(int timeInMillis) {
         long t = System.currentTimeMillis();
+        long timeInMillis =  timeInSeconds *1000;
         long end = t + timeInMillis;
 
         while (System.currentTimeMillis() < end) {
@@ -249,15 +291,23 @@ public class Robot extends TimedRobot {
     }
 
     public void move(double inches) {
-        double turnSpeed = .8;
+        System.out.println("I'm inside the move method!");
+        double turnSpeed = .6;
+        double secondsPerInch = .03;
+        double millisPerInch = secondsPerInch * 1000;
+
+        //for time, measure how long it take to move 10 feet, then divide by 120.
 
         long t = System.currentTimeMillis();
-        double distanceToTime = 15000 * inches;
+        double distanceToTime = millisPerInch * inches;
         long time = (long) distanceToTime;
         long end = t + time;
-        while (System.currentTimeMillis() < end) {
+        System.out.println("the time it should take is... " + distanceToTime);
+        System.out.println(distanceToTime + "should be equal to... " + time);
+        System.out.println("the move end time is... " + end);
+        do {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
-        }
+        } while (System.currentTimeMillis() < end);
     }
 
     public RotationData sense() {
@@ -271,7 +321,7 @@ public class Robot extends TimedRobot {
 
     public double calculateDistance(double verticalDegrees) {
 
-        double distance = heightDifferenceInches / Math.tan(verticalDegrees);
+        double distance = heightDifferenceInches / Math.tan(verticalDegrees + 38.5);
         return distance;
     }
 
@@ -289,7 +339,10 @@ public class Robot extends TimedRobot {
         // this line or comment it out.
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
+
         }
+        limelightSubsystem.limelightIsOn(false);
+        limelightSubsystem.cameraMode(false);
     }
 
     /**

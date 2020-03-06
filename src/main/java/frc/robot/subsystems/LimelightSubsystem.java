@@ -25,6 +25,22 @@ public class LimelightSubsystem extends SubsystemBase {
         eVision, eDriver
     }
 
+    public void limelightIsOn(boolean isLightOn) {
+        if (isLightOn)
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+        else
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    }
+
+    public void cameraMode(boolean isVisionProcessor) {
+        if (isVisionProcessor)
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
+        else
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+
+    }
+
+
     /**
      * Gets whether a target is detected by the Limelight.
      *
@@ -116,7 +132,7 @@ public class LimelightSubsystem extends SubsystemBase {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
-
+        System.out.println("key: " + key +";" + table.getTable("limelight").getEntry(key));
         return table.getTable("limelight").getEntry(key);
     }
 }
