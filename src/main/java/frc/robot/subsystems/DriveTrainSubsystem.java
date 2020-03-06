@@ -16,17 +16,19 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final VictorSPX rightVictorSPX2;
     private final VictorSPX rightVictorSPX3;
     private final DoubleSolenoid gearShiftSolenoid;
+    public DoubleSolenoid.Value intakeStatus;
 
-    public DriveTrainSubsystem(int leftVictorSPX1Channel, int leftVictorSPX2Channel, int leftVictorSPX3Channel,
+
+    public DriveTrainSubsystem(DoubleSolenoid gearShiftSolenoid, int leftVictorSPX1Channel, int leftVictorSPX2Channel, int leftVictorSPX3Channel,
                                int rightVictorSPX1Channel, int rightVictorSPX2Channel, int rightVictorSPX3Channel) {
+        this.gearShiftSolenoid = gearShiftSolenoid;
         leftVictorSPX1 = new VictorSPX(leftVictorSPX1Channel);
         leftVictorSPX2 = new VictorSPX(leftVictorSPX2Channel);
         leftVictorSPX3 = new VictorSPX(leftVictorSPX3Channel);
         rightVictorSPX1 = new VictorSPX(rightVictorSPX1Channel);
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
-
-//         gearShiftSolenoid = new DoubleSolenoid(4, 5);
+        this.intakeStatus = DoubleSolenoid.Value.kForward;
 
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
@@ -61,12 +63,19 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX3.set(VictorSPXControlMode.PercentOutput, rightspeed);
     }
 
-    public void shiftGear(boolean isForward) {
-        System.out.println("trying to shift");
-        if (isForward) {
-            gearShiftSolenoid.set(DoubleSolenoid.Value.kForward);
-        } else {
-            gearShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
+    public void shiftGear(boolean buttonPressed){
+        if (buttonPressed) {
+            swapSolenoidPosition();
         }
+    }
+
+    private void swapSolenoidPosition() {
+        if (this.intakeStatus == DoubleSolenoid.Value.kForward){
+            this.intakeStatus = DoubleSolenoid.Value.kReverse;
+        }
+        else {
+            this.intakeStatus = DoubleSolenoid.Value.kForward;
+        }
+        gearShiftSolenoid.set(this.intakeStatus);
     }
 }

@@ -26,6 +26,7 @@ public class ClimberCommand extends CommandBase {
      */
     public void execute() {
         climberSubsystem.climb(RobotContainer.xboxController.getYButton(), RobotContainer.xboxController.getXButton());
+        climberSubsystem.stopClimber(RobotContainer.xboxController.getAButtonPressed());
     }
 
     @Override
