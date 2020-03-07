@@ -230,7 +230,7 @@ public class Robot extends TimedRobot {
     }
 
     public void rotateWithLime(double degrees) {
-        double turnSpeed = .5;
+        double turnSpeed = .6;
 
         /**
          * if the target is to the right, move left side forward and right side back.
@@ -244,7 +244,7 @@ public class Robot extends TimedRobot {
             do {
                 driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
             } while (degrees != 0);
-        }
+        } else { }
     }
 
     public void rotateWithTime(double degrees) {
@@ -300,7 +300,7 @@ public class Robot extends TimedRobot {
 
     public void moveWithLime(double currentDistanceInches, double targetDistanceInches) {
         double turnSpeed = 0;
-
+        if (currentDistanceInches != 0){
         double distanceDifference = targetDistanceInches - currentDistanceInches;
 
         if (distanceDifference < 0){
@@ -322,6 +322,7 @@ public class Robot extends TimedRobot {
         do {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
         } while (System.currentTimeMillis() < end);
+    }
     }
 
     public void move(double inches) {

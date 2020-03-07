@@ -1,7 +1,9 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -39,16 +41,24 @@ public class AutoCommand extends CommandBase {
      */
     @Override
     public void execute() {
-//        System.out.println("autoexecute");
-//        robot.sense();
-//        robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), 1);
-//        robot.shoot(1,5000);
-//        robot.wait(1);
-//        robot.convey(.8, 4000);
-//        robot.wait(3000);
-//        robot.shoot(0,50);
-//        robot.convey(0, 50);
 
+        /** time-based movement protocol*/
+        driveTrainSubsystem.drive(.6, .6);
+        Timer.delay(3.6);
+
+        driveTrainSubsystem.drive(0, 0);
+        shootingSubsystem.shootBall(.2);
+        conveyorSubsystem.conveyBall(1);
+        Timer.delay(5);
+
+        shootingSubsystem.shootBall(0);
+        conveyorSubsystem.conveyBall(0);
+
+
+
+//        RotationData rotationData = robot.sense();
+//        robot.rotateWithLime(rotationData.getDegrees());
+//        robot.moveWithLime(rotationData.getDistance(), );
     }
 
     /**
