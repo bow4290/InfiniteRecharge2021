@@ -38,35 +38,36 @@ public class ShootingSubsystem extends SubsystemBase {
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
-        }
-
-        else if (autoActive && !manualActive) {
+        } else if (autoActive && !manualActive) {
             limelightSubsystem.limelightIsOn(true);
 
             robot.rotateWithLime(limelightSubsystem.getTx());
-            robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
+            robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), 48);
+            robot.sense();
+
+//            x = best shooting distance (in inches)
+//            robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), x);;
             robot.shoot(1, 5000);
             robot.wait(1);
-            robot.convey(1, 5000);
+            robot.convey(1, 4000);
             robot.convey(0, 0050);
             robot.shoot(0, 0050);
-        }
-
-        else if (!autoActive && manualActive) {
+        } else if (!autoActive && manualActive) {
             limelightSubsystem.limelightIsOn(false);
 
             leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
-        }
-
-        else if (autoActive && manualActive) {
+        } else if (autoActive && manualActive) {
             limelightSubsystem.limelightIsOn(true);
 
             robot.rotateWithLime(limelightSubsystem.getTx());
-            robot.move(robot.calculateDistance(limelightSubsystem.getTy()));
+            robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), 48);
+            robot.sense();
+//            x = best shooting distance (in inches)
+//            robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), x);;
             robot.shoot(1, 5000);
             robot.wait(1);
-            robot.convey(1, 5000);
+            robot.convey(1, 4000);
             robot.convey(0, 0050);
             robot.shoot(0, 0050);
         } else {

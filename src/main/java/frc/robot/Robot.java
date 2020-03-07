@@ -298,21 +298,46 @@ public class Robot extends TimedRobot {
 
     }
 
-    public void move(double inches) {
-        System.out.println("I'm inside the move method!");
-        double turnSpeed = .6;
+    public void moveWithLime(double currentDistanceInches, double targetDistanceInches) {
+        double turnSpeed = 0;
+
+        double distanceDifference = targetDistanceInches - currentDistanceInches;
+
+        if (distanceDifference < 0){
+            turnSpeed = .6;
+        } else if (distanceDifference > 0){
+            turnSpeed = -.6;
+        }
+
         double secondsPerInch = .03;
         double millisPerInch = secondsPerInch * 1000;
 
-        //for time, measure how long it take to move 10 feet, then divide by 120.
+        long t = System.currentTimeMillis();
+        double distanceToTime = millisPerInch * Math.abs(distanceDifference);
+        long time = (long) distanceToTime;
+        long end = t + time;
+//        System.out.println("the time it should take is... " + distanceToTime);
+//        System.out.println(distanceToTime + "should be equal to... " + time);
+//        System.out.println("the move end time is... " + end);
+        do {
+            driveTrainSubsystem.drive(turnSpeed, turnSpeed);
+        } while (System.currentTimeMillis() < end);
+    }
+
+    public void move(double inches) {
+        System.out.println("I'm inside the move method!");
+
+        double turnSpeed = .6;
+        double secondsPerInch = .03;
+        double millisPerInch = secondsPerInch * 1000;
 
         long t = System.currentTimeMillis();
         double distanceToTime = millisPerInch * inches;
         long time = (long) distanceToTime;
         long end = t + time;
-        System.out.println("the time it should take is... " + distanceToTime);
-        System.out.println(distanceToTime + "should be equal to... " + time);
-        System.out.println("the move end time is... " + end);
+//        System.out.println("the time it should take is... " + distanceToTime);
+//        System.out.println(distanceToTime + "should be equal to... " + time);
+//        System.out.println("the move end time is... " + end);
         do {
             driveTrainSubsystem.drive(turnSpeed, turnSpeed);
         } while (System.currentTimeMillis() < end);
@@ -322,7 +347,7 @@ public class Robot extends TimedRobot {
         double degrees = limelightSubsystem.getTx();
         double verticalDegrees = limelightSubsystem.getTy();
         double distance = calculateDistance(verticalDegrees);
-        double offset = calculateOffset(distance);
+        double offset = calculateOffset(degrees);
         RotationData rotationData = new RotationData(degrees, distance);
         return rotationData;
     }
