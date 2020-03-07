@@ -19,6 +19,9 @@ public class ConveyorCommand extends CommandBase {
 
     public void execute() {
         conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
+
+        conveyorSubsystem.reverseConvey(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft));
+        conveyorSubsystem.reverseConvey(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kRight));
     }
 
     @Override

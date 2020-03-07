@@ -27,4 +27,12 @@ public class ConveyorSubsystem extends SubsystemBase {
             topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor * conveyorSpeed);
         }
     }
+
+    public void reverseConvey(boolean conveyorReversing){
+        if (conveyorReversing){
+            bottomConveyor.set(VictorSPXControlMode.PercentOutput, -.6);
+            topConveyor.setInverted(true);
+            topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor * -.6);
+        }
+    }
 }
