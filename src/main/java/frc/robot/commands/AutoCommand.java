@@ -43,7 +43,7 @@ public class AutoCommand extends CommandBase {
     public void execute() {
 
         /** time-based movement protocol*/
-        driveTrainSubsystem.drive(.6, .6);
+        driveTrainSubsystem.drive(-.6, -.6);
         Timer.delay(3.6);
 
         driveTrainSubsystem.drive(0, 0);

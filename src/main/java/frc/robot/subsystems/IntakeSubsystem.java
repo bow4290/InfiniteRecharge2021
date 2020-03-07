@@ -17,7 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem(DoubleSolenoid intakeSolenoid, int intakeMotorChannel) {
         this.intakeSolenoid = intakeSolenoid;
         intakeMotor = new VictorSPX(intakeMotorChannel);
-        this.intakeStatus = DoubleSolenoid.Value.kForward;
+        this.intakeStatus = DoubleSolenoid.Value.kReverse;
         setDefaultCommand(new IntakeCommand(this));
     }
 
