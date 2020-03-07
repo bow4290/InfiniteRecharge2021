@@ -39,15 +39,15 @@ public class AutoCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        System.out.println("autoexecute");
-        robot.sense();
-        robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), 1);
-        robot.shoot(1,5000);
-        robot.wait(1);
-        robot.convey(.8, 4000);
-        robot.wait(3000);
-        robot.shoot(0,50);
-        robot.convey(0, 50);
+//        System.out.println("autoexecute");
+//        robot.sense();
+//        robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), 1);
+//        robot.shoot(1,5000);
+//        robot.wait(1);
+//        robot.convey(.8, 4000);
+//        robot.wait(3000);
+//        robot.shoot(0,50);
+//        robot.convey(0, 50);
 
     }
 
