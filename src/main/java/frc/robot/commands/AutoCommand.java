@@ -43,22 +43,41 @@ public class AutoCommand extends CommandBase {
     public void execute() {
 
         /** time-based movement protocol*/
-        driveTrainSubsystem.drive(-.6, -.6);
-        Timer.delay(3.6);
+        /** run up to low-port and put in 3 balls*/
+//        driveTrainSubsystem.drive(-.6, -.6);
+//        Timer.delay(3.6);
+//
+//        driveTrainSubsystem.drive(0, 0);
+//        shootingSubsystem.shootBall(.2);
+//        conveyorSubsystem.conveyBall(1);
+//        Timer.delay(5);
+//
+//        shootingSubsystem.shootBall(0);
+//        conveyorSubsystem.conveyBall(0);
 
-        driveTrainSubsystem.drive(0, 0);
-        shootingSubsystem.shootBall(.2);
-        conveyorSubsystem.conveyBall(1);
-        Timer.delay(5);
-
-        shootingSubsystem.shootBall(0);
-        conveyorSubsystem.conveyBall(0);
 
 
-
+        /** lime-based movement protocol*/
+        /** shoot into hex-port from multiple positions*/
 //        RotationData rotationData = robot.sense();
 //        robot.rotateWithLime(rotationData.getDegrees());
 //        robot.moveWithLime(rotationData.getDistance(), );
+//
+//        driveTrainSubsystem.drive(0, 0);
+//        shootingSubsystem.shootBall(.8);
+//        conveyorSubsystem.conveyBall(0);
+//        Timer.delay(1.5);
+//
+//        shootingSubsystem.shootBall(.8);
+//        conveyorSubsystem.conveyBall(1);
+//        Timer.delay(3);
+
+        /**
+         * testing auto method
+         */
+
+        shootingSubsystem.shootBall(.8);
+        Timer.delay(600);
     }
 
     /**

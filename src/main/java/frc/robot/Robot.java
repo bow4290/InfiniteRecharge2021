@@ -8,10 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -300,29 +297,19 @@ public class Robot extends TimedRobot {
 
     public void moveWithLime(double currentDistanceInches, double targetDistanceInches) {
         double turnSpeed = 0;
-        if (currentDistanceInches != 0){
-        double distanceDifference = targetDistanceInches - currentDistanceInches;
+        if (currentDistanceInches != 0) {
+            double distanceDifference = targetDistanceInches - currentDistanceInches;
 
-        if (distanceDifference < 0){
-            turnSpeed = .6;
-        } else if (distanceDifference > 0){
-            turnSpeed = -.6;
+            if (distanceDifference < 0) {
+                turnSpeed = .6;
+            } else if (distanceDifference > 0) {
+                turnSpeed = -.6;
+            }
+
+            double secondsPerInch = .03;
+            driveTrainSubsystem.drive(-turnSpeed, -turnSpeed);
+            Timer.delay(secondsPerInch * distanceDifference);
         }
-
-        double secondsPerInch = .03;
-        double millisPerInch = secondsPerInch * 1000;
-
-        long t = System.currentTimeMillis();
-        double distanceToTime = millisPerInch * Math.abs(distanceDifference);
-        long time = (long) distanceToTime;
-        long end = t + time;
-//        System.out.println("the time it should take is... " + distanceToTime);
-//        System.out.println(distanceToTime + "should be equal to... " + time);
-//        System.out.println("the move end time is... " + end);
-        do {
-            driveTrainSubsystem.drive(turnSpeed, turnSpeed);
-        } while (System.currentTimeMillis() < end);
-    }
     }
 
     public void move(double inches) {
