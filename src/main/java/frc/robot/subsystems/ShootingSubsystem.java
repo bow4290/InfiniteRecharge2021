@@ -56,8 +56,8 @@ public class ShootingSubsystem extends SubsystemBase {
 
             limelightSubsystem.limelightIsOn(false);
 
-            leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, -1);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, -1);
         } else if (!autoActive && manualActive) {
             limelightSubsystem.limelightIsOn(false);
 
@@ -81,8 +81,8 @@ public class ShootingSubsystem extends SubsystemBase {
 
             limelightSubsystem.limelightIsOn(false);
 
-            leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
         } else {
             limelightSubsystem.limelightIsOn(false);
         }

@@ -44,16 +44,16 @@ public class AutoCommand extends CommandBase {
 
         /** time-based movement protocol*/
         /** run up to low-port and put in 3 balls*/
-//        driveTrainSubsystem.drive(-.6, -.6);
-//        Timer.delay(3.6);
-//
-//        driveTrainSubsystem.drive(0, 0);
-//        shootingSubsystem.shootBall(.2);
-//        conveyorSubsystem.conveyBall(1);
-//        Timer.delay(5);
-//
-//        shootingSubsystem.shootBall(0);
-//        conveyorSubsystem.conveyBall(0);
+        driveTrainSubsystem.drive(-.6, -.6);
+        Timer.delay(3.6);
+
+        driveTrainSubsystem.drive(0, 0);
+        shootingSubsystem.shootBall(.2);
+        conveyorSubsystem.conveyBall(1);
+        Timer.delay(5);
+
+        shootingSubsystem.shootBall(0);
+        conveyorSubsystem.conveyBall(0);
 
 
 
@@ -73,8 +73,8 @@ public class AutoCommand extends CommandBase {
 //        Timer.delay(3);
 
         /**testing auto method*/
-        shootingSubsystem.shootBall(.8);
-        Timer.delay(600);
+//        shootingSubsystem.shootBall(.8);
+//        Timer.delay(600);
     }
 
     /**
