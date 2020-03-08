@@ -44,8 +44,8 @@ public class AutoCommand extends CommandBase {
 
         /** time-based movement protocol*/
         /** run up to low-port and put in 3 balls*/
-        driveTrainSubsystem.drive(-.6, -.6);
-        Timer.delay(3.6);
+        driveTrainSubsystem.drive(-.4, -.4);
+        Timer.delay(5.4);
 
         driveTrainSubsystem.drive(0, 0);
         shootingSubsystem.shootBall(.2);
