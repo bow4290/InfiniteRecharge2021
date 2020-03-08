@@ -72,10 +72,7 @@ public class AutoCommand extends CommandBase {
 //        conveyorSubsystem.conveyBall(1);
 //        Timer.delay(3);
 
-        /**
-         * testing auto method
-         */
-
+        /**testing auto method*/
         shootingSubsystem.shootBall(.8);
         Timer.delay(600);
     }
