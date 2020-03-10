@@ -2,9 +2,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.commands.ShootingCommand;
+import frc.robot.dataStructures.RotationData;
+
+import static frc.robot.Robot.*;
 
 public class ShootingSubsystem extends SubsystemBase {
     private final VictorSPX leftShooter;
@@ -42,22 +46,26 @@ public class ShootingSubsystem extends SubsystemBase {
             /**
              * limeShooting temporarily disabled until I know the target distance.
              */
-//            limelightSubsystem.limelightIsOn(true);
-//
-//            robot.sense();
-//            robot.rotateWithLime(limelightSubsystem.getTx());
-////            x = best shooting distance (in inches)
-////            robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), x);;
-//            robot.shoot(1, 5000);
-//            robot.wait(1);
-//            robot.convey(1, 4000);
-//            robot.convey(0, 0050);
-//            robot.shoot(0, 0050);
+            limelightSubsystem.limelightIsOn(true);
+
+            RotationData rotationData = robot.sense();
+            robot.rotateWithLime(rotationData.getDegrees());
+
+            //200 is a placeholder value for the shooting distance
+            robot.moveWithLime(rotationData.getDistance(), 210);
+            double moveTime = robot.moveWithLime(rotationData.getDistance(), 210);
+            Timer.delay(moveTime);
+
+            driveTrainSubsystem.drive(0, 0);
+            shootingSubsystem.shootBall(1);
+            conveyorSubsystem.conveyBall(0);
+            Timer.delay(1.5);
+
+            shootingSubsystem.shootBall(1);
+            conveyorSubsystem.conveyBall(1);
+            Timer.delay(3);
 
             limelightSubsystem.limelightIsOn(false);
-
-            leftShooter.set(VictorSPXControlMode.PercentOutput, -1);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, -1);
         } else if (!autoActive && manualActive) {
             limelightSubsystem.limelightIsOn(false);
 
@@ -67,22 +75,25 @@ public class ShootingSubsystem extends SubsystemBase {
             /**
              * limeShooting temporarily disabled until I know the target distance.
              */
-//            limelightSubsystem.limelightIsOn(true);
-//
-//            robot.sense();
-//            robot.rotateWithLime(limelightSubsystem.getTx());
-////            x = best shooting distance (in inches)
-////            robot.moveWithLime(robot.calculateDistance(limelightSubsystem.getTy()), x);;
-//            robot.shoot(1, 5000);
-//            robot.wait(1);
-//            robot.convey(1, 4000);
-//            robot.convey(0, 0050);
-//            robot.shoot(0, 0050);
+            limelightSubsystem.limelightIsOn(true);
+
+            RotationData rotationData = robot.sense();
+            robot.rotateWithLime(rotationData.getDegrees());
+
+            robot.moveWithLime(rotationData.getDistance(), 210);
+            double moveTime = robot.moveWithLime(rotationData.getDistance(), 210);
+            Timer.delay(moveTime);
+
+            driveTrainSubsystem.drive(0, 0);
+            shootingSubsystem.shootBall(1);
+            conveyorSubsystem.conveyBall(0);
+            Timer.delay(1.5);
+
+            shootingSubsystem.shootBall(1);
+            conveyorSubsystem.conveyBall(1);
+            Timer.delay(3);
 
             limelightSubsystem.limelightIsOn(false);
-
-            leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
         } else {
             limelightSubsystem.limelightIsOn(false);
         }

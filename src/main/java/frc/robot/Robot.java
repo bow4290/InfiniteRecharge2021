@@ -9,15 +9,12 @@ package frc.robot;
 
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
-
-
 
 
 /**
@@ -31,7 +28,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
-//    public static ColorSensorSubsystem colorSensorSubsystem;
+    //    public static ColorSensorSubsystem colorSensorSubsystem;
     public static LimelightSubsystem limelightSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
     public static IntakeSubsystem intakeSubsystem;
@@ -87,8 +84,8 @@ public class Robot extends TimedRobot {
         boolean pressureSwitch = compressor.getPressureSwitchValue();
         double current = compressor.getCompressorCurrent();
 
-        intakeSolenoid = new DoubleSolenoid(0,1);
-        fallStopSolenoid = new DoubleSolenoid(2,3);
+        intakeSolenoid = new DoubleSolenoid(0, 1);
+        fallStopSolenoid = new DoubleSolenoid(2, 3);
         gearShiftSolenoid = new DoubleSolenoid(4, 5);
 
 
@@ -186,44 +183,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         CommandScheduler.getInstance().run();
-//        System.out.println("I am inside autoPeriodic!");
-//        rotateWithTime(270);
-//        wait(2);
-//        move(6);
-
-        // uncomment when testing is done.
-//        do {
-//            limelightSubsystem.limelightIsOn(true);
-//            RotationData rotationData = sense();
-//            rotateWithTime(90);
-//            move(calculateOffset(limelightSubsystem.getTx()));
-//            rotateWithLime(limelightSubsystem.getTx());
-//            move(calculateDistance(limelightSubsystem.getTy()));
-//
-//            ShootPhase = true;
-//            PositionPhase = false;
-//        } while (PositionPhase = true);
-//
-//        do {
-//            shoot(1, 5000);
-//            wait(1000);
-//            convey(1, 5000);
-//            shoot(0, 0050);
-//            convey(0, 0050);
-//            //shoot'n stuff
-//
-//            AwayPhase = true;
-//            ShootPhase = false;
-//        } while (ShootPhase = true);
-//
-//        do {
-//            rotateWithTime(90);
-//            move(45);
-//            rotateWithTime(-90);
-//            limelightSubsystem.limelightIsOn(false);
-//
-//            AwayPhase = false;
-//        } while (AwayPhase = true);
     }
 
     public void rotateWithLime(double degrees) {
@@ -241,62 +200,21 @@ public class Robot extends TimedRobot {
             do {
                 driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
             } while (degrees != 0);
-        } else { }
+        } else {
+        }
     }
 
     public void rotateWithTime(double degrees) {
         System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
         double secondsPerDegree = 0.007;
-        double millisPerDegree = secondsPerDegree * 1000;
-        //for time, measure how long it take to turn 360 degrees, then divide by 360.
-
-        long t = System.currentTimeMillis();
-        double degreeToTime = millisPerDegree * degrees;
-        long time = (long) degreeToTime;
-        long end = t + time;
-        System.out.println("the time it should take is... " + degreeToTime + "\n\n\n");
-        System.out.println(degreeToTime + "should be equal to... " + time+ "\n\n\n");
-        System.out.println("the rotation end time is... " + end+ "\n\n\n");
-        do {
-            System.out.println("current time is: " + System.currentTimeMillis());
-            driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
-        } while (System.currentTimeMillis() < end);
+        driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+        Timer.delay(secondsPerDegree * degrees);
     }
 
-    public void shoot(double speedPercentage, int shootTimeMillis) {
-        long t = System.currentTimeMillis();
-        long end = t + shootTimeMillis;
-
-        while (System.currentTimeMillis() < end) {
-            shootingSubsystem.shootBall(speedPercentage);
-        }
-    }
-
-    public void convey(double speedPercentage, int conveyTimeMillis) {
-        long t = System.currentTimeMillis();
-        long end = t + conveyTimeMillis;
-
-        while (System.currentTimeMillis() < end) {
-            conveyorSubsystem.conveyBall(speedPercentage);
-        }
-
-    }
-
-
-    public void wait(int timeInSeconds) {
-        long t = System.currentTimeMillis();
-        long timeInMillis =  timeInSeconds *1000;
-        long end = t + timeInMillis;
-
-        while (System.currentTimeMillis() < end) {
-            conveyorSubsystem.conveyBall(0);
-        }
-
-    }
-
-    public void moveWithLime(double currentDistanceInches, double targetDistanceInches) {
+    public double moveWithLime(double currentDistanceInches, double targetDistanceInches) {
         double turnSpeed = 0;
+        double moveTime = 0;
         if (currentDistanceInches != 0) {
             double distanceDifference = targetDistanceInches - currentDistanceInches;
 
@@ -305,49 +223,30 @@ public class Robot extends TimedRobot {
             } else if (distanceDifference > 0) {
                 turnSpeed = -.6;
             }
+            driveTrainSubsystem.drive(-turnSpeed, -turnSpeed);
 
             double secondsPerInch = .03;
-            driveTrainSubsystem.drive(-turnSpeed, -turnSpeed);
-            Timer.delay(secondsPerInch * distanceDifference);
+            moveTime = secondsPerInch * distanceDifference;
         }
+        return moveTime;
     }
 
-    public void move(double inches) {
-        System.out.println("I'm inside the move method!");
-
-        double turnSpeed = .6;
-        double secondsPerInch = .03;
-        double millisPerInch = secondsPerInch * 1000;
-
-        long t = System.currentTimeMillis();
-        double distanceToTime = millisPerInch * inches;
-        long time = (long) distanceToTime;
-        long end = t + time;
-//        System.out.println("the time it should take is... " + distanceToTime);
-//        System.out.println(distanceToTime + "should be equal to... " + time);
-//        System.out.println("the move end time is... " + end);
-        do {
-            driveTrainSubsystem.drive(turnSpeed, turnSpeed);
-        } while (System.currentTimeMillis() < end);
-    }
 
     public RotationData sense() {
         double degrees = limelightSubsystem.getTx();
         double verticalDegrees = limelightSubsystem.getTy();
         double distance = calculateDistance(verticalDegrees);
         double offset = calculateOffset(degrees);
-        RotationData rotationData = new RotationData(degrees, distance);
+        RotationData rotationData = new RotationData(degrees, distance, offset);
         return rotationData;
     }
 
     public double calculateDistance(double verticalDegrees) {
-
         double distance = heightDifferenceInches / Math.tan(verticalDegrees + 38.5);
         return distance;
     }
 
     public double calculateOffset(double degrees) {
-
         double offset = Math.tan(degrees) * calculateDistance(limelightSubsystem.getTy());
         return offset;
     }
@@ -360,7 +259,6 @@ public class Robot extends TimedRobot {
         // this line or comment it out.
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
-
         }
         limelightSubsystem.limelightIsOn(false);
         limelightSubsystem.cameraMode(false);
@@ -371,12 +269,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-//        System.out.println("Raw color is" + colorSensorSubsystem.m_colorSensor.getRawColor());
     }
 
     @Override
     public void testInit() {
-        // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
     }
 
@@ -386,5 +282,4 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
     }
-
 }
