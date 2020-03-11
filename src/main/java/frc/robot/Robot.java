@@ -187,20 +187,19 @@ public class Robot extends TimedRobot {
 
     public void rotateWithLime(double degrees) {
         double turnSpeed = .6;
-
+        System.out.println("degrees is equal to... " + degrees);
         /**
          * if the target is to the right, move left side forward and right side back.
          * if the target is to the left, move right side forward and left side back.
          */
         if (degrees > 0) {
-            do {
-                driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
-            } while (degrees != 0);
-        } else if (degrees < 0) {
-            do {
-                driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
-            } while (degrees != 0);
-        } else {
+            driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+            Timer.delay(1);
+            driveTrainSubsystem.drive(0, 0);
+        } else if  (degrees < 0) {
+            driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
+            Timer.delay(1);
+            driveTrainSubsystem.drive(0, 0);
         }
     }
 
@@ -208,9 +207,9 @@ public class Robot extends TimedRobot {
         System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
         double secondsPerDegree = 0.007;
-        if (degrees < 0){
+        if (degrees < 0) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
-        }else if (degrees > 0){
+        } else if (degrees > 0) {
             driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
         }
         Timer.delay(secondsPerDegree * degrees);
