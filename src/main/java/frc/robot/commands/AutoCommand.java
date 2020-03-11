@@ -8,23 +8,30 @@ import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 
 public class AutoCommand extends CommandBase {
     private final ConveyorSubsystem conveyorSubsystem;
     private final DriveTrainSubsystem driveTrainSubsystem;
     private final LimelightSubsystem limelightSubsystem;
+    private final IntakeSubsystem intakeSubsystem;
     private final ShootingSubsystem shootingSubsystem;
     private Robot robot;
 
 
-    public AutoCommand(Robot robot, ConveyorSubsystem conveyorSubsystem, DriveTrainSubsystem driveTrainSubsystem, LimelightSubsystem limelightSubsystem, ShootingSubsystem shootingSubsystem) {
+    public AutoCommand(Robot robot, ConveyorSubsystem conveyorSubsystem,
+                       DriveTrainSubsystem driveTrainSubsystem,
+                       LimelightSubsystem limelightSubsystem,
+                       ShootingSubsystem shootingSubsystem,
+                       IntakeSubsystem intakeSubsystem) {
         this.conveyorSubsystem = conveyorSubsystem;
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.limelightSubsystem = limelightSubsystem;
         this.shootingSubsystem = shootingSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
         this.robot = robot;
-        addRequirements(conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem);
+        addRequirements(conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem, intakeSubsystem);
     }
 
     /**
@@ -58,6 +65,7 @@ public class AutoCommand extends CommandBase {
 
         /** lime-based movement protocol*/
         /** shoot into hex-port from multiple positions*/
+        /** robot should generally be infront of goal*/
 //        RotationData rotationData = robot.sense();
 //        robot.rotateWithLime(rotationData.getDegrees());
 //        robot.moveWithLime(rotationData.getDistance(), 210);
@@ -75,9 +83,36 @@ public class AutoCommand extends CommandBase {
 //        conveyorSubsystem.conveyBall(0);
 //        Timer.delay(3);
 
-        /**testing auto method*/
-//        shootingSubsystem.shootBall(1);
-//        Timer.delay(600);
+        /** lime & time based protocol*/
+        /** shoot then reload*/
+        /** robot must be aligned to the goal*/
+        RotationData rotationData = robot.sense();
+        robot.rotateWithLime(rotationData.getDegrees());
+        robot.moveWithLime(rotationData.getDistance(), 210);
+
+        driveTrainSubsystem.drive(0, 0);
+        shootingSubsystem.shootBall(1);
+        conveyorSubsystem.conveyBall(0);
+        Timer.delay(1.5);
+
+        shootingSubsystem.shootBall(1);
+        conveyorSubsystem.conveyBall(1);
+        Timer.delay(3);
+
+        shootingSubsystem.shootBall(0);
+        conveyorSubsystem.conveyBall(0);
+        Timer.delay(3);
+
+        robot.rotateWithTime(90);
+
+        driveTrainSubsystem.drive(.8, .8);
+        Timer.delay(3.85);
+
+        robot.rotateWithTime(-90);
+
+        intakeSubsystem.intakeBall(.75);
+        driveTrainSubsystem.drive(.8, .8);
+        Timer.delay(4);
     }
 
     /**

@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
         limelightSubsystem = new LimelightSubsystem();
 
         intakeSubsystem = new IntakeSubsystem(intakeSolenoid, intakeMotorChannel);
-        autonomousCommand = new AutoCommand(this, conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem);
+        autonomousCommand = new AutoCommand(this, conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem, intakeSubsystem);
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -208,7 +208,11 @@ public class Robot extends TimedRobot {
         System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
         double secondsPerDegree = 0.007;
-        driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+        if (degrees < 0){
+            driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+        }else if (degrees > 0){
+            driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
+        }
         Timer.delay(secondsPerDegree * degrees);
     }
 
