@@ -86,33 +86,33 @@ public class AutoCommand extends CommandBase {
         /** lime & time based protocol*/
         /** shoot then reload*/
         /** robot must be aligned to the goal*/
-        RotationData rotationData = robot.sense();
-        robot.rotateWithLime(rotationData.getDegrees());
-        robot.moveWithLime(rotationData.getDistance(), 210);
-
-        driveTrainSubsystem.drive(0, 0);
-        shootingSubsystem.shootBall(1);
-        conveyorSubsystem.conveyBall(0);
-        Timer.delay(1.5);
-
-        shootingSubsystem.shootBall(1);
-        conveyorSubsystem.conveyBall(1);
-        Timer.delay(3);
-
-        shootingSubsystem.shootBall(0);
-        conveyorSubsystem.conveyBall(0);
-        Timer.delay(3);
-
-        robot.rotateWithTime(90);
-
-        driveTrainSubsystem.drive(.8, .8);
-        Timer.delay(3.85);
-
-        robot.rotateWithTime(-90);
-
-        intakeSubsystem.intakeBall(.75);
-        driveTrainSubsystem.drive(.8, .8);
-        Timer.delay(4);
+//        RotationData rotationData = robot.sense();
+//        robot.rotateWithLime(rotationData.getDegrees());
+//        robot.moveWithLime(rotationData.getDistance(), 210);
+//
+//        driveTrainSubsystem.drive(0, 0);
+//        shootingSubsystem.shootBall(1);
+//        conveyorSubsystem.conveyBall(0);
+//        Timer.delay(1.5);
+//
+//        shootingSubsystem.shootBall(1);
+//        conveyorSubsystem.conveyBall(1);
+//        Timer.delay(3);
+//
+//        shootingSubsystem.shootBall(0);
+//        conveyorSubsystem.conveyBall(0);
+//        Timer.delay(3);
+//
+//        robot.rotateWithTime(90);
+//
+//        driveTrainSubsystem.drive(.8, .8);
+//        Timer.delay(3.85);
+//
+//        robot.rotateWithTime(-90);
+//
+//        intakeSubsystem.intakeBall(.75);
+//        driveTrainSubsystem.drive(.8, .8);
+//        Timer.delay(4);
     }
 
     /**
