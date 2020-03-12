@@ -16,6 +16,9 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -166,10 +169,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         System.out.println("I am inside autoinit!");
-
-//        rotateWithTime(270);
-//        wait(2);
-//        move(6);
+        limelightSubsystem.limelightIsOn(true);
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             System.out.println("scheduling autocommand");
@@ -185,34 +185,16 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
     }
 
-    public void rotateWithLime(double degrees) {
+    public void rotate(double degrees) {
+        System.out.println("I'm inside the rotate method!");
         double turnSpeed = .6;
-        System.out.println("degrees is equal to... " + degrees);
-        /**
-         * if the target is to the right, move left side forward and right side back.
-         * if the target is to the left, move right side forward and left side back.
-         */
-        if (degrees > 0) {
-            driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
-            Timer.delay(1);
-            driveTrainSubsystem.drive(0, 0);
-        } else if  (degrees < 0) {
-            driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
-            Timer.delay(1);
-            driveTrainSubsystem.drive(0, 0);
-        }
-    }
-
-    public void rotateWithTime(double degrees) {
-        System.out.println("I'm inside the rotateWithTime method!");
-        double turnSpeed = .6;
-        double secondsPerDegree = 0.007;
+        double secondsPerDegree = 0.008;
         if (degrees < 0) {
             driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
         } else if (degrees > 0) {
             driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
         }
-        Timer.delay(secondsPerDegree * degrees);
+        Timer.delay(secondsPerDegree * Math.abs(degrees));
     }
 
     public double moveWithLime(double currentDistanceInches, double targetDistanceInches) {
@@ -236,11 +218,27 @@ public class Robot extends TimedRobot {
 
 
     public RotationData sense() {
-        double degrees = limelightSubsystem.getTx();
-        double verticalDegrees = limelightSubsystem.getTy();
+        double totalXDegrees = 0;
+        double totalYDegrees = 0;
+        int iterationCount = 100;
+        int count = 0;
+        for (int i = 0; i< iterationCount; i++) {
+            double x = limelightSubsystem.getTx();
+            double y = limelightSubsystem.getTy();
+            if ( x + y != 0.0) {
+                totalXDegrees += x;
+                totalYDegrees += y;
+                count++;
+            }
+        }
+
+        double degrees = totalXDegrees/count;
+        double verticalDegrees = totalYDegrees/count;
         double distance = calculateDistance(verticalDegrees);
         double offset = calculateOffset(degrees);
         RotationData rotationData = new RotationData(degrees, distance, offset);
+        System.out.println("degrees is..." + degrees);
+        System.out.println("vertical degrees is..." + verticalDegrees);
         return rotationData;
     }
 
@@ -263,7 +261,6 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
-        limelightSubsystem.limelightIsOn(false);
         limelightSubsystem.cameraMode(false);
     }
 

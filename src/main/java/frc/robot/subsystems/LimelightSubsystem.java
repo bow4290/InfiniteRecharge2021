@@ -56,6 +56,7 @@ public class LimelightSubsystem extends SubsystemBase {
      * @return tx as reported by the Limelight.
      */
     public static double getTx() {
+        System.out.println("tx is... " + getValue("tx").getDouble(0.00));
         return getValue("tx").getDouble(0.00);
     }
 
@@ -65,6 +66,7 @@ public class LimelightSubsystem extends SubsystemBase {
      * @return ty as reported by the Limelight.
      */
     public static double getTy() {
+        System.out.println("ty is... " + getValue("ty").getDouble(0.00));
         return getValue("ty").getDouble(0.00);
     }
 
