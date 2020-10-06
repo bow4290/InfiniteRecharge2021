@@ -22,9 +22,6 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intakeBall(double intakeSpeed) {
-        if (intakeSpeed > .75) {
-            intakeSpeed = .75;
-        }
         intakeMotor.set(VictorSPXControlMode.PercentOutput, intakeSpeed);
     }
 

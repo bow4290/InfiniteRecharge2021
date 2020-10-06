@@ -48,22 +48,30 @@ public class ShootingSubsystem extends SubsystemBase {
              */
             limelightSubsystem.limelightIsOn(true);
 
-            RotationData rotationData = robot.sense();
-            robot.rotate(rotationData.getDegrees());
-
-            //200 is a placeholder value for the shooting distance
-            robot.moveWithLime(rotationData.getDistance(), 210);
-            double moveTime = robot.moveWithLime(rotationData.getDistance(), 210);
-            Timer.delay(moveTime);
-
-            driveTrainSubsystem.drive(0, 0);
-            shootingSubsystem.shootBall(1);
-            conveyorSubsystem.conveyBall(0);
-            Timer.delay(1.5);
-
-            shootingSubsystem.shootBall(1);
-            conveyorSubsystem.conveyBall(1);
-            Timer.delay(3);
+//            for (int i = 0; i < 10; i++) {
+//                RotationData rotationData = robot.sense();
+//                System.out.println("the degrees is... " + rotationData.getDegrees());
+//                robot.rotate(rotationData.getDegrees());
+//            }
+//
+//            for (int i = 0; i < 10; i++) {
+//                RotationData rotationData = robot.sense();
+//                System.out.println("the degrees is... " + rotationData.getDegrees());
+//                robot.moveWithLime(rotationData.getDistance(), 210);
+//            }
+////
+//            driveTrainSubsystem.drive(0, 0);
+//            shootingSubsystem.shootBall(1);
+//            conveyorSubsystem.conveyBall(0);
+//            Timer.delay(1.5);
+//
+//            shootingSubsystem.shootBall(1);
+//            conveyorSubsystem.conveyBall(1);
+//            Timer.delay(3);
+//
+//            shootingSubsystem.shootBall(0);
+//            conveyorSubsystem.conveyBall(0);
+//            Timer.delay(3);
 
             limelightSubsystem.limelightIsOn(false);
         } else if (!autoActive && manualActive) {
@@ -77,21 +85,34 @@ public class ShootingSubsystem extends SubsystemBase {
              */
             limelightSubsystem.limelightIsOn(true);
 
-            RotationData rotationData = robot.sense();
-            robot.rotate(rotationData.getDegrees());
-
-            robot.moveWithLime(rotationData.getDistance(), 210);
-            double moveTime = robot.moveWithLime(rotationData.getDistance(), 210);
-            Timer.delay(moveTime);
-
-            driveTrainSubsystem.drive(0, 0);
-            shootingSubsystem.shootBall(1);
-            conveyorSubsystem.conveyBall(0);
-            Timer.delay(1.5);
-
-            shootingSubsystem.shootBall(1);
-            conveyorSubsystem.conveyBall(1);
-            Timer.delay(3);
+//            driveTrainSubsystem.drive(0, 0);
+//            shootingSubsystem.shootBall(0);
+//            conveyorSubsystem.conveyBall(0);
+//            Timer.delay(1.5);
+//            for (int i = 0; i < 10; i++) {
+//                RotationData rotationData = robot.sense();
+//                System.out.println("the degrees is... " + rotationData.getDegrees());
+//                robot.rotate(rotationData.getDegrees());
+//            }
+//
+//            for (int i = 0; i < 10; i++) {
+//                RotationData rotationData = robot.sense();
+//                System.out.println("the degrees is... " + rotationData.getDegrees());
+//                robot.moveWithLime(rotationData.getDistance(), 210);
+//            }
+//
+//            driveTrainSubsystem.drive(0, 0);
+//            shootingSubsystem.shootBall(1);
+//            conveyorSubsystem.conveyBall(0);
+//            Timer.delay(1.5);
+//
+//            shootingSubsystem.shootBall(1);
+//            conveyorSubsystem.conveyBall(1);
+//            Timer.delay(3);
+//
+//            shootingSubsystem.shootBall(0);
+//            conveyorSubsystem.conveyBall(0);
+//            Timer.delay(3);
 
             limelightSubsystem.limelightIsOn(false);
         } else {
