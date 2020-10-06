@@ -49,7 +49,7 @@ public class ShootingSubsystem extends SubsystemBase {
             limelightSubsystem.limelightIsOn(true);
 
             RotationData rotationData = robot.sense();
-            robot.rotateWithLime(rotationData.getDegrees());
+            robot.rotate(rotationData.getDegrees());
 
             //200 is a placeholder value for the shooting distance
             robot.moveWithLime(rotationData.getDistance(), 210);
@@ -78,7 +78,7 @@ public class ShootingSubsystem extends SubsystemBase {
             limelightSubsystem.limelightIsOn(true);
 
             RotationData rotationData = robot.sense();
-            robot.rotateWithLime(rotationData.getDegrees());
+            robot.rotate(rotationData.getDegrees());
 
             robot.moveWithLime(rotationData.getDistance(), 210);
             double moveTime = robot.moveWithLime(rotationData.getDistance(), 210);

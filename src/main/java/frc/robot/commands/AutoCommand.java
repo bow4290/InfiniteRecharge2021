@@ -62,25 +62,30 @@ public class AutoCommand extends CommandBase {
 //        shootingSubsystem.shootBall(0);
 //        conveyorSubsystem.conveyBall(0);
 
+
         /** lime-based movement protocol*/
         /** shoot into hex-port from multiple positions*/
-        /** robot should generally be in front of goal*/
-        RotationData rotationData = robot.sense();
-        robot.rotateWithLime(rotationData.getDegrees());
-        robot.moveWithLime(rotationData.getDistance(), 210);
+        /** robot should generally be infront of goal*/
+        for (int i = 0; i < 10; i++) {
+            RotationData rotationData = robot.sense();
+            System.out.println("the degrees is... " + rotationData.getDegrees());
+            robot.rotate(rotationData.getDegrees());
+        }
+//        robot.moveWithLime(rotationData.getDistance(), 210);
 
-        driveTrainSubsystem.drive(0, 0);
-        shootingSubsystem.shootBall(1);
-        conveyorSubsystem.conveyBall(0);
-        Timer.delay(1.5);
-
-        shootingSubsystem.shootBall(1);
-        conveyorSubsystem.conveyBall(1);
-        Timer.delay(3);
-
-        shootingSubsystem.shootBall(0);
-        conveyorSubsystem.conveyBall(0);
-        Timer.delay(3);
+//
+//        driveTrainSubsystem.drive(0, 0);
+//        shootingSubsystem.shootBall(1);
+//        conveyorSubsystem.conveyBall(0);
+//        Timer.delay(1.5);
+//
+//        shootingSubsystem.shootBall(1);
+//        conveyorSubsystem.conveyBall(1);
+//        Timer.delay(3);
+//
+//        shootingSubsystem.shootBall(0);
+//        conveyorSubsystem.conveyBall(0);
+//        Timer.delay(3);
 
         /** lime & time based protocol*/
         /** shoot then reload*/

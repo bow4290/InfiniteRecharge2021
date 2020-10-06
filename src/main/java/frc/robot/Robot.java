@@ -16,6 +16,9 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -167,9 +170,6 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         System.out.println("I am inside autoinit!");
         limelightSubsystem.limelightIsOn(true);
-//        rotateWithTime(270);
-//        wait(2);
-//        move(6);
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             System.out.println("scheduling autocommand");
@@ -237,11 +237,27 @@ public class Robot extends TimedRobot {
 
 
     public RotationData sense() {
-        double degrees = limelightSubsystem.getTx();
-        double verticalDegrees = limelightSubsystem.getTy();
+        double totalXDegrees = 0;
+        double totalYDegrees = 0;
+        int iterationCount = 100;
+        int count = 0;
+        for (int i = 0; i< iterationCount; i++) {
+            double x = limelightSubsystem.getTx();
+            double y = limelightSubsystem.getTy();
+            if ( x + y != 0.0) {
+                totalXDegrees += x;
+                totalYDegrees += y;
+                count++;
+            }
+        }
+
+        double degrees = totalXDegrees/count;
+        double verticalDegrees = totalYDegrees/count;
         double distance = calculateDistance(verticalDegrees);
         double offset = calculateOffset(degrees);
         RotationData rotationData = new RotationData(degrees, distance, offset);
+        //System.out.println("degrees is..." + degrees);
+        //System.out.println("vertical degrees is..." + verticalDegrees);
         return rotationData;
     }
 
