@@ -166,7 +166,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         System.out.println("I am inside autoinit!");
-
+        limelightSubsystem.limelightIsOn(true);
 //        rotateWithTime(270);
 //        wait(2);
 //        move(6);
