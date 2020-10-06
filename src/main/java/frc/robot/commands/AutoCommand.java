@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.dataStructures.RotationData;
@@ -65,26 +66,32 @@ public class AutoCommand extends CommandBase {
         /** lime-based movement protocol*/
         /** shoot into hex-port from multiple positions*/
         /** robot should generally be infront of goal*/
-        for (int i = 0; i < 10; i++) {
+        boolean targetSeen = limelightSubsystem.isTarget();
+
+        for (int i = 0; i < 5; i++) {
             RotationData rotationData = robot.sense();
-            System.out.println("the degrees is... " + rotationData.getDegrees());
+            System.out.println("the horizontal degrees is... " + rotationData.getDegrees());
             robot.rotate(rotationData.getDegrees());
         }
-//        robot.moveWithLime(rotationData.getDistance(), 210);
 
+        for (int i = 0; i < 3; i++) {
+            RotationData rotationData = robot.sense();
+            System.out.println("the vertical degrees is... " + rotationData.getDegrees());
+            robot.moveWithLime(rotationData.getDistance(), 210);
+        }
 //
-//        driveTrainSubsystem.drive(0, 0);
-//        shootingSubsystem.shootBall(1);
-//        conveyorSubsystem.conveyBall(0);
-//        Timer.delay(1.5);
-//
-//        shootingSubsystem.shootBall(1);
-//        conveyorSubsystem.conveyBall(1);
-//        Timer.delay(3);
-//
-//        shootingSubsystem.shootBall(0);
-//        conveyorSubsystem.conveyBall(0);
-//        Timer.delay(3);
+        driveTrainSubsystem.drive(0, 0);
+        shootingSubsystem.shootBall(1);
+        conveyorSubsystem.conveyBall(0);
+        Timer.delay(1.5);
+
+        shootingSubsystem.shootBall(1);
+        conveyorSubsystem.conveyBall(1);
+        Timer.delay(3);
+
+        shootingSubsystem.shootBall(0);
+        conveyorSubsystem.conveyBall(0);
+        Timer.delay(3);
 
         /** lime & time based protocol*/
         /** shoot then reload*/
