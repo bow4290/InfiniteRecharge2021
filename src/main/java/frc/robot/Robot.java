@@ -204,6 +204,19 @@ public class Robot extends TimedRobot {
         }
     }
 
+    public void rotate(double degrees) {
+        System.out.println("I'm inside the rotate method!");
+        double turnSpeed = .6;
+        double secondsPerDegree = 0.008;
+        if (degrees < 0) {
+            driveTrainSubsystem.drive(turnSpeed, -turnSpeed);
+        } else if (degrees > 0) {
+            driveTrainSubsystem.drive(-turnSpeed, turnSpeed);
+        }
+        Timer.delay(secondsPerDegree * Math.abs(degrees));
+
+    }
+
     public void rotateWithTime(double degrees) {
         System.out.println("I'm inside the rotateWithTime method!");
         double turnSpeed = .6;
