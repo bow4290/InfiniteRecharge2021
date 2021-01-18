@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
@@ -13,6 +14,8 @@ public class ShootingCommand extends CommandBase {
 
     private ShootingSubsystem shootingSubsystem;
     private final Set<Subsystem> subsystems;
+    public double shooterSpeed = 1;
+    public String mode = "Green";
 
     public ShootingCommand(ShootingSubsystem shootingSubsystem) {
         this.shootingSubsystem = shootingSubsystem;
@@ -23,10 +26,30 @@ public class ShootingCommand extends CommandBase {
      * this will display the y value of the left joystcik
      */
     public void execute() {
+        if(mode == "Red" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+            mode = "Green";
+            shooterSpeed = 0.95;
+        }
+        if(mode == "Green" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+            mode = "Yellow";
+            shooterSpeed = 0.82;
+        }
+        if(mode == "Yellow" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+            mode = "Blue";
+            shooterSpeed = 0.92;
+        }
+        if(mode == "Blue" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+            mode = "Red";
+            shooterSpeed = 0.98;
+        }
+        
+        SmartDashboard.putString("ZONE COLOR", mode);
+
 //        SmartDashboard.putBoolean("Left value", RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft));
         shootingSubsystem.dualShoot(
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft),
-                RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
+                RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
+                shooterSpeed
         );
     }
 

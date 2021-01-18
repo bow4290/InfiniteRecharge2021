@@ -29,7 +29,7 @@ public class ShootingSubsystem extends SubsystemBase {
     }
 
 
-    public void dualShoot(boolean autoActive, boolean manualActive) {
+    public void dualShoot(boolean autoActive, boolean manualActive, double shooterSpeed) {
         leftShooter.setInverted(true);
         rightShooter.setInverted(true);
 
@@ -55,8 +55,8 @@ public class ShootingSubsystem extends SubsystemBase {
         else if (!autoActive && manualActive) {
             limelightSubsystem.limelightIsOn(false);
 
-            leftShooter.set(VictorSPXControlMode.PercentOutput, 1);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, 1);
+            leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
         }
 
         else if (autoActive && manualActive) {
