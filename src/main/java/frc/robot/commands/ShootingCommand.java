@@ -45,9 +45,9 @@ public class ShootingCommand extends CommandBase {
         
         SmartDashboard.putString("ZONE COLOR", mode);
 
-//        SmartDashboard.putBoolean("Left value", RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft));
         shootingSubsystem.dualShoot(
-                RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft),
+                //RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft),
+                0,
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
                 shooterSpeed
         );
