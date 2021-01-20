@@ -14,6 +14,7 @@ public class ShootingCommand extends CommandBase {
 
     private ShootingSubsystem shootingSubsystem;
     private final Set<Subsystem> subsystems;
+    
     public double shooterSpeed = 1;
     public String mode = "Green";
 
@@ -22,9 +23,6 @@ public class ShootingCommand extends CommandBase {
         this.subsystems = Set.of(shootingSubsystem);
     }
 
-    /**
-     * this will display the y value of the left joystcik
-     */
     public void execute() {
         if(mode == "Red" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Green";
@@ -45,7 +43,6 @@ public class ShootingCommand extends CommandBase {
         
         SmartDashboard.putString("ZONE COLOR", mode);
 
-//        SmartDashboard.putBoolean("Left value", RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft));
         shootingSubsystem.dualShoot(
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft),
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
