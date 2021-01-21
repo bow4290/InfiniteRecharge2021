@@ -51,7 +51,7 @@ public class Robot extends TimedRobot {
     boolean AwayPhase = false;
     public DoubleSolenoid intakeSolenoid;
     public DoubleSolenoid gearShiftSolenoid;
-    public DoubleSolenoid fallStopSolenoid;
+    public DoubleSolenoid shooterSolenoid;
 
     double heightDifferenceInches = 78.75;
 
@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
         double current = compressor.getCompressorCurrent();
 
         intakeSolenoid = new DoubleSolenoid(0,1);
-        fallStopSolenoid = new DoubleSolenoid(2,3);
+        shooterSolenoid = new DoubleSolenoid(2,3);
         gearShiftSolenoid = new DoubleSolenoid(4, 5);
 
 
@@ -105,11 +105,11 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(gearShiftSolenoid, leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
 //        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-        shootingSubsystem = new ShootingSubsystem(leftShooterChannel, rightShooterChannel, this);
+        shootingSubsystem = new ShootingSubsystem(shooterSolenoid, leftShooterChannel, rightShooterChannel, this.robot);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
-        climberSubsystem = new ClimberSubsystem(fallStopSolenoid, climberMotorChannel);
+        climberSubsystem = new ClimberSubsystem(climberMotorChannel);
 
         limelightSubsystem = new LimelightSubsystem();
 
@@ -135,6 +135,7 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        SmartDashboard.putNumber("Shooter Encoder Rate:", conveyorSubsystem.shooterEncoder.getRate());
 //        System.out.println("here");
 
 //        Color detectedColor = colorSensorSubsystem.getColor();

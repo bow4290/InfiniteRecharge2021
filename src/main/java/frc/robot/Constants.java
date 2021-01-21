@@ -16,5 +16,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+        //shooter encoder constants:
+        public final int shooterEncoderChannelA = 0;
+        public final int shooterEncoderChannelB = 1;
+        public final int shooterEncoderAverageSamples = 5;
 
 }

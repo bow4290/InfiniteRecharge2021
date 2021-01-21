@@ -13,13 +13,9 @@ public class ClimberSubsystem extends SubsystemBase {
 
 
     private final VictorSPX climbingMotor;
-    private  final DoubleSolenoid fallStopSolenoid;
-    public DoubleSolenoid.Value intakeStatus;
 
-    public ClimberSubsystem(DoubleSolenoid fallStopSolenoid, int climbingMotorChannel) {
-        this.fallStopSolenoid = fallStopSolenoid;
+    public ClimberSubsystem(int climbingMotorChannel) {
         climbingMotor = new VictorSPX(climbingMotorChannel);
-        this.intakeStatus = DoubleSolenoid.Value.kForward;
         setDefaultCommand(new ClimberCommand(this));
     }
 
@@ -31,19 +27,5 @@ public class ClimberSubsystem extends SubsystemBase {
         else
             climbingMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
-    public void stopClimber(boolean buttonPressed){
-        if (buttonPressed) {
-            swapSolenoidPosition();
-        }
-    }
 
-    private void swapSolenoidPosition() {
-        if (this.intakeStatus == DoubleSolenoid.Value.kForward){
-            this.intakeStatus = DoubleSolenoid.Value.kReverse;
-        }
-        else {
-            this.intakeStatus = DoubleSolenoid.Value.kForward;
-        }
-        fallStopSolenoid.set(this.intakeStatus);
-    }
 }

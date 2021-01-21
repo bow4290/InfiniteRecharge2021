@@ -2,7 +2,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.commands.ShootingCommand;
 
@@ -11,14 +15,19 @@ public class ShootingSubsystem extends SubsystemBase {
     private final VictorSPX rightShooter;
     public static LimelightSubsystem limelightSubsystem;
     public Robot robot;
+    public DoubleSolenoid shooterSolenoid;
+    public DoubleSolenoid.Value intakeStatus;
 
 
-    public ShootingSubsystem(int leftShooterChannel, int rightShooterChannel, Robot robot) {
+
+    public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
         setDefaultCommand(new ShootingCommand(this));
         limelightSubsystem = new LimelightSubsystem();
         this.robot = robot;
+        this.shooterSolenoid = shooterSolenoid;
+        intakeStatus = DoubleSolenoid.Value.kReverse;
     }
 
     public void shootBall(double shooterSpeed) {
@@ -73,6 +82,22 @@ public class ShootingSubsystem extends SubsystemBase {
             limelightSubsystem.limelightIsOn(false);
         }
 
+    }
+
+    public void moveConveyor(boolean buttonPressed){
+        if (buttonPressed) {
+            swapSolenoidPosition();
+        }
+    }
+
+    private void swapSolenoidPosition() {
+
+        if (intakeStatus == DoubleSolenoid.Value.kForward) {
+            intakeStatus = DoubleSolenoid.Value.kReverse;
+        } else {
+            intakeStatus = DoubleSolenoid.Value.kForward;
+        }
+        shooterSolenoid.set(intakeStatus);
     }
 }
 

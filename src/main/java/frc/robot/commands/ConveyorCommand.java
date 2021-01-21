@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
+import frc.robot.commands.ShootingCommand;
 
 import java.util.Set;
 
@@ -18,7 +20,17 @@ public class ConveyorCommand extends CommandBase {
     }
 
     public void execute() {
-        conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
+
+        double shooterEncoderRate = conveyorSubsystem.shooterEncoder.getRate();
+
+        if(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) > 0
+                && RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
+                && shooterEncoderRate < ShootingCommand.rateSpeed) {
+           conveyorSubsystem.conveyBall(0.0);
+        }
+        else {
+            conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
+        }
     }
 
     @Override
