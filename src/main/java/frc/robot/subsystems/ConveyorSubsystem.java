@@ -20,7 +20,7 @@ public class ConveyorSubsystem extends SubsystemBase {
     public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel) {
         topConveyor = new VictorSPX(topMotorChannel);
         bottomConveyor = new VictorSPX(bottomMotorChannel);
-        shooterEncoder = new Encoder(constants.shooterEncoderChannelA, constants.shooterEncoderChannelB, false, CounterBase.EncodingType.k4X);
+        shooterEncoder = new Encoder(constants.shooterEncoderChannelA, constants.shooterEncoderChannelB, true, CounterBase.EncodingType.k4X);
         shooterEncoder.setSamplesToAverage(constants.shooterEncoderAverageSamples);
         setDefaultCommand(new ConveyorCommand(this));
     }
