@@ -13,9 +13,11 @@ public class ClimberSubsystem extends SubsystemBase {
 
 
     private final VictorSPX climbingMotor;
+    private final VictorSPX wheelMotor;
 
-    public ClimberSubsystem(int climbingMotorChannel) {
+    public ClimberSubsystem(int climbingMotorChannel, int wheelSpinnerChannel) {
         climbingMotor = new VictorSPX(climbingMotorChannel);
+        wheelMotor = new VictorSPX(wheelSpinnerChannel);
         setDefaultCommand(new ClimberCommand(this));
     }
 
@@ -23,9 +25,10 @@ public class ClimberSubsystem extends SubsystemBase {
         if (climbingUp)
             climbingMotor.set(VictorSPXControlMode.PercentOutput, 1);
         else if (climbingDown)
-            climbingMotor.set(VictorSPXControlMode.PercentOutput, -1);
+            wheelMotor.set(VictorSPXControlMode.PercentOutput, 1);
         else
             climbingMotor.set(VictorSPXControlMode.PercentOutput, 0);
+            wheelMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
 
 }

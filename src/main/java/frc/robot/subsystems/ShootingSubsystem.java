@@ -64,8 +64,16 @@ public class ShootingSubsystem extends SubsystemBase {
         else if (!autoActive && manualActive) {
             limelightSubsystem.limelightIsOn(false);
 
+            if (shooterSpeed > 1) {
+                shooterSpeed = 1;
+            }
+            if(ShootingCommand.mode == "IDLE"){
+                leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
+                rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
+            } else{
             leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed*0.9);
+        }
         }
 
         else if (autoActive && manualActive) {

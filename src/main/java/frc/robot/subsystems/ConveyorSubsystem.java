@@ -27,12 +27,11 @@ public class ConveyorSubsystem extends SubsystemBase {
 
 
     public void conveyBall(double conveyorSpeed){
-        if (conveyorSpeed > 0.6) {
-            conveyorSpeed = 0.6;
-        } else {
+        if (conveyorSpeed > 1) {
+            conveyorSpeed = 1;
+        }
             bottomConveyor.set(VictorSPXControlMode.PercentOutput, conveyorSpeed);
             topConveyor.setInverted(true);
             topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor * conveyorSpeed);
-        }
     }
 }

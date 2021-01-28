@@ -20,6 +20,7 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.dataStructures.RotationData;
 import frc.robot.subsystems.*;
+import frc.robot.RobotContainer;
 
 
 
@@ -83,7 +84,7 @@ public class Robot extends TimedRobot {
 
         int intakeMotorChannel = 13;
 
-        int wheelSpinner = 2;
+        int wheelSpinnerChannel = 2;
 
         compressor = new Compressor(0);
 
@@ -109,7 +110,7 @@ public class Robot extends TimedRobot {
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
-        climberSubsystem = new ClimberSubsystem(climberMotorChannel);
+        climberSubsystem = new ClimberSubsystem(climberMotorChannel, wheelSpinnerChannel);
 
         limelightSubsystem = new LimelightSubsystem();
 
@@ -119,6 +120,7 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
+
     }
 
     /**
@@ -174,6 +176,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         System.out.println("I am inside autoinit!");
+        ShootingCommand.mode = "IDLE";
 
 //        rotateWithTime(270);
 //        wait(2);
@@ -351,6 +354,7 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
 
         }
+        ShootingCommand.mode = "IDLE";
         limelightSubsystem.limelightIsOn(false);
         limelightSubsystem.cameraMode(false);
     }

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
 
 import java.util.Set;
@@ -20,7 +21,7 @@ public class ShootingCommand extends CommandBase {
     
     public static double shooterSpeed = 1;
     public static double rateSpeed = 0;
-    public String mode = "IDLE";
+    public static String mode = "IDLE";
     public int count = 0;
 
     public ShootingCommand(ShootingSubsystem shootingSubsystem) {
@@ -36,31 +37,31 @@ public class ShootingCommand extends CommandBase {
             count++;
         }
 
-        if((mode == "Red" || mode == "IDLE") && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+        if((mode == "IDLE" || mode == "Red") && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Green";
-            shooterSpeed = 0.95;
-            rateSpeed = 240000 * (shooterSpeed) - 9000;
+            shooterSpeed = 0.93;
+            rateSpeed = 240000 * (shooterSpeed) - 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
         if(mode == "Green" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Yellow";
-            shooterSpeed = 0.82;
-            rateSpeed = 240000 * (shooterSpeed) - 9000;
+            shooterSpeed = 0.7;
+            rateSpeed = 240000 * (shooterSpeed) - 60000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
         if(mode == "Yellow" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Blue";
-            shooterSpeed = 0.94;
-            rateSpeed = 240000 * (shooterSpeed) - 9000;
+            shooterSpeed = 0.89;
+            rateSpeed = 240000 * (shooterSpeed) - 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
         if(mode == "Blue" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Red";
-            shooterSpeed = 0.98;
-            rateSpeed = 240000 * (shooterSpeed) - 9000;
+            shooterSpeed = 0.9;
+            rateSpeed = 240000 * (shooterSpeed) - 40000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
-        
+
         SmartDashboard.putString("ZONE COLOR", mode);
 
         shootingSubsystem.dualShoot(
