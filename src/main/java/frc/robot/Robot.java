@@ -106,7 +106,7 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(gearShiftSolenoid, leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
 //        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-        shootingSubsystem = new ShootingSubsystem(shooterSolenoid, leftShooterChannel, rightShooterChannel, this.robot);
+        shootingSubsystem = new ShootingSubsystem(shooterSolenoid, leftShooterChannel, rightShooterChannel, this.robot, conveyorSubsystem);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 

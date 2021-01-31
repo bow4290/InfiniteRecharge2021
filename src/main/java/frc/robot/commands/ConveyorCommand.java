@@ -22,17 +22,23 @@ public class ConveyorCommand extends CommandBase {
     public void execute() {
 
         double shooterEncoderRate = conveyorSubsystem.shooterEncoder.getRate();
-    
-        if(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) > 0
-                && RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
-                && shooterEncoderRate < ShootingCommand.rateSpeed) {
-           conveyorSubsystem.conveyBall(0.0);
+
+        if(RobotContainer.xboxController.getStickButtonPressed(GenericHID.Hand.kRight))
+        {
+            conveyorSubsystem.conveyBall(-1/1.1);
         }
+
         else {
-            conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
-            if(RobotContainer.xboxController.getStickButtonPressed(GenericHID.Hand.kRight))
-            {
-                conveyorSubsystem.conveyBall(-1/1.1);
+            if (RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) > 0
+                    && RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
+                    && shooterEncoderRate < ShootingCommand.rateSpeed) {
+                conveyorSubsystem.conveyBall(0.0);
+            } else {
+                if (ConveyorSubsystem.conveyorButton.get() == false) {
+                    conveyorSubsystem.conveyBall(1 / 1.1);
+                } else {
+                    conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
+                }
             }
         }
     }

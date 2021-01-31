@@ -20,10 +20,10 @@ public class ShootingSubsystem extends SubsystemBase {
 
 
 
-    public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot) {
+    public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot, ConveyorSubsystem conveyorSubsystem) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
-        setDefaultCommand(new ShootingCommand(this));
+        setDefaultCommand(new ShootingCommand(this, conveyorSubsystem));
         limelightSubsystem = new LimelightSubsystem();
         this.robot = robot;
         this.shooterSolenoid = shooterSolenoid;
@@ -67,6 +67,9 @@ public class ShootingSubsystem extends SubsystemBase {
             if (shooterSpeed > 1) {
                 shooterSpeed = 1;
             }
+            if (shooterSpeed < 0) {
+                shooterSpeed = 0;
+            }
             if(ShootingCommand.mode == "IDLE"){
                 leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
                 rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
@@ -108,4 +111,3 @@ public class ShootingSubsystem extends SubsystemBase {
         shooterSolenoid.set(intakeStatus);
     }
 }
-
