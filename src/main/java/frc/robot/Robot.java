@@ -8,10 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,6 +42,7 @@ public class Robot extends TimedRobot {
     private Command autonomousCommand;
     private Compressor compressor;
     private DoubleSolenoid doubleSolenoid;
+    public static Encoder shooterEncoder;
 
 
     boolean PositionPhase = true;
@@ -106,7 +104,7 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem = new DriveTrainSubsystem(gearShiftSolenoid, leftVictorSPX1Channel, leftVictorSPX2Channel, leftVictorSPX3Channel,
                 rightVictorSPX1Channel, rightVictorSPX2Channel, rightVictorSPX3Channel);
 //        colorSensorSubsystem = new ColorSensorSubsystem(kBlueTarget, kGreenTarget, kRedTarget, kYellowTarget);
-        shootingSubsystem = new ShootingSubsystem(shooterSolenoid, leftShooterChannel, rightShooterChannel, this.robot, conveyorSubsystem);
+        shootingSubsystem = new ShootingSubsystem(shooterSolenoid, leftShooterChannel, rightShooterChannel, this.robot);
 
         conveyorSubsystem = new ConveyorSubsystem(topMotorChannel, bottomMotorChannel);
 
@@ -117,10 +115,12 @@ public class Robot extends TimedRobot {
         intakeSubsystem = new IntakeSubsystem(intakeSolenoid, intakeMotorChannel);
         autonomousCommand = new AutoCommand(this, conveyorSubsystem, driveTrainSubsystem, limelightSubsystem, shootingSubsystem);
 
+        shooterEncoder = new Encoder(Constants.shooterEncoderChannelA, Constants.shooterEncoderChannelB, true, CounterBase.EncodingType.k4X);
+        shooterEncoder.setSamplesToAverage(Constants.shooterEncoderAverageSamples);
+
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
-
     }
 
     /**
@@ -137,7 +137,9 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        SmartDashboard.putNumber("Shooter Encoder Rate:", conveyorSubsystem.shooterEncoder.getRate());
+        SmartDashboard.putNumber("Shooter Encoder Rate:", shooterEncoder.getRate());
+
+
 //        System.out.println("here");
 
 //        Color detectedColor = colorSensorSubsystem.getColor();

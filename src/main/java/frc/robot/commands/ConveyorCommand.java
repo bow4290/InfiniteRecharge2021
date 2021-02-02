@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
@@ -21,7 +22,7 @@ public class ConveyorCommand extends CommandBase {
 
     public void execute() {
 
-        double shooterEncoderRate = conveyorSubsystem.shooterEncoder.getRate();
+        double shooterEncoderRate = Robot.shooterEncoder.getRate();
 
         if(RobotContainer.xboxController.getStickButtonPressed(GenericHID.Hand.kRight))
         {

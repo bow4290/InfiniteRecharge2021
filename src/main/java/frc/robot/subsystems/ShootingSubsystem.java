@@ -20,10 +20,10 @@ public class ShootingSubsystem extends SubsystemBase {
 
 
 
-    public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot, ConveyorSubsystem conveyorSubsystem) {
+    public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
-        setDefaultCommand(new ShootingCommand(this, conveyorSubsystem));
+        setDefaultCommand(new ShootingCommand(this));
         limelightSubsystem = new LimelightSubsystem();
         this.robot = robot;
         this.shooterSolenoid = shooterSolenoid;

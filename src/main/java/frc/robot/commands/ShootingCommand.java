@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -17,7 +18,6 @@ import static frc.robot.Robot.climberSubsystem;
 public class ShootingCommand extends CommandBase {
 
     private ShootingSubsystem shootingSubsystem;
-    private ConveyorSubsystem conveyorSubsystem;
     private final Set<Subsystem> subsystems;
     
     public static double shooterSpeed = 1;
@@ -31,10 +31,9 @@ public class ShootingCommand extends CommandBase {
     public int m = 240000;
     public int b = 20000;
 
-    public ShootingCommand(ShootingSubsystem shootingSubsystem, ConveyorSubsystem conveyorSubsystem) {
+    public ShootingCommand(ShootingSubsystem shootingSubsystem) {
         this.shootingSubsystem = shootingSubsystem;
         this.subsystems = Set.of(shootingSubsystem);
-        this.conveyorSubsystem = conveyorSubsystem;
     }
 
     public void execute() {
@@ -73,7 +72,7 @@ public class ShootingCommand extends CommandBase {
 
         SmartDashboard.putString("ZONE COLOR", mode);
 
-        shooterSpeedError = rateSpeed - conveyorSubsystem.shooterEncoder.getRate();
+        shooterSpeedError = rateSpeed - Robot.shooterEncoder.getRate();
         shooterSpeedCorrection = shooterSpeedKP * (shooterSpeedError + shooterSpeedSetPoint);
         shooterSpeedCorrection = (shooterSpeedCorrection + b) / m;
 
