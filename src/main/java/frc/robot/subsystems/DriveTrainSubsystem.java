@@ -33,12 +33,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
 
-    /**
-     * sets power of left and right speed controllers respectively.
-     *
-     * @param leftspeed
-     * @param rightspeed
-     */
     public void drive(double leftspeed, double rightspeed) {
         if (Math.abs(leftspeed) < 0.05) {
             leftspeed = 0;

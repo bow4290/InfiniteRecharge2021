@@ -7,67 +7,24 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.AutoCommand;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.*;
 
-/**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 
-    // literally making this up
-//    private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-//    private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
-//    private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
-//    private final ShootingSubsystem shootingSubsystem = new ShootingSubsystem();
-//    private SparkDriveCommand command = new SparkDriveCommand();
-//    private final AutoCommand autonomousCommand = new AutoCommand( conveyorSubsystem,  driveTrainSubsystem,  limelightSubsystem,  shootingSubsystem);
+
     public static Joystick joystickLeft;
     public static Joystick joystickRight;
     public static XboxController xboxController;
 
-
-    /**
-     * The container for the robot.  Contains subsystems, OI devices, and commands.
-     */
     public RobotContainer() {
-        joystickLeft = new Joystick(RobotMap.LEFT_JOYSTICK);
-        joystickRight = new Joystick(RobotMap.RIGHT_JOYSTICK);
-        xboxController = new XboxController(RobotMap.XBOX_CONTROLLER);
+        joystickLeft = new Joystick(Constants.LEFT_JOYSTICK);
+        joystickRight = new Joystick(Constants.RIGHT_JOYSTICK);
+        xboxController = new XboxController(Constants.XBOX_CONTROLLER);
         // Configure the button bindings
         configureButtonBindings();
     }
-
-    /**
-     * Use this method to define your button->command mappings.  Buttons can be created by
-     * instantiating a {@link GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick Joystick} or {@link XboxController}), and then passing it to a
-     * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton JoystickButton}.
-     */
     private void configureButtonBindings() {
 
     }
-
-
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
-
-//    public Command getAutonomousCommand()
-//    {
-//        // An ExampleCommand will run in autonomous
-//        return autonomousCommand;
-//    }
 }

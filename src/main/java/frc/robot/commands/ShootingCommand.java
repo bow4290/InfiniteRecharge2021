@@ -77,8 +77,6 @@ public class ShootingCommand extends CommandBase {
         shooterSpeedCorrection = (shooterSpeedCorrection + b) / m;
 
         shootingSubsystem.dualShoot(
-                //RobotContainer.xboxController.getBumper(GenericHID.Hand.kLeft),
-                false,
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
                 (shooterSpeed + shooterSpeedCorrection)
         );

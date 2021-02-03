@@ -13,19 +13,11 @@ public class VictorSPXDriveCommand extends CommandBase {
     private final Set<Subsystem> subsystems;
     boolean isHighGear = false;
 
-    /**
-     * this establishes the drivetrain subsystem
-     * @param driveTrainSubsystem
-     */
-
     public VictorSPXDriveCommand(DriveTrainSubsystem driveTrainSubsystem) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.subsystems = Set.of(driveTrainSubsystem);
     }
 
-    /**
-     * this moves the sides of the robot in the direction of their assigned joystick
-     */
     public void execute() {
         driveTrainSubsystem.drive(RobotContainer.joystickLeft.getY(), RobotContainer.joystickRight.getY());
 

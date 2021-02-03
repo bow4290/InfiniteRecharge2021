@@ -17,7 +17,7 @@ public class ConveyorSubsystem extends SubsystemBase {
     double speedFactor = 1.1;
 
     public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel) {
-        conveyorButton = new DigitalInput(9);
+        conveyorButton = new DigitalInput(Constants.conveyorButtonPort);
         topConveyor = new VictorSPX(topMotorChannel);
         bottomConveyor = new VictorSPX(bottomMotorChannel);
         setDefaultCommand(new ConveyorCommand(this));

@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
-import frc.robot.subsystems.ShootingSubsystem;
-import frc.robot.commands.ShootingCommand;
 
 import java.util.Set;
 

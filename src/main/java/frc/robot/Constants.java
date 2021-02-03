@@ -7,18 +7,42 @@
 
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
- * <p>
- * It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
+
 public final class Constants {
         //shooter encoder constants:
         public static final int shooterEncoderChannelA = 0;
         public static final int shooterEncoderChannelB = 1;
         public static final int shooterEncoderAverageSamples = 127;
 
+        public static final int conveyorButtonPort = 3;
+
+        //Motor Channels:
+        public static final int wheelSpinnerChannel = 2;
+        public static final int leftVictorSPX1Channel = 12;
+        public static final int leftVictorSPX2Channel = 11;
+        public static final int leftVictorSPX3Channel = 10;
+        public static final int rightVictorSPX1Channel = 5;
+        public static final int rightVictorSPX2Channel = 3;
+        public static final int rightVictorSPX3Channel = 6;
+        public static final int leftShooterChannel = 8;
+        public static final int rightShooterChannel = 1;
+        public static final int climberMotorChannel = 4;
+        public static final int topMotorChannel = 9;
+        public static final int bottomMotorChannel = 7;
+        public static final int intakeMotorChannel = 13;
+
+
+        //USB Ports:
+        public static final int LEFT_JOYSTICK = 0;
+        public static final int RIGHT_JOYSTICK = 1;
+        public static final int XBOX_CONTROLLER = 2;
+
+        //Pneumatics:
+        public static int intakeSolenoidForwardChannel = 0;
+        public static int intakeSolenoidReverseChannel = 1;
+        public static int shooterSolenoidForwardChannel = 2;
+        public static int shooterSolenoidReverseChannel = 3;
+        public static int gearShiftSolenoidForwardChannel = 4;
+        public static int gearShiftSolenoidReverseChannel = 5;
+        public static int compressorCANID = 0;
 }
