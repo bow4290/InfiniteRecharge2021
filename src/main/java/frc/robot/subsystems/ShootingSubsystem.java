@@ -49,7 +49,7 @@ public class ShootingSubsystem extends SubsystemBase {
                 rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
             } else{
             leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed*0.9);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed*0.85);
            }
         }
         else{
