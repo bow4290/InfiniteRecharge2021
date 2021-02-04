@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
     public DoubleSolenoid shooterSolenoid;
 
     private RobotContainer robotContainer;
-    private static I2C.Port i2cPort = I2C.Port.kOnboard;
 
     @Override
     public void robotInit() {
@@ -58,6 +57,8 @@ public class Robot extends TimedRobot {
         shooterEncoder.setSamplesToAverage(Constants.shooterEncoderAverageSamples);
 
         robotContainer = new RobotContainer();
+
+        
     }
 
     @Override

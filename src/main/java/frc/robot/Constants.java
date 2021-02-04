@@ -14,7 +14,7 @@ public final class Constants {
         public static final int shooterEncoderChannelB = 1;
         public static final int shooterEncoderAverageSamples = 127;
 
-        public static final int conveyorButtonPort = 3;
+        public static final int conveyorButtonPort = 2;
 
         //Motor Channels:
         public static final int wheelSpinnerChannel = 2;

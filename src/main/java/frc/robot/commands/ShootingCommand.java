@@ -8,12 +8,10 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
+import java.util.Scanner;
 
 import java.util.Set;
-
-import static frc.robot.Robot.climberSubsystem;
 
 public class ShootingCommand extends CommandBase {
 
@@ -23,13 +21,14 @@ public class ShootingCommand extends CommandBase {
     public static double shooterSpeed = 1;
     public static double shooterSpeedError;
     public static double shooterSpeedCorrection;
-    public static double shooterSpeedKP = 0.01;
+    public static double shooterSpeedKP = 0.03;
     public static double shooterSpeedSetPoint = 15000;
     public static double rateSpeed = 0;
     public static String mode = "IDLE";
     public int count = 0;
     public int m = 240000;
-    public int b = 20000;
+    public int b = 25000;
+    Scanner scanner = new Scanner(System.in);
 
     public ShootingCommand(ShootingSubsystem shootingSubsystem) {
         this.shootingSubsystem = shootingSubsystem;
@@ -53,19 +52,19 @@ public class ShootingCommand extends CommandBase {
         }
         if(mode == "Green" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Yellow";
-            shooterSpeed = 0.7;
-            rateSpeed = m * (shooterSpeed) - b;
+            shooterSpeed = 0.66;
+            rateSpeed = m * (shooterSpeed) - b + 25000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
         if(mode == "Yellow" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Blue";
-            shooterSpeed = 0.89;
+            shooterSpeed = 0.91;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
         if(mode == "Blue" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
             mode = "Red";
-            shooterSpeed = 0.9;
+            shooterSpeed = 0.865;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
@@ -80,6 +79,8 @@ public class ShootingCommand extends CommandBase {
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
                 (shooterSpeed + shooterSpeedCorrection)
         );
+
+        SmartDashboard.putNumber("Speed Correction", shooterSpeedCorrection);
     }
 
     @Override

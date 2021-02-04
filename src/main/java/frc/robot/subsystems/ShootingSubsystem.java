@@ -37,7 +37,7 @@ public class ShootingSubsystem extends SubsystemBase {
     public void dualShoot(boolean manualActive, double shooterSpeed) {
         leftShooter.setInverted(true);
         rightShooter.setInverted(true);
-
+        if (manualActive){
             if (shooterSpeed > 1) {
                 shooterSpeed = 1;
             }
@@ -50,6 +50,11 @@ public class ShootingSubsystem extends SubsystemBase {
             } else{
             leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
             rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed*0.9);
+           }
+        }
+        else{
+            leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
         }
     }
 
