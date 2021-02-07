@@ -9,12 +9,31 @@ package frc.robot;
 
 
 public final class Constants {
+        // Robot characteristics
+        private static final double wheelDiameter = 7;
+        
+        // Drivetrain Encoders:
+        public static final int driveTrainLeftEncoderAverageSamples = 5;
+        public static final double driveTrainLeftEncoderMinRate = 1;
+        public static final double driveTrainLeftEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
+        public static final int driveTrainRightEncoderAverageSamples = 5;
+        public static final double driveTrainRightEncoderMinRate = 1;
+        public static final double driveTrainRightEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
+
+        // Drive Straight Constants
+        public static final double autoSpeed = 0.75;
+        public static final double kP = 0.5;
+
         // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;
         public static final int shooterEncoderChannelB = 1;
         public static final int shooterEncoderAverageSamples = 127;
 
         // DIO Ports:
+        public static final int driveTrainLeftEncoderChannelA = 0;
+        public static final int driveTrainLeftEncoderChannelB = 1;
+        public static final int driveTrainRightEncoderChannelA = 2;
+        public static final int driveTrainRightEncoderChannelB = 3;
         public static final int conveyorButton1Port = 2;
         public static final int conveyorButton2Port = 3;
 

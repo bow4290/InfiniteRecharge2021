@@ -4,8 +4,10 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.VictorSPXDriveCommand;
+import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
@@ -18,6 +20,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final DoubleSolenoid gearShiftSolenoid;
     public DoubleSolenoid.Value intakeStatus;
 
+    public  Encoder driveTrainLeftEncoder;
+    public  Encoder driveTrainRightEncoder;
+
 
     public DriveTrainSubsystem(DoubleSolenoid gearShiftSolenoid, int leftVictorSPX1Channel, int leftVictorSPX2Channel, int leftVictorSPX3Channel,
                                int rightVictorSPX1Channel, int rightVictorSPX2Channel, int rightVictorSPX3Channel) {
@@ -29,6 +34,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX2 = new VictorSPX(rightVictorSPX2Channel);
         rightVictorSPX3 = new VictorSPX(rightVictorSPX3Channel);
         this.intakeStatus = DoubleSolenoid.Value.kForward;
+
+        driveTrainLeftEncoder = new Encoder(Constants.driveTrainLeftEncoderChannelA, Constants.driveTrainLeftEncoderChannelB, false, CounterBase.EncodingType.k4X);
+        driveTrainLeftEncoder.setSamplesToAverage(Constants.driveTrainLeftEncoderAverageSamples);
+        driveTrainLeftEncoder.setMinRate(Constants.driveTrainLeftEncoderMinRate);
+        driveTrainLeftEncoder.setDistancePerPulse(Constants.driveTrainLeftEncoderPulseDistance);
+
+        driveTrainRightEncoder = new Encoder(Constants.driveTrainRightEncoderChannelA, Constants.driveTrainRightEncoderChannelB, true, CounterBase.EncodingType.k4X);
+        driveTrainRightEncoder.setSamplesToAverage(Constants.driveTrainRightEncoderAverageSamples);
+        driveTrainRightEncoder.setMinRate(Constants.driveTrainRightEncoderMinRate);
+        driveTrainRightEncoder.setDistancePerPulse(Constants.driveTrainRightEncoderPulseDistance);
 
         setDefaultCommand(new VictorSPXDriveCommand(this));
     }
