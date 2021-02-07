@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,11 +28,17 @@ public class Robot extends TimedRobot {
     public DoubleSolenoid intakeSolenoid;
     public DoubleSolenoid gearShiftSolenoid;
     public DoubleSolenoid shooterSolenoid;
+    public static CameraServer server;
 
     private RobotContainer robotContainer;
 
     @Override
     public void robotInit() {
+
+        server.getInstance();
+        server.startAutomaticCapture();
+
+
         compressor = new Compressor(Constants.compressorCANID);
 
         intakeSolenoid = new DoubleSolenoid(Constants.intakeSolenoidForwardChannel, Constants.intakeSolenoidReverseChannel);

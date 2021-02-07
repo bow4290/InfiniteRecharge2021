@@ -24,11 +24,11 @@ public class ShootingCommand extends CommandBase {
     public static double shooterSpeedKP = 0.03;
     public static double shooterSpeedSetPoint = 15000;
     public static double rateSpeed = 0;
-    public static String mode = "IDLE";
-    public int count = 0;
+    public static String mode = "IntakeMode";
     public int m = 240000;
     public int b = 25000;
     Scanner scanner = new Scanner(System.in);
+    public static int dPadValue = -1;
 
     public ShootingCommand(ShootingSubsystem shootingSubsystem) {
         this.shootingSubsystem = shootingSubsystem;
@@ -37,32 +37,35 @@ public class ShootingCommand extends CommandBase {
 
     public void execute() {
         shootingSubsystem.moveConveyor(RobotContainer.xboxController.getAButtonPressed());
+        dPadValue = RobotContainer.xboxController.getPOV();
 
-        while(count != 1)
+        if(RobotContainer.xboxController.getBumperPressed(Hand.kLeft) || mode == "IntakeMode")
         {
+            mode = "IntakeMode";
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
-            count++;
+            shooterSpeed = 0;
+            rateSpeed = 0;
         }
 
-        if((mode == "IDLE" || mode == "Red") && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+        if(dPadValue == 0){
             mode = "Green";
             shooterSpeed = 0.93;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(mode == "Green" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+        if(dPadValue == 90){
             mode = "Yellow";
             shooterSpeed = 0.66;
             rateSpeed = m * (shooterSpeed) - b + 25000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(mode == "Yellow" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+        if(dPadValue == 180){
             mode = "Blue";
             shooterSpeed = 0.91;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
-        if(mode == "Blue" && RobotContainer.xboxController.getStickButtonPressed(Hand.kLeft)){
+        if(dPadValue == 270){
             mode = "Red";
             shooterSpeed = 0.865;
             rateSpeed = m * (shooterSpeed) - b;
@@ -79,8 +82,8 @@ public class ShootingCommand extends CommandBase {
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
                 (shooterSpeed + shooterSpeedCorrection)
         );
-
-        SmartDashboard.putNumber("Speed Correction", shooterSpeedCorrection);
+        SmartDashboard.putNumber("DPad Value: ", dPadValue);
+        //SmartDashboard.putNumber("Speed Correction: ", shooterSpeedCorrection);
     }
 
     @Override

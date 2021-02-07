@@ -24,7 +24,7 @@ public class ConveyorCommand extends CommandBase {
         double shooterEncoderRate = Robot.shooterEncoder.getRate();
         SmartDashboard.putBoolean("Button Status", ConveyorSubsystem.conveyorButton.get());
 
-        if(RobotContainer.xboxController.getStickButtonPressed(GenericHID.Hand.kRight))
+        if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kRight))
         {
             conveyorSubsystem.conveyBall(-1/1.1);
         }
