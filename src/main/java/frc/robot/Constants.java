@@ -9,14 +9,15 @@ package frc.robot;
 
 
 public final class Constants {
-        //shooter encoder constants:
+        // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;
         public static final int shooterEncoderChannelB = 1;
         public static final int shooterEncoderAverageSamples = 127;
 
+        // DIO Ports:
         public static final int conveyorButtonPort = 2;
 
-        //Motor Channels:
+        // Motor Channels:
         public static final int wheelSpinnerChannel = 2;
         public static final int leftVictorSPX1Channel = 12;
         public static final int leftVictorSPX2Channel = 11;
@@ -31,13 +32,12 @@ public final class Constants {
         public static final int bottomMotorChannel = 7;
         public static final int intakeMotorChannel = 13;
 
-
-        //USB Ports:
+        // USB Ports:
         public static final int LEFT_JOYSTICK = 0;
         public static final int RIGHT_JOYSTICK = 1;
         public static final int XBOX_CONTROLLER = 2;
 
-        //Pneumatics:
+        // Pneumatics:
         public static int intakeSolenoidForwardChannel = 0;
         public static int intakeSolenoidReverseChannel = 1;
         public static int shooterSolenoidForwardChannel = 2;

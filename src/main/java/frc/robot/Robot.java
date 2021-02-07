@@ -34,10 +34,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         compressor = new Compressor(Constants.compressorCANID);
 
-        boolean enabled = compressor.enabled();
-        boolean pressureSwitch = compressor.getPressureSwitchValue();
-        double current = compressor.getCompressorCurrent();
-
         intakeSolenoid = new DoubleSolenoid(Constants.intakeSolenoidForwardChannel, Constants.intakeSolenoidReverseChannel);
         shooterSolenoid = new DoubleSolenoid(Constants.shooterSolenoidForwardChannel, Constants.shooterSolenoidReverseChannel);
         gearShiftSolenoid = new DoubleSolenoid(Constants.gearShiftSolenoidForwardChannel, Constants.gearShiftSolenoidReverseChannel);
@@ -57,8 +53,6 @@ public class Robot extends TimedRobot {
         shooterEncoder.setSamplesToAverage(Constants.shooterEncoderAverageSamples);
 
         robotContainer = new RobotContainer();
-
-        
     }
 
     @Override
