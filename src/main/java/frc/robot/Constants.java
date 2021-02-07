@@ -24,6 +24,9 @@ public final class Constants {
         public static final double autoSpeed = 0.75;
         public static final double kP = 0.5;
 
+        // Auto Command Inputs
+        public static final double inchesToDriveForDriveForDistanceCommand1 = 240;
+
         // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;
         public static final int shooterEncoderChannelB = 1;
