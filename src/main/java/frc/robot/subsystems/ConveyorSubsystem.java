@@ -11,12 +11,14 @@ public class ConveyorSubsystem extends SubsystemBase {
     private final VictorSPX topConveyor;
     private final VictorSPX bottomConveyor;
     public Constants constants = new Constants();
-    public static DigitalInput conveyorButton;
+    public static DigitalInput conveyorButton1;
+    public static DigitalInput conveyorButton2;
 
     double speedFactor = 1.1;
 
     public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel) {
-        conveyorButton = new DigitalInput(Constants.conveyorButtonPort);
+        conveyorButton1 = new DigitalInput(Constants.conveyorButton1Port);
+        conveyorButton2 = new DigitalInput(Constants.conveyorButton2Port);
         topConveyor = new VictorSPX(topMotorChannel);
         bottomConveyor = new VictorSPX(bottomMotorChannel);
         setDefaultCommand(new ConveyorCommand(this));

@@ -15,7 +15,8 @@ public final class Constants {
         public static final int shooterEncoderAverageSamples = 127;
 
         // DIO Ports:
-        public static final int conveyorButtonPort = 2;
+        public static final int conveyorButton1Port = 2;
+        public static final int conveyorButton2Port = 3;
 
         // Motor Channels:
         public static final int wheelSpinnerChannel = 2;

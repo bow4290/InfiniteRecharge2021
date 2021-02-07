@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.subsystems.*;
+import edu.wpi.cscore.UsbCamera;
 
 public class Robot extends TimedRobot {
     public static ShootingSubsystem shootingSubsystem;
@@ -35,8 +36,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
-        server.getInstance();
-        server.startAutomaticCapture();
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(160, 120);
 
 
         compressor = new Compressor(Constants.compressorCANID);
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        ShootingCommand.mode = "IDLE";
+        ShootingCommand.mode = "IntakeMode";
         //if (autonomousCommand != null) {
             //System.out.println("scheduling autocommand");
             //autonomousCommand.schedule();
@@ -96,7 +97,7 @@ public class Robot extends TimedRobot {
             //autonomousCommand.cancel();
         //}
 
-        ShootingCommand.mode = "IDLE";
+        ShootingCommand.mode = "IntakeMode";
     }
 
     @Override

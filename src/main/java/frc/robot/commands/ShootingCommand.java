@@ -72,7 +72,7 @@ public class ShootingCommand extends CommandBase {
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
 
-        SmartDashboard.putString("ZONE COLOR", mode);
+        SmartDashboard.putString("Mode: ", mode);
 
         shooterSpeedError = rateSpeed - Robot.shooterEncoder.getRate();
         shooterSpeedCorrection = shooterSpeedKP * (shooterSpeedError + shooterSpeedSetPoint);
@@ -82,7 +82,6 @@ public class ShootingCommand extends CommandBase {
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
                 (shooterSpeed + shooterSpeedCorrection)
         );
-        SmartDashboard.putNumber("DPad Value: ", dPadValue);
         //SmartDashboard.putNumber("Speed Correction: ", shooterSpeedCorrection);
     }
 

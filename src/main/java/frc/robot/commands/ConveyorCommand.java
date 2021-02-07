@@ -22,11 +22,14 @@ public class ConveyorCommand extends CommandBase {
     public void execute() {
 
         double shooterEncoderRate = Robot.shooterEncoder.getRate();
-        SmartDashboard.putBoolean("Button Status", ConveyorSubsystem.conveyorButton.get());
+        SmartDashboard.putBoolean("Button1 Status", ConveyorSubsystem.conveyorButton1.get());
+        SmartDashboard.putBoolean("Button2 Status", ConveyorSubsystem.conveyorButton2.get());
 
-        if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kRight))
+        if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
+          (ConveyorSubsystem.conveyorButton1.get() == true) &&
+          (ConveyorSubsystem.conveyorButton2.get() == true))
         {
-            conveyorSubsystem.conveyBall(-1/1.1);
+            conveyorSubsystem.conveyBall(-0.25);
         }
 
         else {
@@ -35,11 +38,11 @@ public class ConveyorCommand extends CommandBase {
                     && shooterEncoderRate < ShootingCommand.rateSpeed - 10000) {
                 conveyorSubsystem.conveyBall(0.0);
             } else {
-        //        if (ConveyorSubsystem.conveyorButton.get() == false) {
-            //        conveyorSubsystem.conveyBall(0.4 / 1.1);
-          //      } else {
+                if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false)){
+                    conveyorSubsystem.conveyBall(0.4 / 1.1);
+                } else {
                     conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
-  //              }
+                }
             }
         }
     }

@@ -43,7 +43,7 @@ public class ShootingSubsystem extends SubsystemBase {
             if (shooterSpeed < 0) {
                 shooterSpeed = 0;
             }
-            if(ShootingCommand.mode == "IDLE"){
+            if(ShootingCommand.mode == "IntakeMode"){
                 leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
                 rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
             } else{
