@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Set;
 
@@ -20,6 +21,8 @@ public class VictorSPXDriveCommand extends CommandBase {
 
     public void execute() {
         driveTrainSubsystem.drive(RobotContainer.joystickLeft.getY(), RobotContainer.joystickRight.getY());
+        //SmartDashboard.putNumber("Left Motor Speed:", RobotContainer.joystickLeft.getY());
+        //SmartDashboard.putNumber("Right Motor Speed:", RobotContainer.joystickRight.getY());
 
         driveTrainSubsystem.shiftGear(RobotContainer.joystickLeft.getTrigger());
         driveTrainSubsystem.shiftGear(RobotContainer.joystickRight.getTrigger());

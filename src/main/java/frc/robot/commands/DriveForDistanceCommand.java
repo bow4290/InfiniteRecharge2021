@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class DriveForDistanceCommand extends CommandBase {
@@ -48,8 +49,8 @@ public class DriveForDistanceCommand extends CommandBase {
         if (correctedRightMotorSpeed < -Constants.autoSpeed){
             correctedRightMotorSpeed = -Constants.autoSpeed;
         }
-
-        driveTrainSubsystem.drive(correctedLeftMotorSpeed, correctedRightMotorSpeed);
+        
+        driveTrainSubsystem.drive(-correctedLeftMotorSpeed, -correctedRightMotorSpeed);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Robot;
@@ -22,8 +21,6 @@ public class ConveyorCommand extends CommandBase {
     public void execute() {
 
         double shooterEncoderRate = Robot.shooterEncoder.getRate();
-        SmartDashboard.putBoolean("Button1 Status", ConveyorSubsystem.conveyorButton1.get());
-        SmartDashboard.putBoolean("Button2 Status", ConveyorSubsystem.conveyorButton2.get());
 
         if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
           (ConveyorSubsystem.conveyorButton1.get() == true) &&
@@ -39,7 +36,7 @@ public class ConveyorCommand extends CommandBase {
                 conveyorSubsystem.conveyBall(0.0);
             } else {
                 if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false)){
-                    conveyorSubsystem.conveyBall(0.4 / 1.1);
+                    conveyorSubsystem.conveyBall(0.68 / 1.1);
                 } else {
                     conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
                 }

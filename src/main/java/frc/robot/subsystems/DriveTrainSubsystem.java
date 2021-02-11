@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.*;
@@ -44,11 +45,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
         driveTrainRightEncoder.setSamplesToAverage(Constants.driveTrainRightEncoderAverageSamples);
         driveTrainRightEncoder.setMinRate(Constants.driveTrainRightEncoderMinRate);
         driveTrainRightEncoder.setDistancePerPulse(Constants.driveTrainRightEncoderPulseDistance);
-
-        setDefaultCommand(new VictorSPXDriveCommand(this));
     }
 
     public void drive(double leftspeed, double rightspeed) {
+
         if (Math.abs(leftspeed) < 0.05) {
             leftspeed = 0;
         }
@@ -57,9 +57,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
             rightspeed = 0;
         }
 
-        leftVictorSPX1.setInverted(true);
-        leftVictorSPX2.setInverted(true);
-        leftVictorSPX3.setInverted(true);
+        leftVictorSPX1.setInverted(false);
+        leftVictorSPX2.setInverted(false);
+        leftVictorSPX3.setInverted(false);
         rightVictorSPX1.setInverted(true);
         rightVictorSPX2.setInverted(true);
         rightVictorSPX3.setInverted(true);

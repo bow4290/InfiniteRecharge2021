@@ -56,7 +56,7 @@ public class ShootingCommand extends CommandBase {
         if(dPadValue == 90){
             mode = "Yellow";
             shooterSpeed = 0.66;
-            rateSpeed = m * (shooterSpeed) - b + 25000;
+            rateSpeed = m * (shooterSpeed) - b + 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
         if(dPadValue == 180){
@@ -82,7 +82,6 @@ public class ShootingCommand extends CommandBase {
                 RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
                 (shooterSpeed + shooterSpeedCorrection)
         );
-        //SmartDashboard.putNumber("Speed Correction: ", shooterSpeedCorrection);
     }
 
     @Override

@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ShootingCommand;
+import frc.robot.commands.VictorSPXDriveCommand;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.DriveForDistanceCommand;
 
 public class Robot extends TimedRobot {
     private DriveForDistanceCommand autonomousDriveStraightCommand1;
+    private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
@@ -59,13 +61,14 @@ public class Robot extends TimedRobot {
         
         // Put Commands Here
         autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.inchesToDriveForDriveForDistanceCommand1, 0);
+        teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
     }
 
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-        SmartDashboard.putNumber("Shooter Encoder Rate:", shooterEncoder.getRate());
 
+        SmartDashboard.putNumber("Shooter Encoder Rate:", shooterEncoder.getRate());
         SmartDashboard.putNumber("Left Encoder Distance" , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
         SmartDashboard.putNumber("Right Encoder Distance" , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
     }
@@ -103,6 +106,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        teleopVictorSPXDriveCommand.schedule();
     }
 
     @Override

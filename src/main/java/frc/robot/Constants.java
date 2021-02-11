@@ -21,11 +21,11 @@ public final class Constants {
         public static final double driveTrainRightEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
 
         // Drive Straight Constants
-        public static final double autoSpeed = 0.75;
+        public static final double autoSpeed = 0.95;
         public static final double kP = 0.5;
 
         // Auto Command Inputs
-        public static final double inchesToDriveForDriveForDistanceCommand1 = 240;
+        public static final double inchesToDriveForDriveForDistanceCommand1 = 120;
 
         // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;
@@ -33,12 +33,12 @@ public final class Constants {
         public static final int shooterEncoderAverageSamples = 127;
 
         // DIO Ports:
-        public static final int driveTrainLeftEncoderChannelA = 0;
-        public static final int driveTrainLeftEncoderChannelB = 1;
-        public static final int driveTrainRightEncoderChannelA = 2;
-        public static final int driveTrainRightEncoderChannelB = 3;
-        public static final int conveyorButton1Port = 2;
-        public static final int conveyorButton2Port = 3;
+        public static final int driveTrainLeftEncoderChannelA = 2;
+        public static final int driveTrainLeftEncoderChannelB = 3;
+        public static final int driveTrainRightEncoderChannelA = 4;
+        public static final int driveTrainRightEncoderChannelB = 5;
+        public static final int conveyorButton1Port = 6;
+        public static final int conveyorButton2Port = 7;
 
         // Motor Channels:
         public static final int wheelSpinnerChannel = 2;
