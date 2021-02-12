@@ -21,8 +21,10 @@ public final class Constants {
         public static final double driveTrainRightEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
 
         // Drive Straight Constants
-        public static final double autoSpeed = 0.95;
-        public static final double kP = 0.5;
+        public static final double autoSpeed = 0.9;
+        public static final double straightkP = 0.5;
+        public static final double distancekP = 0.1;
+        public static final double distancekD = 0;
 
         // Auto Command Inputs
         public static final double inchesToDriveForDriveForDistanceCommand1 = 120;

@@ -19,7 +19,7 @@ public class ShootingSubsystem extends SubsystemBase {
     public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
-        setDefaultCommand(new ShootingCommand(this));
+
         this.robot = robot;
         this.shooterSolenoid = shooterSolenoid;
         intakeStatus = DoubleSolenoid.Value.kReverse;

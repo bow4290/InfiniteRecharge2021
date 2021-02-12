@@ -14,7 +14,6 @@ public class ClimberSubsystem extends SubsystemBase {
     public ClimberSubsystem(int climbingMotorChannel, int wheelSpinnerChannel) {
         climbingMotor = new VictorSPX(climbingMotorChannel);
         wheelMotor = new VictorSPX(wheelSpinnerChannel);
-        setDefaultCommand(new ClimberCommand(this));
     }
 
     public void climb(boolean climbingUp, boolean climbingDown) {

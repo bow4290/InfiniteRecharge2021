@@ -21,7 +21,6 @@ public class ConveyorSubsystem extends SubsystemBase {
         conveyorButton2 = new DigitalInput(Constants.conveyorButton2Port);
         topConveyor = new VictorSPX(topMotorChannel);
         bottomConveyor = new VictorSPX(bottomMotorChannel);
-        setDefaultCommand(new ConveyorCommand(this));
     }
 
 

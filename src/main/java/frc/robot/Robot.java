@@ -16,11 +16,18 @@ import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.VictorSPXDriveCommand;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
+import frc.robot.commands.ClimberCommand;
+import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DriveForDistanceCommand;
+import frc.robot.commands.IntakeCommand;
 
 public class Robot extends TimedRobot {
     private DriveForDistanceCommand autonomousDriveStraightCommand1;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
+    private ShootingCommand teleopShootingCommand;
+    private ConveyorCommand teleopConveyorCommand;
+    private IntakeCommand teleopIntakeCommand;
+    private ClimberCommand teleopClimberCommand;
     public static ShootingSubsystem shootingSubsystem;
     public static DriveTrainSubsystem driveTrainSubsystem;
     public static ConveyorSubsystem conveyorSubsystem;
@@ -62,6 +69,10 @@ public class Robot extends TimedRobot {
         // Put Commands Here
         autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.inchesToDriveForDriveForDistanceCommand1, 0);
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
+        teleopShootingCommand = new ShootingCommand(shootingSubsystem);
+        teleopConveyorCommand = new ConveyorCommand(conveyorSubsystem);
+        teleopIntakeCommand = new IntakeCommand(intakeSubsystem);
+        teleopClimberCommand = new ClimberCommand(climberSubsystem);
     }
 
     @Override
@@ -107,6 +118,10 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         teleopVictorSPXDriveCommand.schedule();
+        teleopShootingCommand.schedule();
+        teleopConveyorCommand.schedule();
+        teleopIntakeCommand.schedule();
+        teleopClimberCommand.schedule();
     }
 
     @Override
