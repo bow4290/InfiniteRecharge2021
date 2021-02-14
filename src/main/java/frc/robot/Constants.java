@@ -22,9 +22,10 @@ public final class Constants {
 
         // Drive Straight Constants
         public static final double autoSpeed = 0.9;
-        public static final double straightkP = 0.5;
-        public static final double distancekP = 0.1;
-        public static final double distancekD = 0;
+        public static final double straightkP = 0.02;
+        public static final double distancekP = 0.02;
+        public static final double distancekI = 0;
+        public static final double distancekD = 0.00125;
 
         // Auto Command Inputs
         public static final double inchesToDriveForDriveForDistanceCommand1 = 120;

@@ -20,6 +20,8 @@ public class DriveForDistanceCommand extends CommandBase {
     private double distanceCorrection;
     private double distanceSum;
     private double distanceDt;
+    private double distanceErrorRate;
+    private double lastDistanceError = 0;
     private double lastTimestamp;
     private double motorSpeedRatio;
     private double correctedLeftMotorSpeed;
@@ -46,14 +48,27 @@ public class DriveForDistanceCommand extends CommandBase {
         // Distance PID calculations
         distanceError = inchesToDrive - driveTrainSubsystem.driveTrainRightEncoder.getDistance();
         distanceDt = Timer.getFPGATimestamp() - lastTimestamp;
-        distanceSum = distanceError * distanceDt;
-        SmartDashboard.putNumber("Distance Error: ", distanceSum);
-        distanceCorrection = Constants.distancekP*(distanceError) + Constants.distancekD*(distanceSum);
+        
+        // Integral Gain
+        distanceSum += distanceError * distanceDt;
+        SmartDashboard.putNumber("Distance Error: ", distanceError);
+
+        // Derivative Gain
+        distanceErrorRate = (distanceError - lastDistanceError) / distanceDt;
+        
+        // PID Gain
+        distanceCorrection = Constants.distancekP*(distanceError) + Constants.distancekI*(distanceSum) + Constants.distancekD*(distanceErrorRate);
+        SmartDashboard.putNumber("Distance Correction: ", distanceCorrection);
+        SmartDashboard.putNumber("Distance P: ", Constants.distancekP*(distanceError));
+        SmartDashboard.putNumber("Distance I: ", Constants.distancekI*(distanceSum));
+        SmartDashboard.putNumber("Distance D: ", Constants.distancekD*(distanceErrorRate));
+        
 
         // PID speed corrections
         correctedLeftMotorSpeed =  distanceCorrection - straightnessCorrection;
         correctedRightMotorSpeed = distanceCorrection + straightnessCorrection;
         motorSpeedRatio = correctedLeftMotorSpeed/correctedRightMotorSpeed;
+        SmartDashboard.putNumber("Corrected Left Speed: ", correctedLeftMotorSpeed);
         
         // Saturate motor speed if higher than max auto speed
         if (correctedLeftMotorSpeed > Constants.autoSpeed){
@@ -76,14 +91,15 @@ public class DriveForDistanceCommand extends CommandBase {
         // is adjusted for joysticks to work as they incorrectly do
 
         lastTimestamp = Timer.getFPGATimestamp();
+        lastDistanceError = distanceError;
     }
 
     @Override
-    public boolean isFinished() {          // if robot rolls past target, add derivative gain. End when derivative error is low
-        return ((inchesToDrive - 1) <= driveTrainSubsystem.driveTrainLeftEncoder.getDistance() &&
-                (inchesToDrive + 1) >= driveTrainSubsystem.driveTrainLeftEncoder.getDistance() &&
-                (inchesToDrive - 1) <= driveTrainSubsystem.driveTrainRightEncoder.getDistance() &&
-                (inchesToDrive + 1) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance());
+    public boolean isFinished() {
+        return ((-0.001 <= Constants.distancekD*(distanceErrorRate) && 0.001 >= Constants.distancekD*(distanceErrorRate)) &&
+                (-0.08 <= Constants.distancekP*(distanceError) && 0.08 >= Constants.distancekP*(distanceError)) &&
+                (inchesToDrive - 5) <= driveTrainSubsystem.driveTrainRightEncoder.getDistance() &&
+                (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance());
     }
 
     @Override
