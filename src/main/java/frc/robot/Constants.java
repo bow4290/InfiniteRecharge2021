@@ -21,14 +21,15 @@ public final class Constants {
         public static final double driveTrainRightEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
 
         // Drive Straight Constants
-        public static final double autoSpeed = 0.9;
+        public static final double autoDriveSpeed = 0.9;
         public static final double straightkP = 0.02;
         public static final double distancekP = 0.02;
         public static final double distancekI = 0;
         public static final double distancekD = 0.00125;
 
         // Auto Command Inputs
-        public static final double inchesToDriveForDriveForDistanceCommand1 = 120;
+        public static final double distanceCommand1Inches = 120;
+        public static final double turnAngleCommand1Angle = 90;
 
         // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;
@@ -71,4 +72,8 @@ public final class Constants {
         public static int gearShiftSolenoidForwardChannel = 4;
         public static int gearShiftSolenoidReverseChannel = 5;
         public static int compressorCANID = 0;
+
+        //Gyro
+        public static final double autoTurnSpeed = 0.6;
+        public static double turnkP = 0.005;
 }

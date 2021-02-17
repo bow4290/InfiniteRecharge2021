@@ -24,6 +24,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     public  Encoder driveTrainLeftEncoder;
     public  Encoder driveTrainRightEncoder;
 
+    public ADXRS450_Gyro driveGyro;
 
     public DriveTrainSubsystem(DoubleSolenoid gearShiftSolenoid, int leftVictorSPX1Channel, int leftVictorSPX2Channel, int leftVictorSPX3Channel,
                                int rightVictorSPX1Channel, int rightVictorSPX2Channel, int rightVictorSPX3Channel) {
@@ -45,6 +46,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         driveTrainRightEncoder.setSamplesToAverage(Constants.driveTrainRightEncoderAverageSamples);
         driveTrainRightEncoder.setMinRate(Constants.driveTrainRightEncoderMinRate);
         driveTrainRightEncoder.setDistancePerPulse(Constants.driveTrainRightEncoderPulseDistance);
+
+        driveGyro = new ADXRS450_Gyro();
     }
 
     public void drive(double leftspeed, double rightspeed) {

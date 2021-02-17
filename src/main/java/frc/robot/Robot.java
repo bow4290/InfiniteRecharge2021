@@ -12,17 +12,13 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ShootingCommand;
-import frc.robot.commands.VictorSPXDriveCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
-import frc.robot.commands.ClimberCommand;
-import frc.robot.commands.ConveyorCommand;
-import frc.robot.commands.DriveForDistanceCommand;
-import frc.robot.commands.IntakeCommand;
 
 public class Robot extends TimedRobot {
     private DriveForDistanceCommand autonomousDriveStraightCommand1;
+    private TurnAngleCommand autonomousTurnAngleCommand1;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     private ShootingCommand teleopShootingCommand;
     private ConveyorCommand teleopConveyorCommand;
@@ -65,9 +61,12 @@ public class Robot extends TimedRobot {
         camera.setResolution(160, 120);
 
         compressor = new Compressor(Constants.compressorCANID);
-        
+
+        driveTrainSubsystem.driveGyro.calibrate();
+
         // Put Commands Here
-        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.inchesToDriveForDriveForDistanceCommand1, 0);
+        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches, 0);
+        autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
         teleopConveyorCommand = new ConveyorCommand(conveyorSubsystem);
@@ -82,6 +81,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Shooter Encoder Rate:", shooterEncoder.getRate());
         SmartDashboard.putNumber("Left Encoder Distance" , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
         SmartDashboard.putNumber("Right Encoder Distance" , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
+        SmartDashboard.putNumber("Gyro Angle (Degrees)" , driveTrainSubsystem.driveGyro.getAngle());
     }
 
     @Override
@@ -97,7 +97,8 @@ public class Robot extends TimedRobot {
         ShootingCommand.mode = "IntakeMode";
         if (autonomousDriveStraightCommand1 != null) {
             System.out.println("scheduling autocommand");
-            autonomousDriveStraightCommand1.schedule();
+            //autonomousDriveStraightCommand1.schedule();
+            autonomousTurnAngleCommand1.schedule();
         }
     }
 

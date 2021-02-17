@@ -25,24 +25,27 @@ public class ConveyorCommand extends CommandBase {
         if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
           (ConveyorSubsystem.conveyorButton1.get() == true) &&
           (ConveyorSubsystem.conveyorButton2.get() == true))
-        {
+    {
             conveyorSubsystem.conveyBall(-0.25);
-        }
-
-        else {
-            if (RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) > 0
-                    && RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
-                    && shooterEncoderRate < ShootingCommand.rateSpeed - 10000) {
-                conveyorSubsystem.conveyBall(0.0);
-            } else {
-                if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false)){
-                    conveyorSubsystem.conveyBall(0.68 / 1.1);
-                } else {
-                    conveyorSubsystem.conveyBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kLeft));
-                }
-            }
-        }
     }
+
+        else
+    {
+
+            if(RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
+                    && shooterEncoderRate >= ShootingCommand.rateSpeed - 10000)
+            {
+                conveyorSubsystem.conveyBall(1 / 1.1);
+            }
+            else
+            {
+                if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false))
+                    conveyorSubsystem.conveyBall(0.68 / 1.1);
+                else
+                    conveyorSubsystem.conveyBall(0);
+            }
+    }
+}
 
     @Override
     public boolean isFinished() {

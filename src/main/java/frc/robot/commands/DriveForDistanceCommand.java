@@ -71,17 +71,17 @@ public class DriveForDistanceCommand extends CommandBase {
         SmartDashboard.putNumber("Corrected Left Speed: ", correctedLeftMotorSpeed);
         
         // Saturate motor speed if higher than max auto speed
-        if (correctedLeftMotorSpeed > Constants.autoSpeed){
-            correctedLeftMotorSpeed = Constants.autoSpeed;
+        if (correctedLeftMotorSpeed > Constants.autoDriveSpeed){
+            correctedLeftMotorSpeed = Constants.autoDriveSpeed;
         }
-        if (correctedLeftMotorSpeed < -Constants.autoSpeed){
-            correctedLeftMotorSpeed = -Constants.autoSpeed;
+        if (correctedLeftMotorSpeed < -Constants.autoDriveSpeed){
+            correctedLeftMotorSpeed = -Constants.autoDriveSpeed;
         }
-        if (correctedRightMotorSpeed > Constants.autoSpeed){
-            correctedRightMotorSpeed = Constants.autoSpeed;
+        if (correctedRightMotorSpeed > Constants.autoDriveSpeed){
+            correctedRightMotorSpeed = Constants.autoDriveSpeed;
         }
-        if (correctedRightMotorSpeed < -Constants.autoSpeed){
-            correctedRightMotorSpeed = -Constants.autoSpeed;
+        if (correctedRightMotorSpeed < -Constants.autoDriveSpeed){
+            correctedRightMotorSpeed = -Constants.autoDriveSpeed;
         }
         correctedRightMotorSpeed = correctedRightMotorSpeed/motorSpeedRatio;
 
@@ -105,6 +105,6 @@ public class DriveForDistanceCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         driveTrainSubsystem.drive(0, 0);
-        System.out.println("Done with auto command.");
+        System.out.println("Done with auto drive command.");
     }
 }
