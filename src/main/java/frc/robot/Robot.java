@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem.driveGyro.calibrate();
 
         // Put Commands Here
-        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches, 0);
+        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
         autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
@@ -78,10 +78,10 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
 
-        SmartDashboard.putNumber("Shooter Encoder Rate:", shooterEncoder.getRate());
-        SmartDashboard.putNumber("Left Encoder Distance" , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
-        SmartDashboard.putNumber("Right Encoder Distance" , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
-        SmartDashboard.putNumber("Gyro Angle (Degrees)" , driveTrainSubsystem.driveGyro.getAngle());
+        SmartDashboard.putNumber("Shooter Encoder Rate: ", shooterEncoder.getRate());
+        SmartDashboard.putNumber("Left Encoder Distance: " , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
+        SmartDashboard.putNumber("Right Encoder Distance: " , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
+        SmartDashboard.putNumber("Gyro Angle: " , driveTrainSubsystem.driveGyro.getAngle());
     }
 
     @Override
@@ -97,8 +97,8 @@ public class Robot extends TimedRobot {
         ShootingCommand.mode = "IntakeMode";
         if (autonomousDriveStraightCommand1 != null) {
             System.out.println("scheduling autocommand");
-            //autonomousDriveStraightCommand1.schedule();
-            autonomousTurnAngleCommand1.schedule();
+            autonomousDriveStraightCommand1.schedule();
+            //autonomousTurnAngleCommand1.schedule();
         }
     }
 

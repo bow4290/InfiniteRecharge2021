@@ -22,14 +22,20 @@ public final class Constants {
 
         // Drive Straight Constants
         public static final double autoDriveSpeed = 0.9;
-        public static final double straightkP = 0.02;
+        public static final double straightkP = 0.0575;
         public static final double distancekP = 0.02;
         public static final double distancekI = 0;
-        public static final double distancekD = 0.00125;
+        public static final double distancekD = 0.0015;
+
+        //Gyro
+        public static final double autoTurnSpeed = 0.4;
+        public static double turnkP = 0.05;
+        public static double turnkI = 0.2;
+        public static double turnkD = 0.001;
 
         // Auto Command Inputs
         public static final double distanceCommand1Inches = 120;
-        public static final double turnAngleCommand1Angle = 90;
+        public static final double turnAngleCommand1Angle = 22.5;
 
         // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;
@@ -72,8 +78,4 @@ public final class Constants {
         public static int gearShiftSolenoidForwardChannel = 4;
         public static int gearShiftSolenoidReverseChannel = 5;
         public static int compressorCANID = 0;
-
-        //Gyro
-        public static final double autoTurnSpeed = 0.6;
-        public static double turnkP = 0.005;
 }

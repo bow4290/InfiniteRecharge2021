@@ -13,11 +13,11 @@ public class DriveForDistanceCommand extends CommandBase {
     
     private final DriveTrainSubsystem driveTrainSubsystem;
     private double inchesToDrive;
-    private double driveOffset;
     private double straightnessError;
     private double straightnessCorrection;
     private double distanceError;
     private double distanceCorrection;
+    private double distanceRange = 12;
     private double distanceSum;
     private double distanceDt;
     private double distanceErrorRate;
@@ -27,31 +27,36 @@ public class DriveForDistanceCommand extends CommandBase {
     private double correctedLeftMotorSpeed;
     private double correctedRightMotorSpeed;
 
-    public DriveForDistanceCommand(DriveTrainSubsystem driveTrainSubsystem, double inchesToDrive, double driveOffset) {
+    public DriveForDistanceCommand(DriveTrainSubsystem driveTrainSubsystem, double inchesToDrive) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.inchesToDrive = inchesToDrive;
-        this.driveOffset = driveOffset;
     }
 
     @Override
     public void initialize() {
-        driveTrainSubsystem.driveTrainLeftEncoder.reset();
+        driveTrainSubsystem.driveGyro.reset();
         driveTrainSubsystem.driveTrainRightEncoder.reset();
     }
 
     @Override
     public void execute() {
         // Straightness PID calculations
-        straightnessError = driveTrainSubsystem.driveTrainLeftEncoder.getDistance() - driveTrainSubsystem.driveTrainRightEncoder.getDistance();
-        straightnessCorrection = Constants.straightkP*(straightnessError - driveOffset);
+        straightnessError = driveTrainSubsystem.driveGyro.getAngle();
+        straightnessCorrection = Constants.straightkP*straightnessError;
 
         // Distance PID calculations
         distanceError = inchesToDrive - driveTrainSubsystem.driveTrainRightEncoder.getDistance();
         distanceDt = Timer.getFPGATimestamp() - lastTimestamp;
         
         // Integral Gain
-        distanceSum += distanceError * distanceDt;
+        if(Math.abs(distanceError) < distanceRange){
+            distanceSum += distanceError * distanceDt;
+            } else{
+                distanceSum = 0;
+            }
+
         SmartDashboard.putNumber("Distance Error: ", distanceError);
+        SmartDashboard.putNumber("Straightness Correction: ", straightnessCorrection);
 
         // Derivative Gain
         distanceErrorRate = (distanceError - lastDistanceError) / distanceDt;
@@ -59,16 +64,16 @@ public class DriveForDistanceCommand extends CommandBase {
         // PID Gain
         distanceCorrection = Constants.distancekP*(distanceError) + Constants.distancekI*(distanceSum) + Constants.distancekD*(distanceErrorRate);
         SmartDashboard.putNumber("Distance Correction: ", distanceCorrection);
-        SmartDashboard.putNumber("Distance P: ", Constants.distancekP*(distanceError));
-        SmartDashboard.putNumber("Distance I: ", Constants.distancekI*(distanceSum));
-        SmartDashboard.putNumber("Distance D: ", Constants.distancekD*(distanceErrorRate));
+        //SmartDashboard.putNumber("Distance P: ", Constants.distancekP*(distanceError));
+        //SmartDashboard.putNumber("Distance I: ", Constants.distancekI*(distanceSum));
+        //SmartDashboard.putNumber("Distance D: ", Constants.distancekD*(distanceErrorRate));
         
 
         // PID speed corrections
         correctedLeftMotorSpeed =  distanceCorrection - straightnessCorrection;
         correctedRightMotorSpeed = distanceCorrection + straightnessCorrection;
         motorSpeedRatio = correctedLeftMotorSpeed/correctedRightMotorSpeed;
-        SmartDashboard.putNumber("Corrected Left Speed: ", correctedLeftMotorSpeed);
+        //SmartDashboard.putNumber("Corrected Left Speed: ", correctedLeftMotorSpeed);
         
         // Saturate motor speed if higher than max auto speed
         if (correctedLeftMotorSpeed > Constants.autoDriveSpeed){
