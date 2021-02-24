@@ -12,6 +12,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
@@ -19,6 +20,7 @@ import edu.wpi.cscore.UsbCamera;
 public class Robot extends TimedRobot {
     private DriveForDistanceCommand autonomousDriveStraightCommand1;
     private TurnAngleCommand autonomousTurnAngleCommand1;
+    private SequentialCommandGroup autoCommandGroup;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     private ShootingCommand teleopShootingCommand;
     private ConveyorCommand teleopConveyorCommand;
@@ -72,6 +74,10 @@ public class Robot extends TimedRobot {
         teleopConveyorCommand = new ConveyorCommand(conveyorSubsystem);
         teleopIntakeCommand = new IntakeCommand(intakeSubsystem);
         teleopClimberCommand = new ClimberCommand(climberSubsystem);
+
+        autoCommandGroup = new SequentialCommandGroup();
+        autoCommandGroup.addCommands(autonomousDriveStraightCommand1);
+        autoCommandGroup.addCommands(autonomousTurnAngleCommand1);
     }
 
     @Override
@@ -95,10 +101,10 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         ShootingCommand.mode = "IntakeMode";
-        if (autonomousDriveStraightCommand1 != null) {
-            System.out.println("scheduling autocommand");
-            autonomousDriveStraightCommand1.schedule();
-            //autonomousTurnAngleCommand1.schedule();
+        System.out.println("scheduling autocommand");
+        if(autoCommandGroup != null)
+        {
+            autoCommandGroup.schedule();
         }
     }
 
@@ -109,11 +115,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        if (autonomousDriveStraightCommand1 != null) {
-            autonomousDriveStraightCommand1.cancel();
-        }
-
         ShootingCommand.mode = "IntakeMode";
+        autoCommandGroup.cancel();
     }
 
     @Override
