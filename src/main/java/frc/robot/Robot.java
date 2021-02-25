@@ -20,6 +20,12 @@ import edu.wpi.cscore.UsbCamera;
 public class Robot extends TimedRobot {
     private DriveForDistanceCommand autonomousDriveStraightCommand1;
     private TurnAngleCommand autonomousTurnAngleCommand1;
+    private DriveForDistanceCommand autonomousDriveStraightCommand2;
+    private TurnAngleCommand autonomousTurnAngleCommand2;
+    private DriveForDistanceCommand autonomousDriveStraightCommand3;
+    private TurnAngleCommand autonomousTurnAngleCommand3;
+    private DriveForDistanceCommand autonomousDriveStraightCommand4;
+    private TurnAngleCommand autonomousTurnAngleCommand4;
     private SequentialCommandGroup autoCommandGroup;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     private ShootingCommand teleopShootingCommand;
@@ -69,6 +75,12 @@ public class Robot extends TimedRobot {
         // Put Commands Here
         autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
         autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
+        autonomousDriveStraightCommand2 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
+        autonomousTurnAngleCommand2 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
+        autonomousDriveStraightCommand3 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
+        autonomousTurnAngleCommand3 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
+        autonomousDriveStraightCommand4 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
+        autonomousTurnAngleCommand4 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
         teleopConveyorCommand = new ConveyorCommand(conveyorSubsystem);
@@ -78,6 +90,12 @@ public class Robot extends TimedRobot {
         autoCommandGroup = new SequentialCommandGroup();
         autoCommandGroup.addCommands(autonomousDriveStraightCommand1);
         autoCommandGroup.addCommands(autonomousTurnAngleCommand1);
+        autoCommandGroup.addCommands(autonomousDriveStraightCommand2);
+        autoCommandGroup.addCommands(autonomousTurnAngleCommand2);
+        autoCommandGroup.addCommands(autonomousDriveStraightCommand3);
+        autoCommandGroup.addCommands(autonomousTurnAngleCommand3);
+        autoCommandGroup.addCommands(autonomousDriveStraightCommand4);
+        autoCommandGroup.addCommands(autonomousTurnAngleCommand4);
     }
 
     @Override
@@ -102,6 +120,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         ShootingCommand.mode = "IntakeMode";
         System.out.println("scheduling autocommand");
+        
         if(autoCommandGroup != null)
         {
             autoCommandGroup.schedule();
