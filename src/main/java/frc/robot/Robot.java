@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commandGroups.AutoCommandGroup;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
@@ -26,7 +27,7 @@ public class Robot extends TimedRobot {
     private TurnAngleCommand autonomousTurnAngleCommand3;
     private DriveForDistanceCommand autonomousDriveStraightCommand4;
     private TurnAngleCommand autonomousTurnAngleCommand4;
-    private SequentialCommandGroup autoCommandGroup;
+    private AutoCommandGroup autoCommandGroup;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     private ShootingCommand teleopShootingCommand;
     private ConveyorCommand teleopConveyorCommand;
@@ -73,35 +74,33 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem.driveGyro.calibrate();
 
         // Put Commands Here
-        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
+        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, intakeSubsystem, Constants.distanceCommand1Inches);
         autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
-        autonomousDriveStraightCommand2 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
-        autonomousTurnAngleCommand2 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
-        autonomousDriveStraightCommand3 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
-        autonomousTurnAngleCommand3 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
-        autonomousDriveStraightCommand4 = new DriveForDistanceCommand(driveTrainSubsystem, Constants.distanceCommand1Inches);
-        autonomousTurnAngleCommand4 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
+
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
         teleopConveyorCommand = new ConveyorCommand(conveyorSubsystem);
         teleopIntakeCommand = new IntakeCommand(intakeSubsystem);
         teleopClimberCommand = new ClimberCommand(climberSubsystem);
 
-        autoCommandGroup = new SequentialCommandGroup();
-        autoCommandGroup.addCommands(autonomousDriveStraightCommand1);
-        autoCommandGroup.addCommands(autonomousTurnAngleCommand1);
-        autoCommandGroup.addCommands(autonomousDriveStraightCommand2);
-        autoCommandGroup.addCommands(autonomousTurnAngleCommand2);
-        autoCommandGroup.addCommands(autonomousDriveStraightCommand3);
-        autoCommandGroup.addCommands(autonomousTurnAngleCommand3);
-        autoCommandGroup.addCommands(autonomousDriveStraightCommand4);
-        autoCommandGroup.addCommands(autonomousTurnAngleCommand4);
+        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem);
+
+        //autoCommandGroup = new SequentialCommandGroup();
+        //autoCommandGroup.addCommands(autonomousDriveStraightCommand1);
+        //autoCommandGroup.addCommands(autonomousTurnAngleCommand1);
+        //autoCommandGroup.addCommands(autonomousDriveStraightCommand2);
+        //autoCommandGroup.addCommands(autonomousTurnAngleCommand2);
+        //autoCommandGroup.addCommands(autonomousDriveStraightCommand3);
+        //autoCommandGroup.addCommands(autonomousTurnAngleCommand3);
+        //autoCommandGroup.addCommands(autonomousDriveStraightCommand4);
+        //autoCommandGroup.addCommands(autonomousTurnAngleCommand4);
     }
 
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-
+        SmartDashboard.putBoolean("Button Value 1: ", ConveyorSubsystem.conveyorButton1.get());
+        SmartDashboard.putBoolean("Button Value 2: ", ConveyorSubsystem.conveyorButton2.get());
         SmartDashboard.putNumber("Shooter Encoder Rate: ", shooterEncoder.getRate());
         SmartDashboard.putNumber("Left Encoder Distance: " , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
         SmartDashboard.putNumber("Right Encoder Distance: " , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
@@ -121,6 +120,8 @@ public class Robot extends TimedRobot {
         ShootingCommand.mode = "IntakeMode";
         System.out.println("scheduling autocommand");
         
+        intakeSubsystem.swapIntakeSolenoidPosition();
+
         if(autoCommandGroup != null)
         {
             autoCommandGroup.schedule();

@@ -35,7 +35,9 @@ public final class Constants {
 
         // Auto Command Inputs
         public static final double distanceCommand1Inches = 60;
+        public static final double distanceCommand2Inches = 24;
         public static final double turnAngleCommand1Angle = -90;
+        public static final double turnAngleCommand2Angle = 90;
 
         // Shooter Encoder:
         public static final int shooterEncoderChannelA = 0;

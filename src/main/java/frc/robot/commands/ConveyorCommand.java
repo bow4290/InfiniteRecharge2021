@@ -40,7 +40,7 @@ public class ConveyorCommand extends CommandBase {
             else
             {
                 if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false))
-                    conveyorSubsystem.conveyBall(0.68 / 1.1);
+                    conveyorSubsystem.conveyBall(0.75 / 1.1);
                 else
                     conveyorSubsystem.conveyBall(0);
             }

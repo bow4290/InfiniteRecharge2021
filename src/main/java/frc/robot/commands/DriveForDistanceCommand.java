@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveForDistanceCommand extends CommandBase {
     
     private final DriveTrainSubsystem driveTrainSubsystem;
+    private final IntakeSubsystem intakeSubsystem;
     private double inchesToDrive;
     private double straightnessError;
     private double straightnessCorrection;
@@ -27,9 +29,10 @@ public class DriveForDistanceCommand extends CommandBase {
     private double correctedLeftMotorSpeed;
     private double correctedRightMotorSpeed;
 
-    public DriveForDistanceCommand(DriveTrainSubsystem driveTrainSubsystem, double inchesToDrive) {
+    public DriveForDistanceCommand(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem, double inchesToDrive) {
         this.driveTrainSubsystem = driveTrainSubsystem;
-        this.inchesToDrive = inchesToDrive;
+        this.intakeSubsystem = intakeSubsystem;
+        this.inchesToDrive = -inchesToDrive;
     }
 
     @Override
@@ -40,6 +43,8 @@ public class DriveForDistanceCommand extends CommandBase {
 
     @Override
     public void execute() {
+        intakeSubsystem.intakeBall(1);
+
         // Straightness PID calculations
         straightnessError = driveTrainSubsystem.driveGyro.getAngle();
         straightnessCorrection = Constants.straightkP*straightnessError;
@@ -102,7 +107,6 @@ public class DriveForDistanceCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         return ((-0.001 <= Constants.distancekD*(distanceErrorRate) && 0.001 >= Constants.distancekD*(distanceErrorRate)) &&
-                (-0.08 <= Constants.distancekP*(distanceError) && 0.08 >= Constants.distancekP*(distanceError)) &&
                 (inchesToDrive - 5) <= driveTrainSubsystem.driveTrainRightEncoder.getDistance() &&
                 (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance());
     }
@@ -110,6 +114,8 @@ public class DriveForDistanceCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         driveTrainSubsystem.drive(0, 0);
+        Timer.delay(1);
+        intakeSubsystem.intakeBall(0);
         System.out.println("Done with auto drive command.");
     }
 }
