@@ -12,6 +12,9 @@ import java.util.Set;
 public class ConveyorCommand extends CommandBase {
     private ConveyorSubsystem conveyorSubsystem;
     public final Set<Subsystem> subsystems;
+    public static int ballCount;
+    public static boolean buttonState;
+    public static boolean lastButtonState;
 
     public ConveyorCommand(ConveyorSubsystem conveyorSubsystem) {
         this.conveyorSubsystem = conveyorSubsystem;
@@ -21,6 +24,16 @@ public class ConveyorCommand extends CommandBase {
     public void execute() {
 
         double shooterEncoderRate = Robot.shooterEncoder.getRate();
+
+        if(!ConveyorSubsystem.conveyorButton1.get() || !ConveyorSubsystem.conveyorButton2.get()){
+            buttonState = true;     // At least one button is pressed
+        } else{
+            buttonState = false;    // No button is pressed
+        }
+        if(buttonState == true && lastButtonState == false){
+            ballCount++;
+        }
+        lastButtonState = buttonState;
 
         if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
           (ConveyorSubsystem.conveyorButton1.get() == true) &&

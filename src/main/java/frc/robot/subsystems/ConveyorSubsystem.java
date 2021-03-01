@@ -13,7 +13,6 @@ public class ConveyorSubsystem extends SubsystemBase {
     public Constants constants = new Constants();
     public static DigitalInput conveyorButton1;
     public static DigitalInput conveyorButton2;
-    public static int ballCount = 0;
 
     double speedFactor = 1.1;
 

@@ -74,16 +74,15 @@ public class Robot extends TimedRobot {
         driveTrainSubsystem.driveGyro.calibrate();
 
         // Put Commands Here
-        autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, intakeSubsystem, Constants.distanceCommand1Inches);
-        autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, Constants.turnAngleCommand1Angle);
+        //autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, intakeSubsystem, 60);
+        //autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, 90);
+        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem);
 
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
         teleopConveyorCommand = new ConveyorCommand(conveyorSubsystem);
         teleopIntakeCommand = new IntakeCommand(intakeSubsystem);
         teleopClimberCommand = new ClimberCommand(climberSubsystem);
-
-        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem);
 
         //autoCommandGroup = new SequentialCommandGroup();
         //autoCommandGroup.addCommands(autonomousDriveStraightCommand1);

@@ -1,7 +1,7 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
+import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DriveForDistanceCommand;
 import frc.robot.commands.TurnAngleCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -13,22 +13,22 @@ public class AutoSequentialCommandGroup extends SequentialCommandGroup {
   public AutoSequentialCommandGroup(DriveTrainSubsystem drive, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeBall) {
       
     addCommands(
-      new DriveForDistanceCommand(drive, intakeBall, Constants.distanceCommand1Inches)
+      new DriveForDistanceCommand(drive, intakeBall, 60)
     );
 
-    if (ConveyorSubsystem.ballCount == 2){
+    if (ConveyorCommand.ballCount == 2){
       addCommands(
-        new TurnAngleCommand(drive, Constants.turnAngleCommand2Angle) // turn right
+        new TurnAngleCommand(drive, -90) // turn left
       );
     }
-    else if (ConveyorSubsystem.ballCount == 1){
+    else if (ConveyorCommand.ballCount == 1){
       addCommands(
-        new TurnAngleCommand(drive, Constants.turnAngleCommand1Angle) // turn left
+        new TurnAngleCommand(drive, 90) // turn right
       );
     }
     else{
       addCommands(
-        new DriveForDistanceCommand(drive, intakeBall, Constants.distanceCommand2Inches)
+        new DriveForDistanceCommand(drive, intakeBall, -30) // drive backwards
       );
     }
   }
