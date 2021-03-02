@@ -33,6 +33,10 @@ public class ConveyorCommand extends CommandBase {
         if(buttonState == true && lastButtonState == false){
             ballCount++;
         }
+        if(ballCount > 3){
+            ballCount = 1;
+        }
+        
         lastButtonState = buttonState;
 
         if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
