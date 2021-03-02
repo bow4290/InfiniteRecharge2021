@@ -117,9 +117,10 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         ShootingCommand.mode = "IntakeMode";
-        System.out.println("scheduling autocommand");
-        
+        ConveyorCommand.ballCount = 0;
         intakeSubsystem.swapIntakeSolenoidPosition();
+        
+        System.out.println("scheduling autocommand");
 
         if(autoCommandGroup != null)
         {
