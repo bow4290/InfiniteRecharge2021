@@ -33,9 +33,6 @@ public class ConveyorCommand extends CommandBase {
         if(buttonState == true && lastButtonState == false){
             ballCount++;
         }
-        if(ballCount > 3){
-            ballCount = 1;
-        }
         
         lastButtonState = buttonState;
 
