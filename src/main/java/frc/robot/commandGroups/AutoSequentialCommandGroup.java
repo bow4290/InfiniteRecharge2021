@@ -1,16 +1,18 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutoShootingCommand;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DriveForDistanceCommand;
 import frc.robot.commands.TurnAngleCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 public class AutoSequentialCommandGroup extends SequentialCommandGroup {
 
-  public AutoSequentialCommandGroup(DriveTrainSubsystem drive, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeBall) {
+  public AutoSequentialCommandGroup(DriveTrainSubsystem drive, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeBall, ShootingSubsystem shootingSubsystem) {
       
     addCommands(
       new DriveForDistanceCommand(drive, intakeBall, 60)

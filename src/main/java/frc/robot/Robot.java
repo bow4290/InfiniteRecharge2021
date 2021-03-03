@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commandGroups.AutoCommandGroup;
+import frc.robot.commandGroups.AutoSequentialCommandGroup;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
     private DriveForDistanceCommand autonomousDriveStraightCommand4;
     private TurnAngleCommand autonomousTurnAngleCommand4;
     private AutoCommandGroup autoCommandGroup;
+    private AutoShootingCommand autoShootingCommand;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     private ShootingCommand teleopShootingCommand;
     private ConveyorCommand teleopConveyorCommand;
@@ -76,7 +78,8 @@ public class Robot extends TimedRobot {
         // Put Commands Here
         //autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, intakeSubsystem, 60);
         //autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, 90);
-        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem);
+        autoShootingCommand = new AutoShootingCommand(shootingSubsystem, "red");
+        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem, autoShootingCommand);
 
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);

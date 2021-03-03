@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.commands.AutoShootingCommand;
 
 import java.util.Set;
 
@@ -15,10 +16,17 @@ public class ConveyorCommand extends CommandBase {
     public static int ballCount;
     public static boolean buttonState;
     public static boolean lastButtonState;
+    private AutoShootingCommand autoShootingCommand;
 
     public ConveyorCommand(ConveyorSubsystem conveyorSubsystem) {
         this.conveyorSubsystem = conveyorSubsystem;
         this.subsystems = Set.of(conveyorSubsystem);
+    }
+
+    public ConveyorCommand(ConveyorSubsystem conveyorSubsystem, AutoShootingCommand autoShootingCommand) {
+        this.conveyorSubsystem = conveyorSubsystem;
+        this.subsystems = Set.of(conveyorSubsystem);
+        this.autoShootingCommand = autoShootingCommand;
     }
 
     public void execute() {
@@ -45,8 +53,8 @@ public class ConveyorCommand extends CommandBase {
 
         else
     {
-
-            if(RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
+                                                                                                                        //Uncomment if auto doesn't work.
+            if((RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight) || autoShootingCommand.isFinished() /*|| AutoShootingCommand.shootingIsFinished */)
                     && shooterEncoderRate >= ShootingCommand.rateSpeed - 10000)
             {
                 conveyorSubsystem.conveyBall(1 / 1.1);
