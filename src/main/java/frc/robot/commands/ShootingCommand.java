@@ -24,7 +24,7 @@ public class ShootingCommand extends CommandBase {
     public static double shooterSpeedKP = 0.03;
     public static double shooterSpeedSetPoint = 15000;
     public static double rateSpeed = 0;
-    public static String mode = "IntakeMode";
+    public static String mode = "Red";
     public int m = 240000;
     public int b = 25000;
     Scanner scanner = new Scanner(System.in);

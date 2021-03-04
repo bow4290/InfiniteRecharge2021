@@ -8,8 +8,8 @@ import frc.robot.Robot;
 import frc.robot.commands.ShootingCommand;
 
 public class ShootingSubsystem extends SubsystemBase {
-    private final VictorSPX leftShooter;
-    private final VictorSPX rightShooter;
+    public final VictorSPX leftShooter;
+    public final VictorSPX rightShooter;
     public Robot robot;
     public DoubleSolenoid shooterSolenoid;
     public DoubleSolenoid.Value intakeStatus;

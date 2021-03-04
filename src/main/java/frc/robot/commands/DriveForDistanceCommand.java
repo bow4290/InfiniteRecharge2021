@@ -95,6 +95,13 @@ public class DriveForDistanceCommand extends CommandBase {
         }
         correctedRightMotorSpeed = correctedRightMotorSpeed/motorSpeedRatio;
 
+        //if(distanceError >= 0 && correctedLeftMotorSpeed <= 0 && correctedRightMotorSpeed <= 0)
+        //{
+        //
+        //    correctedRightMotorSpeed = 0;
+        //    correctedLeftMotorSpeed = 0;
+        //}
+
         // Command motors to move with a speed
         driveTrainSubsystem.drive(-correctedLeftMotorSpeed, -correctedRightMotorSpeed);
         // added negatives because joysticks give reverse values and drivetrain subsystem

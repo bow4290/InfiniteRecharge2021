@@ -11,13 +11,13 @@ import frc.robot.subsystems.ShootingSubsystem;
 
 public class AutoCommandGroup extends ParallelCommandGroup {
 
-  public AutoCommandGroup(DriveTrainSubsystem driveTrainSubsystem, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeSubsystem, ShootingSubsystem shootingSubsystem, AutoShootingCommand autoShootingCommand) {
+  public AutoCommandGroup(DriveTrainSubsystem driveTrainSubsystem, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeSubsystem, ShootingSubsystem shootingSubsystem) {
     addCommands(
-      new ConveyorCommand(conveyorSubsystem, autoShootingCommand),
+      new ConveyorCommand(conveyorSubsystem),
       //new AutoSequentialCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem)
 
       //Auto award video commands:
-      new AutoAwardVideoGroupCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem, autoShootingCommand)
+      new AutoAwardVideoGroupCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem)
     );
   }
 }

@@ -78,8 +78,7 @@ public class Robot extends TimedRobot {
         // Put Commands Here
         //autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, intakeSubsystem, 60);
         //autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, 90);
-        autoShootingCommand = new AutoShootingCommand(shootingSubsystem, "red");
-        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem, autoShootingCommand);
+        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem);
 
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
@@ -119,7 +118,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        ShootingCommand.mode = "IntakeMode";
+        //ShootingCommand.mode = "IntakeMode";
+        ShootingCommand.mode = "Red";
         ConveyorCommand.ballCount = 0;
         intakeSubsystem.swapIntakeSolenoidPosition();
         

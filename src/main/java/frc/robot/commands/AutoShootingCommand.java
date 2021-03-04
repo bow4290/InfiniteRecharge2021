@@ -9,38 +9,42 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
 import java.util.Scanner;
 
 import java.util.Set;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+
 public class AutoShootingCommand extends CommandBase {
 
     private ShootingSubsystem shootingSubsystem;
+    private ConveyorSubsystem conveyorSubsystem;
+    private double shootingCommandStartTime;
+    private double currentShootingCommandTime;
+    private double startFirstTime;
     private final Set<Subsystem> subsystems;
-
-    public static double shooterSpeed = 1;
     public static double shooterSpeedError;
     public static double shooterSpeedCorrection;
     public static double shooterSpeedKP = 0.03;
     public static double shooterSpeedSetPoint = 15000;
     public static double rateSpeed = 0;
-    private String mode;
     public int m = 240000;
     public int b = 25000;
-    public double shootingCommandStartTime;
-    public double currentShootingCommandTime;
-    public int startFirstTime = 0;
-    public static boolean shootingIsFinished = false;
+    public String autoMode = "Red";
+    private double shooterSpeed;
 
-    public AutoShootingCommand(ShootingSubsystem shootingSubsystem, String mode) {
+    public AutoShootingCommand(ShootingSubsystem shootingSubsystem, ConveyorSubsystem conveyorSubsystem) {
         this.shootingSubsystem = shootingSubsystem;
+        this.conveyorSubsystem = conveyorSubsystem;
         this.subsystems = Set.of(shootingSubsystem);
-        this.mode = mode.toLowerCase();
     }
 
     @Override
     public void initialize() {
+        autoMode = "Red";
+        startFirstTime = 0;
     }
 
     @Override
@@ -50,27 +54,28 @@ public class AutoShootingCommand extends CommandBase {
             shootingCommandStartTime = Timer.getFPGATimestamp();
         }
 
-        if(mode == "green"){
+        if(autoMode == "Green"){
             shooterSpeed = 0.93;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(mode == "yellow"){ ;
+        if(autoMode == "Yellow"){
             shooterSpeed = 0.66;
             rateSpeed = m * (shooterSpeed) - b + 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(mode == "blue"){
+        if(autoMode == "Blue"){
             shooterSpeed = 0.91;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
-        if(mode == "red"){
+        if(autoMode == "Red"){
             shooterSpeed = 0.865;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
 
+        SmartDashboard.putString("Automode: ", autoMode);
 
         shooterSpeedError = rateSpeed - Robot.shooterEncoder.getRate();
         shooterSpeedCorrection = shooterSpeedKP * (shooterSpeedError + shooterSpeedSetPoint);
@@ -78,30 +83,25 @@ public class AutoShootingCommand extends CommandBase {
 
         shootingSubsystem.dualShoot(
                 true,
-                (shooterSpeed + shooterSpeedCorrection)
-        );
+                (shooterSpeed + shooterSpeedCorrection));
 
+
+        if(Robot.shooterEncoder.getRate() >= (rateSpeed - 15000)) {
+                conveyorSubsystem.conveyBall(1 / 1.1);
+            } else conveyorSubsystem.conveyBall(0);
+        
         currentShootingCommandTime = Timer.getFPGATimestamp();
         startFirstTime = 1;
     }
 
     @Override
     public boolean isFinished() {
-        if(currentShootingCommandTime - shootingCommandStartTime >= 5)
-        {
-            shootingIsFinished = true;
-        return true;
-        }
-        else {
-            return false;
-        }
+        return(currentShootingCommandTime - shootingCommandStartTime >= 4);
     }
 
     @Override
     public void end(boolean interrupted) {
-        shootingSubsystem.dualShoot(
-                false,
-                0);
+        shootingSubsystem.dualShoot(false, 0);
     }
 
     @Override

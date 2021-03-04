@@ -53,8 +53,8 @@ public class ConveyorCommand extends CommandBase {
 
         else
     {
-                                                                                                                        //Uncomment if auto doesn't work.
-            if((RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight) || autoShootingCommand.isFinished() /*|| AutoShootingCommand.shootingIsFinished */)
+
+            if(RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
                     && shooterEncoderRate >= ShootingCommand.rateSpeed - 10000)
             {
                 conveyorSubsystem.conveyBall(1 / 1.1);
@@ -62,7 +62,7 @@ public class ConveyorCommand extends CommandBase {
             else
             {
                 if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false))
-                    conveyorSubsystem.conveyBall(0.75 / 1.1);
+                    conveyorSubsystem.conveyBall(0.72 / 1.1);
                 else
                     conveyorSubsystem.conveyBall(0);
             }
