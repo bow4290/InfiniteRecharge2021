@@ -28,6 +28,7 @@ public class DriveForDistanceCommand extends CommandBase {
     private double motorSpeedRatio;
     private double correctedLeftMotorSpeed;
     private double correctedRightMotorSpeed;
+    private boolean goingCrazy = false;
 
     public DriveForDistanceCommand(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem, double inchesToDrive) {
         this.driveTrainSubsystem = driveTrainSubsystem;
@@ -95,9 +96,14 @@ public class DriveForDistanceCommand extends CommandBase {
         }
         correctedRightMotorSpeed = correctedRightMotorSpeed/motorSpeedRatio;
 
-        driveTrainSubsystem.drive(-correctedLeftMotorSpeed, -correctedRightMotorSpeed);
         // added negatives because joysticks give reverse values and drivetrain subsystem
         // is adjusted for joysticks to work as they incorrectly do
+        driveTrainSubsystem.drive(-correctedLeftMotorSpeed, -correctedRightMotorSpeed);
+
+        // Prevents problem of robot moving around crazy after PID is finished.
+        if(Math.abs(distanceError) > Math.abs(lastDistanceError) && Math.abs(distanceError) >= 12){
+            goingCrazy = true;
+        }
 
         lastTimestamp = Timer.getFPGATimestamp();
         lastDistanceError = distanceError;
@@ -105,9 +111,10 @@ public class DriveForDistanceCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return ((-0.001 <= Constants.distancekD*(distanceErrorRate) && 0.001 >= Constants.distancekD*(distanceErrorRate)) &&
+        return (((-0.001 <= Constants.distancekD*(distanceErrorRate) && 0.001 >= Constants.distancekD*(distanceErrorRate)) &&
                 (inchesToDrive - 5) <= driveTrainSubsystem.driveTrainRightEncoder.getDistance() &&
-                (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance());
+                (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance())
+                || goingCrazy);
     }
 
     @Override
