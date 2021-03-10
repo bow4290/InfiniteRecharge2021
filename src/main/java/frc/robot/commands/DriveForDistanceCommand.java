@@ -61,14 +61,14 @@ public class DriveForDistanceCommand extends CommandBase {
             }
 
         SmartDashboard.putNumber("Distance Error: ", distanceError);
-        SmartDashboard.putNumber("Straightness Correction: ", straightnessCorrection);
+        //SmartDashboard.putNumber("Straightness Correction: ", straightnessCorrection);
 
         // Derivative Gain
         distanceErrorRate = (distanceError - lastDistanceError) / distanceDt;
         
         // PID Gain
         distanceCorrection = Constants.distancekP*(distanceError) + Constants.distancekI*(distanceSum) + Constants.distancekD*(distanceErrorRate);
-        SmartDashboard.putNumber("Distance Correction: ", distanceCorrection);
+        //SmartDashboard.putNumber("Distance Correction: ", distanceCorrection);
         //SmartDashboard.putNumber("Distance P: ", Constants.distancekP*(distanceError));
         //SmartDashboard.putNumber("Distance I: ", Constants.distancekI*(distanceSum));
         //SmartDashboard.putNumber("Distance D: ", Constants.distancekD*(distanceErrorRate));
@@ -95,14 +95,6 @@ public class DriveForDistanceCommand extends CommandBase {
         }
         correctedRightMotorSpeed = correctedRightMotorSpeed/motorSpeedRatio;
 
-        //if(distanceError >= 0 && correctedLeftMotorSpeed <= 0 && correctedRightMotorSpeed <= 0)
-        //{
-        //
-        //    correctedRightMotorSpeed = 0;
-        //    correctedLeftMotorSpeed = 0;
-        //}
-
-        // Command motors to move with a speed
         driveTrainSubsystem.drive(-correctedLeftMotorSpeed, -correctedRightMotorSpeed);
         // added negatives because joysticks give reverse values and drivetrain subsystem
         // is adjusted for joysticks to work as they incorrectly do

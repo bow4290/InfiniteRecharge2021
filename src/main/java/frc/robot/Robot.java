@@ -97,8 +97,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        //ShootingCommand.mode = "IntakeMode";
-        ShootingCommand.mode = "Red";
+        ShootingCommand.mode = "IntakeMode";
         ConveyorCommand.ballCount = 0;
         intakeSubsystem.swapIntakeSolenoidPosition();
         

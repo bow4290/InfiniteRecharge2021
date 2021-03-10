@@ -30,6 +30,7 @@ public class TurnAngleCommand extends CommandBase {
     @Override
     public void initialize() {
             driveTrainSubsystem.driveGyro.reset();
+            driveTrainSubsystem.driveTrainRightEncoder.reset();
     }
 
     @Override
@@ -47,8 +48,8 @@ public class TurnAngleCommand extends CommandBase {
         turnCorrection = (Constants.turnkP * turnError) + (Constants.turnkI * turnSum) + (Constants.turnkD * turnErrorRate);
         
         SmartDashboard.putNumber("Turn Error: ", turnError);
-        SmartDashboard.putNumber("Turn Error Sum: ", Constants.turnkI * turnSum);
-        SmartDashboard.putNumber("Turn Rate: ", turnErrorRate);
+        //SmartDashboard.putNumber("Turn Error Sum: ", Constants.turnkI * turnSum);
+        //SmartDashboard.putNumber("Turn Rate: ", turnErrorRate);
 
         speedToDriveLeft = -turnCorrection;
         speedToDriveRight = turnCorrection;
