@@ -14,10 +14,10 @@ public class AutoCommandGroup extends ParallelCommandGroup {
   public AutoCommandGroup(DriveTrainSubsystem driveTrainSubsystem, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeSubsystem, ShootingSubsystem shootingSubsystem) {
     addCommands(
       new ConveyorCommand(conveyorSubsystem),
-      //new AutoSequentialCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem)
+      new AutoSequentialCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem)
 
       //Auto award video commands:
-      new AutoAwardVideoGroupCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem)
+      //new AutoAwardVideoGroupCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem)
     );
   }
 }

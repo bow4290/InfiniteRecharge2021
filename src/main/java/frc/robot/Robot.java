@@ -20,16 +20,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
 
 public class Robot extends TimedRobot {
-    private DriveForDistanceCommand autonomousDriveStraightCommand1;
-    private TurnAngleCommand autonomousTurnAngleCommand1;
-    private DriveForDistanceCommand autonomousDriveStraightCommand2;
-    private TurnAngleCommand autonomousTurnAngleCommand2;
-    private DriveForDistanceCommand autonomousDriveStraightCommand3;
-    private TurnAngleCommand autonomousTurnAngleCommand3;
-    private DriveForDistanceCommand autonomousDriveStraightCommand4;
-    private TurnAngleCommand autonomousTurnAngleCommand4;
     private AutoCommandGroup autoCommandGroup;
-    private AutoShootingCommand autoShootingCommand;
     private VictorSPXDriveCommand teleopVictorSPXDriveCommand;
     private ShootingCommand teleopShootingCommand;
     private ConveyorCommand teleopConveyorCommand;
@@ -75,9 +66,6 @@ public class Robot extends TimedRobot {
 
         driveTrainSubsystem.driveGyro.calibrate();
 
-        // Put Commands Here
-        //autonomousDriveStraightCommand1 = new DriveForDistanceCommand(driveTrainSubsystem, intakeSubsystem, 60);
-        //autonomousTurnAngleCommand1 = new TurnAngleCommand(driveTrainSubsystem, 90);
         autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem);
 
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
@@ -86,15 +74,6 @@ public class Robot extends TimedRobot {
         teleopIntakeCommand = new IntakeCommand(intakeSubsystem);
         teleopClimberCommand = new ClimberCommand(climberSubsystem);
 
-        //autoCommandGroup = new SequentialCommandGroup();
-        //autoCommandGroup.addCommands(autonomousDriveStraightCommand1);
-        //autoCommandGroup.addCommands(autonomousTurnAngleCommand1);
-        //autoCommandGroup.addCommands(autonomousDriveStraightCommand2);
-        //autoCommandGroup.addCommands(autonomousTurnAngleCommand2);
-        //autoCommandGroup.addCommands(autonomousDriveStraightCommand3);
-        //autoCommandGroup.addCommands(autonomousTurnAngleCommand3);
-        //autoCommandGroup.addCommands(autonomousDriveStraightCommand4);
-        //autoCommandGroup.addCommands(autonomousTurnAngleCommand4);
     }
 
     @Override
