@@ -85,6 +85,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Left Encoder Distance: " , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
         SmartDashboard.putNumber("Right Encoder Distance: " , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
         SmartDashboard.putNumber("Gyro Angle: " , driveTrainSubsystem.driveGyro.getAngle());
+        SmartDashboard.putBoolean("Button State: " , ConveyorCommand.buttonState);
+        SmartDashboard.putNumber("Ball Count: " , ConveyorCommand.ballCount);
     }
 
     @Override
@@ -97,6 +99,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        //autoCommandGroup.clearPath();
         ShootingCommand.mode = "IntakeMode";
         ConveyorCommand.ballCount = 0;
         intakeSubsystem.swapIntakeSolenoidPosition();

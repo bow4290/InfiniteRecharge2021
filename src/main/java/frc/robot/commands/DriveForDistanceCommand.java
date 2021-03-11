@@ -23,7 +23,7 @@ public class DriveForDistanceCommand extends CommandBase {
     private double distanceSum;
     private double distanceDt;
     private double distanceErrorRate;
-    private double lastDistanceError = 0;
+    private double lastDistanceError;
     private double lastTimestamp;
     private double motorSpeedRatio;
     private double correctedLeftMotorSpeed;
@@ -114,7 +114,7 @@ public class DriveForDistanceCommand extends CommandBase {
         return (((-0.001 <= Constants.distancekD*(distanceErrorRate) && 0.001 >= Constants.distancekD*(distanceErrorRate)) &&
                 (inchesToDrive - 5) <= driveTrainSubsystem.driveTrainRightEncoder.getDistance() &&
                 (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance())
-                || goingCrazy);
+                /*|| goingCrazy*/);
     }
 
     @Override

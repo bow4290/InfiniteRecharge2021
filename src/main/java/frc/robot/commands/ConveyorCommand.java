@@ -29,6 +29,10 @@ public class ConveyorCommand extends CommandBase {
         this.autoShootingCommand = autoShootingCommand;
     }
 
+    public void initialize(){
+        lastButtonState = false;
+    }
+
     public void execute() {
 
         double shooterEncoderRate = Robot.shooterEncoder.getRate();
