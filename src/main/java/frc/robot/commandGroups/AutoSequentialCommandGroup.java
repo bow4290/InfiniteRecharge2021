@@ -20,14 +20,11 @@ public class AutoSequentialCommandGroup extends SequentialCommandGroup {
 
   public AutoSequentialCommandGroup(DriveTrainSubsystem drive, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeBall, ShootingSubsystem shootingSubsystem) {
     autoConditionalCommand = new AutoConditionalCommand(drive, conveyorSubsystem, intakeBall, shootingSubsystem);
-    
+
     addCommands(
-      new DriveForDistanceCommand(drive, intakeBall, 17.5 * 12), //Drive to B7
-      autoConditionalCommand,
-      autoConditionalCommand.returnPathCommand()
+            new DriveForDistanceCommand(drive, intakeBall, 17.5 * 12), //Drive to B7
+            autoConditionalCommand,
+            autoConditionalCommand.returnPathCommand()
     );
   }
-    public void clearPath1(){
-      autoConditionalCommand.clearPath2();
-    }
 }

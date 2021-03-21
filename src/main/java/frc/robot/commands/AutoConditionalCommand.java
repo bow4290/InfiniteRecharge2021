@@ -1,13 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commandGroups.AutoCommandGroup;
-import frc.robot.commandGroups.AutoSequentialCommandGroup;
-import frc.robot.commands.ConveyorCommand;
-import frc.robot.commands.DriveForDistanceCommand;
-import frc.robot.commands.TurnAngleCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -92,9 +86,4 @@ public class AutoConditionalCommand extends CommandBase {
     return pathCommands;
   }
 
-  public void clearPath2()
-  {
-    pathCommands = new SequentialCommandGroup();
-    System.out.println("CREATED PATHCOMMANDS");
-  }
 }
