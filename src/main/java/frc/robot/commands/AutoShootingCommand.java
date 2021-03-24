@@ -1,8 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -11,11 +9,8 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
-import java.util.Scanner;
 
 import java.util.Set;
-
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 
 public class AutoShootingCommand extends CommandBase {
 
