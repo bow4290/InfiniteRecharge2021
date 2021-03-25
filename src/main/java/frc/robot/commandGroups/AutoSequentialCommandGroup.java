@@ -16,7 +16,7 @@ public class AutoSequentialCommandGroup extends SequentialCommandGroup {
     autoConditionalCommand = new AutoConditionalCommand(drive, conveyorSubsystem, intakeBall, shootingSubsystem);
 
     addCommands(
-            new DriveForDistanceCommand(drive, intakeBall, 17.5 * 12), //Drive to B7
+            new DriveForDistanceCommand(drive, intakeBall, 167), //Drive to B7 (169 inches minus 2 overshoot inches)
             autoConditionalCommand,
             autoConditionalCommand.returnPathCommand()
     );
