@@ -48,10 +48,18 @@ public class DriveForDistanceCommand extends CommandBase {
 
         // Straightness PID calculations
         straightnessError = driveTrainSubsystem.driveGyro.getAngle();
-        straightnessCorrection = Constants.straightkP*straightnessError;
+
+        
 
         // Distance PID calculations
         distanceError = inchesToDrive - driveTrainSubsystem.driveTrainRightEncoder.getDistance();
+        if(Math.abs(distanceError) >= 12){
+            straightnessCorrection = Constants.straightkP*straightnessError;
+            } else
+            {
+                straightnessCorrection = 0;
+            }
+            
         distanceDt = Timer.getFPGATimestamp() - lastTimestamp;
         
         // Integral Gain

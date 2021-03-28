@@ -39,7 +39,7 @@ public class AutoConditionalCommand extends CommandBase {
     else if (ConveyorCommand.ballCount == 1){ //Blue Path A
       System.out.println("Path Blue A");
       pathCommands.addCommands(
-        new TurnAngleCommand(drive, Math.toDegrees(Math.atan(2.5 / 7.5)) + 90),                                           // Right Turn
+        new TurnAngleCommand(drive, Math.toDegrees(Math.atan(2.5 / 7.5)) + 90 - 3),                                           // Right Turn
         new DriveForDistanceCommand(drive, intakeBall, Math.sqrt(Math.pow(2.5 , 2) + Math.pow(7.5 , 2)) * 12),                 // Drive to E6
         new TurnAngleCommand(drive, Math.toDegrees(-Math.atan(2.5/7.5) - (Math.PI/2) - Math.atan(5/7.5)) - 5),              // Left Turn
         new DriveForDistanceCommand(drive, intakeBall,                                                                    // Drive Through C9 to End
@@ -66,7 +66,7 @@ public class AutoConditionalCommand extends CommandBase {
           new DriveForDistanceCommand(drive, intakeBall, Math.sqrt(Math.pow(2.5, 2) + Math.pow(5, 2))*12),           // Drive to A6
           new TurnAngleCommand(drive, -Math.toDegrees(Math.atan(2.5 / 5)) - Math.toDegrees(Math.atan(5 / 7.5))),                 // Turn Left
           new DriveForDistanceCommand(drive, intakeBall, Math.sqrt(Math.pow(5, 2) + Math.pow(7.5, 2))*12),          // Drive to C3
-          new TurnAngleCommand(drive, -Math.toDegrees(Math.atan(7.5 / 5)) - Math.toDegrees(Math.atan(5 / 2.5))),                 // Turn Left
+          new TurnAngleCommand(drive, -Math.toDegrees(Math.atan(7.5 / 5)) - Math.toDegrees(Math.atan(5 / 2.5)) - 5),                 // Turn Left
           new DriveForDistanceCommand(drive, intakeBall, Math.sqrt(Math.pow(2.5, 2) + Math.pow(5, 2))*12),          // Drive to D5
           new TurnAngleCommand(drive, -Math.toDegrees(Math.atan(2.5 / 5)) - 10),                                      // Turn Left
           new DriveForDistanceCommand(drive, intakeBall, 16 * 12)                                     // Drive to End
