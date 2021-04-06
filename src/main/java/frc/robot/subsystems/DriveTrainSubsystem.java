@@ -19,6 +19,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final DoubleSolenoid gearShiftSolenoid;
     public DoubleSolenoid.Value intakeStatus;
 
+    private double speedMultiplier = 0.8;
+
     public  Encoder driveTrainLeftEncoder;
     public  Encoder driveTrainRightEncoder;
 
@@ -57,6 +59,25 @@ public class DriveTrainSubsystem extends SubsystemBase {
         if (Math.abs(rightspeed) < 0.05) {
             rightspeed = 0;
         }
+
+        leftspeed = leftspeed * speedMultiplier;    // Speed multiplier
+        rightspeed = rightspeed * speedMultiplier;  // Speed multiplier
+
+        /*if (leftspeed > 0.7) {
+            leftspeed = 0.7;
+        }
+
+        if (rightspeed > 0.7) {
+            rightspeed = 0.7;
+        }
+
+        if (leftspeed < -0.7) {
+            leftspeed = -0.7;
+        }
+
+        if (rightspeed < -0.7) {
+            rightspeed = -0.7;
+        }*/
 
         leftVictorSPX1.setInverted(false);
         leftVictorSPX2.setInverted(false);
