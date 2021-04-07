@@ -19,7 +19,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final DoubleSolenoid gearShiftSolenoid;
     public DoubleSolenoid.Value intakeStatus;
 
-    private double speedMultiplier = 0.8;
+    private double speedMultiplier = 1;
 
     public  Encoder driveTrainLeftEncoder;
     public  Encoder driveTrainRightEncoder;

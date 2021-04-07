@@ -55,7 +55,7 @@ public class ShootingCommand extends CommandBase {
         }
         if(dPadValue == 90){
             mode = "Yellow";
-            shooterSpeed = 0.66;
+            shooterSpeed = 0.6;
             rateSpeed = m * (shooterSpeed) - b + 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
@@ -67,7 +67,7 @@ public class ShootingCommand extends CommandBase {
         }
         if(dPadValue == 270){
             mode = "Red";
-            shooterSpeed = 0.865;
+            shooterSpeed = 0.86;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
