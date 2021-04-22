@@ -9,69 +9,76 @@ package frc.robot;
 
 
 public final class Constants {
-        // Robot characteristics
-        private static final double wheelDiameter = 7;
-        
-        // Drivetrain Encoders:
-        public static final int driveTrainLeftEncoderAverageSamples = 5;
-        public static final double driveTrainLeftEncoderMinRate = 1;
-        public static final double driveTrainLeftEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
-        public static final int driveTrainRightEncoderAverageSamples = 5;
-        public static final double driveTrainRightEncoderMinRate = 1;
-        public static final double driveTrainRightEncoderPulseDistance = 1.0/8800 * Math.PI * wheelDiameter;
+    // Robot characteristics
+    private static final double wheelDiameter = 7;
 
-        // Drive Straight Constants
-        public static final double autoDriveSpeed = 0.35;
-        public static final double straightkP = 0.3;
-        public static final double distancekP = 0.02;
-        public static final double distancekI = 0;
-        public static final double distancekD = 0.005;
+    // Drivetrain Encoders:
+    public static final int driveTrainLeftEncoderAverageSamples = 5;
+    public static final double driveTrainLeftEncoderMinRate = 1;
+    public static final double driveTrainLeftEncoderPulseDistance = 1.0 / 8800 * Math.PI * wheelDiameter;
+    public static final int driveTrainRightEncoderAverageSamples = 5;
+    public static final double driveTrainRightEncoderMinRate = 1;
+    public static final double driveTrainRightEncoderPulseDistance = 1.0 / 8800 * Math.PI * wheelDiameter;
 
-        //Gyro
-        public static final double autoTurnSpeed = 0.4;
-        public static double turnkP = 0.05;
-        public static double turnkI = 0.2;
-        public static double turnkD = 0.001;
+    // Drive Straight Constants
+    public static final double autoDriveSpeed = 0.35;
+    public static final double straightkP = 0.3;
+    public static final double distancekP = 0.02;
+    public static final double distancekI = 0;
+    public static final double distancekD = 0.005;
 
-        // Shooter Encoder:
-        public static final int shooterEncoderChannelA = 0;
-        public static final int shooterEncoderChannelB = 1;
-        public static final int shooterEncoderAverageSamples = 127;
+    //Gyro
+    public static final double autoTurnSpeed = 0.4;
+    public static double turnkP = 0.05;
+    public static double turnkI = 0.2;
+    public static double turnkD = 0.001;
 
-        // DIO Ports:
-        public static final int driveTrainLeftEncoderChannelA = 2;
-        public static final int driveTrainLeftEncoderChannelB = 3;
-        public static final int driveTrainRightEncoderChannelA = 4;
-        public static final int driveTrainRightEncoderChannelB = 5;
-        public static final int conveyorButton1Port = 6;
-        public static final int conveyorButton2Port = 7;
+    // Shooter Encoder:
+    public static final int shooterEncoderChannelA = 0;
+    public static final int shooterEncoderChannelB = 1;
+    public static final int shooterEncoderAverageSamples = 127;
 
-        // Motor Channels:
-        public static final int wheelSpinnerChannel = 2;
-        public static final int leftVictorSPX1Channel = 12;
-        public static final int leftVictorSPX2Channel = 11;
-        public static final int leftVictorSPX3Channel = 10;
-        public static final int rightVictorSPX1Channel = 5;
-        public static final int rightVictorSPX2Channel = 3;
-        public static final int rightVictorSPX3Channel = 6;
-        public static final int leftShooterChannel = 8;
-        public static final int rightShooterChannel = 1;
-        public static final int climberMotorChannel = 4;
-        public static final int topMotorChannel = 9;
-        public static final int bottomMotorChannel = 7;
-        public static final int intakeMotorChannel = 13;
+    // DIO Ports:
+    public static final int driveTrainLeftEncoderChannelA = 2;
+    public static final int driveTrainLeftEncoderChannelB = 3;
+    public static final int driveTrainRightEncoderChannelA = 4;
+    public static final int driveTrainRightEncoderChannelB = 5;
+    public static final int conveyorButton1Port = 6;
+    public static final int conveyorButton2Port = 7;
 
-        // USB Ports:
-        public static final int LEFT_JOYSTICK = 0;
-        public static final int RIGHT_JOYSTICK = 1;
-        public static final int XBOX_CONTROLLER = 2;
+    // Motor Channels:
+    public static final int wheelSpinnerChannel = 2;
+    public static final int leftVictorSPX1Channel = 12;
+    public static final int leftVictorSPX2Channel = 11;
+    public static final int leftVictorSPX3Channel = 10;
+    public static final int rightVictorSPX1Channel = 5;
+    public static final int rightVictorSPX2Channel = 3;
+    public static final int rightVictorSPX3Channel = 6;
+    public static final int leftShooterChannel = 8;
+    public static final int rightShooterChannel = 1;
+    public static final int climberMotorChannel = 4;
+    public static final int topMotorChannel = 9;
+    public static final int bottomMotorChannel = 7;
+    public static final int intakeMotorChannel = 13;
 
-        // Pneumatics:
-        public static int intakeSolenoidForwardChannel = 0;
-        public static int intakeSolenoidReverseChannel = 1;
-        public static int shooterSolenoidForwardChannel = 2;
-        public static int shooterSolenoidReverseChannel = 3;
-        public static int gearShiftSolenoidForwardChannel = 4;
-        public static int gearShiftSolenoidReverseChannel = 5;
-        public static int compressorCANID = 0;
+    // USB Ports:
+    public static final int LEFT_JOYSTICK = 0;
+    public static final int RIGHT_JOYSTICK = 1;
+    public static final int XBOX_CONTROLLER = 2;
+
+    // Pneumatics:
+    public static int intakeSolenoidForwardChannel = 0;
+    public static int intakeSolenoidReverseChannel = 1;
+    public static int shooterSolenoidForwardChannel = 2;
+    public static int shooterSolenoidReverseChannel = 3;
+    public static int gearShiftSolenoidForwardChannel = 4;
+    public static int gearShiftSolenoidReverseChannel = 5;
+    public static int compressorCANID = 0;
+
+    //Shooter Speeds:
+    public static double greenShooterSpeed = 0.93;
+    public static double yellowShooterSpeed = 0.6;
+    public static double blueShooterSpeed = 0.91;
+    public static double redShooterSpeed = 0.86;
+
 }

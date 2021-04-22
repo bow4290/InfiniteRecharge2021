@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,6 +12,10 @@ import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
 
 import java.util.Set;
+
+/**
+ * Set mode to red zone and shot for four seconds.
+ */
 
 public class AutoShootingCommand extends CommandBase {
 
@@ -39,64 +44,64 @@ public class AutoShootingCommand extends CommandBase {
     @Override
     public void initialize() {
         autoMode = "Red";
-        startFirstTime = 0;
+        startFirstTime = 0; //Allows a shooting timer to start when this command is called.
     }
 
     @Override
     public void execute() {
 
-        if(startFirstTime == 0){
-            shootingCommandStartTime = Timer.getFPGATimestamp();
+        if (startFirstTime == 0) {
+            shootingCommandStartTime = Timer.getFPGATimestamp(); //The current time is noted as the start time for this command.
         }
 
-        if(autoMode == "Green"){
-            shooterSpeed = 0.93;
+        //Change shooting speed threshold depending on zone color.
+        if (autoMode == "Green") {
+            shooterSpeed = Constants.greenShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(autoMode == "Yellow"){
-            shooterSpeed = 0.66;
+        if (autoMode == "Yellow") {
+            shooterSpeed = Constants.yellowShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b + 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(autoMode == "Blue"){
-            shooterSpeed = 0.91;
+        if (autoMode == "Blue") {
+            shooterSpeed = Constants.blueShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
-        if(autoMode == "Red"){
-            shooterSpeed = 0.865;
+        if (autoMode == "Red") {
+            shooterSpeed = Constants.redShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
 
         SmartDashboard.putString("Automode: ", autoMode);
 
+        //Shooter PID
         shooterSpeedError = rateSpeed - Robot.shooterEncoder.getRate();
         shooterSpeedCorrection = shooterSpeedKP * (shooterSpeedError + shooterSpeedSetPoint);
         shooterSpeedCorrection = (shooterSpeedCorrection + b) / m;
 
-        shootingSubsystem.dualShoot(
-                true,
-                (shooterSpeed + shooterSpeedCorrection));
+        shootingSubsystem.dualShoot((shooterSpeed + shooterSpeedCorrection));
 
+        //Conveys balls when the shooter is up to speed.
+        if (Robot.shooterEncoder.getRate() >= (rateSpeed - 15000)) {
+            conveyorSubsystem.conveyBall(1 / 1.1);
+        } else conveyorSubsystem.conveyBall(0);
 
-        if(Robot.shooterEncoder.getRate() >= (rateSpeed - 15000)) {
-                conveyorSubsystem.conveyBall(1 / 1.1);
-            } else conveyorSubsystem.conveyBall(0);
-        
         currentShootingCommandTime = Timer.getFPGATimestamp();
         startFirstTime = 1;
     }
 
     @Override
     public boolean isFinished() {
-        return(currentShootingCommandTime - shootingCommandStartTime >= 4);
+        return (currentShootingCommandTime - shootingCommandStartTime >= 4); //Runs shooter for four seconds.
     }
 
     @Override
     public void end(boolean interrupted) {
-        shootingSubsystem.dualShoot(false, 0);
+        shootingSubsystem.dualShoot(0);
     }
 
     @Override

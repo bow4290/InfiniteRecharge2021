@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
         shooterEncoder.setSamplesToAverage(Constants.shooterEncoderAverageSamples);
 
         robotContainer = new RobotContainer();
-        
+
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(160, 120);
 
@@ -79,11 +79,11 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Button Value 1: ", ConveyorSubsystem.conveyorButton1.get());
         SmartDashboard.putBoolean("Button Value 2: ", ConveyorSubsystem.conveyorButton2.get());
         SmartDashboard.putNumber("Shooter Encoder Rate: ", shooterEncoder.getRate());
-        SmartDashboard.putNumber("Left Encoder Distance: " , driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
-        SmartDashboard.putNumber("Right Encoder Distance: " , driveTrainSubsystem.driveTrainRightEncoder.getDistance());
-        SmartDashboard.putNumber("Gyro Angle: " , driveTrainSubsystem.driveGyro.getAngle());
-        SmartDashboard.putBoolean("Button State: " , ConveyorCommand.buttonState);
-        SmartDashboard.putNumber("Ball Count: " , ConveyorCommand.ballCount);
+        SmartDashboard.putNumber("Left Encoder Distance: ", driveTrainSubsystem.driveTrainLeftEncoder.getDistance());
+        SmartDashboard.putNumber("Right Encoder Distance: ", driveTrainSubsystem.driveTrainRightEncoder.getDistance());
+        SmartDashboard.putNumber("Gyro Angle: ", driveTrainSubsystem.driveGyro.getAngle());
+        SmartDashboard.putBoolean("Button State: ", ConveyorCommand.buttonState);
+        SmartDashboard.putNumber("Ball Count: ", ConveyorCommand.ballCount);
     }
 
     @Override
@@ -99,11 +99,10 @@ public class Robot extends TimedRobot {
         ShootingCommand.mode = "IntakeMode";
         ConveyorCommand.ballCount = 0;
         intakeSubsystem.swapIntakeSolenoidPosition();
-        
+
         System.out.println("scheduling autocommand");
 
-        if(autoCommandGroup != null)
-        {
+        if (autoCommandGroup != null) {
             autoCommandGroup.schedule();
         }
     }

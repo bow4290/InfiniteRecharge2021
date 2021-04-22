@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
+/**
+ * Uses Gyro to turn the robot a certain angle.
+ */
 
 public class TurnAngleCommand extends CommandBase {
 
@@ -29,41 +32,41 @@ public class TurnAngleCommand extends CommandBase {
 
     @Override
     public void initialize() {
-            driveTrainSubsystem.driveGyro.reset();
-            driveTrainSubsystem.driveTrainRightEncoder.reset();
+        driveTrainSubsystem.driveGyro.reset();
     }
 
     @Override
     public void execute() {
+        //Turn PID calculations
         turnError = degreesToTurn - driveTrainSubsystem.driveGyro.getAngle();
+        SmartDashboard.putNumber("Turn Error: ", turnError);
         turnDt = Timer.getFPGATimestamp() - lastTimestamp;
-        
-        if(Math.abs(turnError) < turnRange){
-        turnSum += turnError * turnDt;
-        } else{
+
+        //Creates a range for integral calculations.
+        if (Math.abs(turnError) < turnRange) {
+            turnSum += turnError * turnDt;
+        } else {
             turnSum = 0;
         }
 
         turnErrorRate = (turnError - lastTurnError) / turnDt;
         turnCorrection = (Constants.turnkP * turnError) + (Constants.turnkI * turnSum) + (Constants.turnkD * turnErrorRate);
-        
-        SmartDashboard.putNumber("Turn Error: ", turnError);
-        //SmartDashboard.putNumber("Turn Error Sum: ", Constants.turnkI * turnSum);
-        //SmartDashboard.putNumber("Turn Rate: ", turnErrorRate);
 
+        // Turn speed corrections
         speedToDriveLeft = -turnCorrection;
         speedToDriveRight = turnCorrection;
 
-        if (speedToDriveLeft > Constants.autoTurnSpeed){
+        // Saturate motor speed to auto speed
+        if (speedToDriveLeft > Constants.autoTurnSpeed) {
             speedToDriveLeft = Constants.autoTurnSpeed;
         }
-        if (speedToDriveLeft < -Constants.autoTurnSpeed){
+        if (speedToDriveLeft < -Constants.autoTurnSpeed) {
             speedToDriveLeft = -Constants.autoTurnSpeed;
         }
-        if (speedToDriveRight > Constants.autoTurnSpeed){
+        if (speedToDriveRight > Constants.autoTurnSpeed) {
             speedToDriveRight = Constants.autoTurnSpeed;
         }
-        if (speedToDriveRight < -Constants.autoTurnSpeed){
+        if (speedToDriveRight < -Constants.autoTurnSpeed) {
             speedToDriveRight = -Constants.autoTurnSpeed;
         }
         driveTrainSubsystem.drive(speedToDriveLeft, speedToDriveRight);
@@ -73,9 +76,9 @@ public class TurnAngleCommand extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {
-        return(turnError <= 0.5 && turnError >= -0.5 &&
-               driveTrainSubsystem.driveGyro.getRate() <= 1 && driveTrainSubsystem.driveGyro.getRate() >= -1);
+    public boolean isFinished() { // Finishes when our turn error is within =-0.5 degrees and the derivative is low.
+        return (turnError <= 0.5 && turnError >= -0.5 &&
+                driveTrainSubsystem.driveGyro.getRate() <= 1 && driveTrainSubsystem.driveGyro.getRate() >= -1);
     }
 
     @Override

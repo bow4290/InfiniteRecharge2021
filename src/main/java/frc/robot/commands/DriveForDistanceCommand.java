@@ -9,9 +9,12 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Uses PID (through encoder and gyro) to drive forward a distance
+ */
 
 public class DriveForDistanceCommand extends CommandBase {
-    
+
     private final DriveTrainSubsystem driveTrainSubsystem;
     private final IntakeSubsystem intakeSubsystem;
     private double inchesToDrive;
@@ -28,7 +31,7 @@ public class DriveForDistanceCommand extends CommandBase {
     private double motorSpeedRatio;
     private double correctedLeftMotorSpeed;
     private double correctedRightMotorSpeed;
-    private boolean goingCrazy = false;
+
 
     public DriveForDistanceCommand(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem, double inchesToDrive) {
         this.driveTrainSubsystem = driveTrainSubsystem;
@@ -49,86 +52,69 @@ public class DriveForDistanceCommand extends CommandBase {
         // Straightness PID calculations
         straightnessError = driveTrainSubsystem.driveGyro.getAngle();
 
-        
+        if (Math.abs(distanceError) >= 12) {
+            straightnessCorrection = Constants.straightkP * straightnessError;
+        } else {
+            straightnessCorrection = 0;
+        }
 
         // Distance PID calculations
         distanceError = inchesToDrive - driveTrainSubsystem.driveTrainRightEncoder.getDistance();
-        if(Math.abs(distanceError) >= 12){
-            straightnessCorrection = Constants.straightkP*straightnessError;
-            } else
-            {
-                straightnessCorrection = 0;
-            }
-            
-        distanceDt = Timer.getFPGATimestamp() - lastTimestamp;
-        
-        // Integral Gain
-        if(Math.abs(distanceError) < distanceRange){
-            distanceSum += distanceError * distanceDt;
-            } else{
-                distanceSum = 0;
-            }
-
         SmartDashboard.putNumber("Distance Error: ", distanceError);
-        //SmartDashboard.putNumber("Straightness Correction: ", straightnessCorrection);
+        distanceDt = Timer.getFPGATimestamp() - lastTimestamp;
+
+        // Integral Gain
+        if (Math.abs(distanceError) < distanceRange) {
+            distanceSum += distanceError * distanceDt;
+        } else {
+            distanceSum = 0;
+        }
 
         // Derivative Gain
         distanceErrorRate = (distanceError - lastDistanceError) / distanceDt;
-        
-        // PID Gain
-        distanceCorrection = Constants.distancekP*(distanceError) + Constants.distancekI*(distanceSum) + Constants.distancekD*(distanceErrorRate);
-        //SmartDashboard.putNumber("Distance Correction: ", distanceCorrection);
-        //SmartDashboard.putNumber("Distance P: ", Constants.distancekP*(distanceError));
-        //SmartDashboard.putNumber("Distance I: ", Constants.distancekI*(distanceSum));
-        //SmartDashboard.putNumber("Distance D: ", Constants.distancekD*(distanceErrorRate));
-        
+
+        distanceCorrection = Constants.distancekP * (distanceError) + Constants.distancekI * (distanceSum) + Constants.distancekD * (distanceErrorRate);
+
 
         // PID speed corrections
-        correctedLeftMotorSpeed =  distanceCorrection - straightnessCorrection;
+        correctedLeftMotorSpeed = distanceCorrection - straightnessCorrection;
         correctedRightMotorSpeed = distanceCorrection + straightnessCorrection;
-        motorSpeedRatio = correctedLeftMotorSpeed/correctedRightMotorSpeed;
-        //SmartDashboard.putNumber("Corrected Left Speed: ", correctedLeftMotorSpeed);
-        
-        // Saturate motor speed if higher than max auto speed
-        if (correctedLeftMotorSpeed > Constants.autoDriveSpeed){
+        motorSpeedRatio = correctedLeftMotorSpeed / correctedRightMotorSpeed;
+
+        // Saturate motor speed to auto speed
+        if (correctedLeftMotorSpeed > Constants.autoDriveSpeed) {
             correctedLeftMotorSpeed = Constants.autoDriveSpeed;
         }
-        if (correctedLeftMotorSpeed < -Constants.autoDriveSpeed){
+        if (correctedLeftMotorSpeed < -Constants.autoDriveSpeed) {
             correctedLeftMotorSpeed = -Constants.autoDriveSpeed;
         }
-        if (correctedRightMotorSpeed > Constants.autoDriveSpeed){
+        if (correctedRightMotorSpeed > Constants.autoDriveSpeed) {
             correctedRightMotorSpeed = Constants.autoDriveSpeed;
         }
-        if (correctedRightMotorSpeed < -Constants.autoDriveSpeed){
+        if (correctedRightMotorSpeed < -Constants.autoDriveSpeed) {
             correctedRightMotorSpeed = -Constants.autoDriveSpeed;
         }
-        correctedRightMotorSpeed = correctedRightMotorSpeed/motorSpeedRatio;
 
-        // added negatives because joysticks give reverse values and drivetrain subsystem
-        // is adjusted for joysticks to work as they incorrectly do
+        //Maintains speed ratio if motor speeds are saturated
+        correctedRightMotorSpeed = correctedRightMotorSpeed / motorSpeedRatio;
+
+        // Added negatives because joysticks are inverted
         driveTrainSubsystem.drive(-correctedLeftMotorSpeed, -correctedRightMotorSpeed);
-
-        // Prevents problem of robot moving around crazy after PID is finished.
-        if(Math.abs(distanceError) > Math.abs(lastDistanceError) && Math.abs(distanceError) >= 12){
-            goingCrazy = true;
-        }
 
         lastTimestamp = Timer.getFPGATimestamp();
         lastDistanceError = distanceError;
     }
 
     @Override
-    public boolean isFinished() {
-        return (((-0.001 <= Constants.distancekD*(distanceErrorRate) && 0.001 >= Constants.distancekD*(distanceErrorRate)) &&
+    public boolean isFinished() { //Finishes when our error is +- 5 inches and the derivative is low.
+        return (((-0.001 <= Constants.distancekD * (distanceErrorRate) && 0.001 >= Constants.distancekD * (distanceErrorRate)) &&
                 (inchesToDrive - 5) <= driveTrainSubsystem.driveTrainRightEncoder.getDistance() &&
-                (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance())
-                /*|| goingCrazy*/);
+                (inchesToDrive + 5) >= driveTrainSubsystem.driveTrainRightEncoder.getDistance()));
     }
 
     @Override
     public void end(boolean interrupted) {
         driveTrainSubsystem.drive(0, 0);
-        Timer.delay(1);
         intakeSubsystem.intakeBall(0);
         System.out.println("Done with auto drive command.");
     }

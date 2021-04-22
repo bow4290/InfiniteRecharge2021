@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Robot;
@@ -29,7 +30,7 @@ public class ConveyorCommand extends CommandBase {
         this.autoShootingCommand = autoShootingCommand;
     }
 
-    public void initialize(){
+    public void initialize() {
         lastButtonState = false;
     }
 
@@ -37,45 +38,45 @@ public class ConveyorCommand extends CommandBase {
 
         double shooterEncoderRate = Robot.shooterEncoder.getRate();
 
-        if(!ConveyorSubsystem.conveyorButton1.get() || !ConveyorSubsystem.conveyorButton2.get()){
-            buttonState = true;     // At least one button is pressed
-        } else{
-            buttonState = false;    // No button is pressed
+        //If either button is pressed, button state = true and increment the ball count
+        if (!ConveyorSubsystem.conveyorButton1.get() || !ConveyorSubsystem.conveyorButton2.get()) {
+            buttonState = true;
+        } else {
+            buttonState = false;
         }
-        if(buttonState == true && lastButtonState == false){
+        if (buttonState == true && lastButtonState == false) {
             ballCount++;
         }
-        
+
         lastButtonState = buttonState;
 
-        if(RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
-          (ConveyorSubsystem.conveyorButton1.get() == true) &&
-          (ConveyorSubsystem.conveyorButton2.get() == true))
-    {
+        //Conveyor moves backwards if neither conveyor button is touched.
+        if (RobotContainer.xboxController.getStickButton(GenericHID.Hand.kLeft) &&
+                (ConveyorSubsystem.conveyorButton1.get() == true) &&
+                (ConveyorSubsystem.conveyorButton2.get() == true)) {
             conveyorSubsystem.conveyBall(-0.25);
-    }
-
-        else
-    {
-
-            if(RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
-                    && shooterEncoderRate >= ShootingCommand.rateSpeed - 10000)
-            {
+        } else {
+            //If we hit the bumper and the shooter is up to speed, convey and shoot the balls
+            if (RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)
+                    && shooterEncoderRate >= ShootingCommand.rateSpeed - 10000) {
                 conveyorSubsystem.conveyBall(1 / 1.1);
-            }
-            else
-            {
+            } else {
+                //If one of the buttons is touched by a ball, index the ball.
                 if ((ConveyorSubsystem.conveyorButton1.get() == false) || (ConveyorSubsystem.conveyorButton2.get() == false))
                     conveyorSubsystem.conveyBall(0.8275 / 1.1);
                 else
                     conveyorSubsystem.conveyBall(0);
             }
+        }
     }
-}
 
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
     }
 
     @Override

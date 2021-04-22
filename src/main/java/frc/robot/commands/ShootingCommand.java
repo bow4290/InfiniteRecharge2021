@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ShootingSubsystem;
+
 import java.util.Scanner;
 
 import java.util.Set;
@@ -17,7 +19,7 @@ public class ShootingCommand extends CommandBase {
 
     private ShootingSubsystem shootingSubsystem;
     private final Set<Subsystem> subsystems;
-    
+
     public static double shooterSpeed = 1;
     public static double shooterSpeedError;
     public static double shooterSpeedCorrection;
@@ -36,52 +38,52 @@ public class ShootingCommand extends CommandBase {
     }
 
     public void execute() {
-        shootingSubsystem.moveConveyor(RobotContainer.xboxController.getAButtonPressed());
-        dPadValue = RobotContainer.xboxController.getPOV();
+        shootingSubsystem.moveConveyor(RobotContainer.xboxController.getAButtonPressed()); //A button runs conveyor.
+        dPadValue = RobotContainer.xboxController.getPOV(); //Dpad selects mode.
 
-        if(RobotContainer.xboxController.getBumperPressed(Hand.kLeft) || mode == "IntakeMode")
-        {
+        if (RobotContainer.xboxController.getBumperPressed(Hand.kLeft) || mode == "IntakeMode") {
             mode = "IntakeMode";
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
             shooterSpeed = 0;
             rateSpeed = 0;
         }
 
-        if(dPadValue == 0){
+        //Change shooting speed threshold depending on zone color.
+        if (dPadValue == 0) {
             mode = "Green";
-            shooterSpeed = 0.93;
+            shooterSpeed = Constants.greenShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(dPadValue == 90){
+        if (dPadValue == 90) {
             mode = "Yellow";
-            shooterSpeed = 0.6;
+            shooterSpeed = Constants.yellowShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b + 20000;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        if(dPadValue == 180){
+        if (dPadValue == 180) {
             mode = "Blue";
-            shooterSpeed = 0.91;
+            shooterSpeed = Constants.blueShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
-        if(dPadValue == 270){
+        if (dPadValue == 270) {
             mode = "Red";
-            shooterSpeed = 0.86;
+            shooterSpeed = Constants.redShooterSpeed;
             rateSpeed = m * (shooterSpeed) - b;
             shootingSubsystem.shooterSolenoid.set(DoubleSolenoid.Value.kForward);
         }
 
         SmartDashboard.putString("Mode: ", mode);
 
+        //Shooter PID
         shooterSpeedError = rateSpeed - Robot.shooterEncoder.getRate();
         shooterSpeedCorrection = shooterSpeedKP * (shooterSpeedError + shooterSpeedSetPoint);
         shooterSpeedCorrection = (shooterSpeedCorrection + b) / m;
 
-        shootingSubsystem.dualShoot(
-                RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight),
-                (shooterSpeed + shooterSpeedCorrection)
-        );
+        if (RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)) {
+            shootingSubsystem.dualShoot((shooterSpeed + shooterSpeedCorrection));
+        }
     }
 
     @Override

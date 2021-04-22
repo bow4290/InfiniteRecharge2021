@@ -22,7 +22,7 @@ public class ClimberSubsystem extends SubsystemBase {
             wheelMotor.set(VictorSPXControlMode.PercentOutput, 1);
         else
             climbingMotor.set(VictorSPXControlMode.PercentOutput, 0);
-            wheelMotor.set(VictorSPXControlMode.PercentOutput, 0);
+        wheelMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
 
 }

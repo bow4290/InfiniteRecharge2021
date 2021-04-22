@@ -19,10 +19,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final DoubleSolenoid gearShiftSolenoid;
     public DoubleSolenoid.Value intakeStatus;
 
-    private double speedMultiplier = 1;
+    private double speedMultiplier = 1; // If less than one, drive speed is proportionally reduced
 
-    public  Encoder driveTrainLeftEncoder;
-    public  Encoder driveTrainRightEncoder;
+    public Encoder driveTrainLeftEncoder;
+    public Encoder driveTrainRightEncoder;
 
     public ADXRS450_Gyro driveGyro;
 
@@ -52,32 +52,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     public void drive(double leftspeed, double rightspeed) {
 
+        //Setting a deadband for the joysticks.
         if (Math.abs(leftspeed) < 0.05) {
             leftspeed = 0;
         }
-
         if (Math.abs(rightspeed) < 0.05) {
             rightspeed = 0;
         }
 
-        leftspeed = leftspeed * speedMultiplier;    // Speed multiplier
-        rightspeed = rightspeed * speedMultiplier;  // Speed multiplier
-
-        /*if (leftspeed > 0.7) {
-            leftspeed = 0.7;
-        }
-
-        if (rightspeed > 0.7) {
-            rightspeed = 0.7;
-        }
-
-        if (leftspeed < -0.7) {
-            leftspeed = -0.7;
-        }
-
-        if (rightspeed < -0.7) {
-            rightspeed = -0.7;
-        }*/
+        leftspeed = leftspeed * speedMultiplier;
+        rightspeed = rightspeed * speedMultiplier;
 
         leftVictorSPX1.setInverted(false);
         leftVictorSPX2.setInverted(false);
@@ -94,17 +78,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
         rightVictorSPX3.set(VictorSPXControlMode.PercentOutput, rightspeed);
     }
 
-    public void shiftGear(boolean buttonPressed){
+    public void shiftGear(boolean buttonPressed) {
         if (buttonPressed) {
             swapSolenoidPosition();
         }
     }
 
     private void swapSolenoidPosition() {
-        if (this.intakeStatus == DoubleSolenoid.Value.kForward){
+        if (this.intakeStatus == DoubleSolenoid.Value.kForward) {
             this.intakeStatus = DoubleSolenoid.Value.kReverse;
-        }
-        else {
+        } else {
             this.intakeStatus = DoubleSolenoid.Value.kForward;
         }
         gearShiftSolenoid.set(this.intakeStatus);

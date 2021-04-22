@@ -20,11 +20,8 @@ public class VictorSPXDriveCommand extends CommandBase {
 
     public void execute() {
         driveTrainSubsystem.drive(RobotContainer.joystickLeft.getY(), RobotContainer.joystickRight.getY());
-        //SmartDashboard.putNumber("Left Motor Speed:", RobotContainer.joystickLeft.getY());
-        //SmartDashboard.putNumber("Right Motor Speed:", RobotContainer.joystickRight.getY());
 
-        driveTrainSubsystem.shiftGear(RobotContainer.joystickLeft.getTrigger());
-        driveTrainSubsystem.shiftGear(RobotContainer.joystickRight.getTrigger());
+        driveTrainSubsystem.shiftGear(RobotContainer.joystickRight.getTriggerPressed());
     }
 
     @Override

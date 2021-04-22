@@ -7,13 +7,17 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShootingSubsystem;
 
+/**
+ * The main command group that allowed us to convey the balls while intaking them.
+ */
+
 public class AutoCommandGroup extends ParallelCommandGroup {
 
-        public AutoCommandGroup(DriveTrainSubsystem driveTrainSubsystem, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeSubsystem, ShootingSubsystem shootingSubsystem) {
-                addCommands(
-                        new ConveyorCommand(conveyorSubsystem),
-                        new AutoSequentialCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem)
-                );
-        }
+    public AutoCommandGroup(DriveTrainSubsystem driveTrainSubsystem, ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeSubsystem, ShootingSubsystem shootingSubsystem) {
+        addCommands(
+                new ConveyorCommand(conveyorSubsystem),
+                new AutoSequentialCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem)
+        );
+    }
 }
 

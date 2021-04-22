@@ -12,12 +12,14 @@ public class IntakeCommand extends CommandBase {
     private IntakeSubsystem intakeSubsystem;
     public final Set<Subsystem> subsystems;
 
-    public IntakeCommand(IntakeSubsystem intakeSubsystem){
+    public IntakeCommand(IntakeSubsystem intakeSubsystem) {
         this.intakeSubsystem = intakeSubsystem;
         this.subsystems = Set.of(intakeSubsystem);
     }
 
     public void execute() {
+        //Right trigger intakes ball.
+        //B-button lifts the intake up.
         intakeSubsystem.intakeBall(RobotContainer.xboxController.getTriggerAxis(GenericHID.Hand.kRight));
         intakeSubsystem.liftIntake(RobotContainer.xboxController.getBButtonPressed());
     }

@@ -25,17 +25,16 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.set(VictorSPXControlMode.PercentOutput, intakeSpeed);
     }
 
-    public void liftIntake(boolean buttonPressed){
+    public void liftIntake(boolean buttonPressed) {
         if (buttonPressed) {
             swapIntakeSolenoidPosition();
         }
     }
 
     public void swapIntakeSolenoidPosition() {
-        if (this.intakeStatus == DoubleSolenoid.Value.kForward){
+        if (this.intakeStatus == DoubleSolenoid.Value.kForward) {
             this.intakeStatus = DoubleSolenoid.Value.kReverse;
-        }
-        else {
+        } else {
             this.intakeStatus = DoubleSolenoid.Value.kForward;
         }
         intakeSolenoid.set(this.intakeStatus);

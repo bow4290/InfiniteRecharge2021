@@ -15,7 +15,6 @@ public class ShootingSubsystem extends SubsystemBase {
     public DoubleSolenoid.Value intakeStatus;
 
 
-
     public ShootingSubsystem(DoubleSolenoid shooterSolenoid, int leftShooterChannel, int rightShooterChannel, Robot robot) {
         leftShooter = new VictorSPX(leftShooterChannel);
         rightShooter = new VictorSPX(rightShooterChannel);
@@ -23,41 +22,31 @@ public class ShootingSubsystem extends SubsystemBase {
         this.robot = robot;
         this.shooterSolenoid = shooterSolenoid;
         intakeStatus = DoubleSolenoid.Value.kReverse;
-    }
 
-    public void shootBall(double shooterSpeed) {
         leftShooter.setInverted(true);
         rightShooter.setInverted(true);
-        leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
-        rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
     }
 
 
-    public void dualShoot(boolean manualActive, double shooterSpeed) {
-        leftShooter.setInverted(true);
-        rightShooter.setInverted(true);
-        if (manualActive){
-            if (shooterSpeed > 1) {
-                shooterSpeed = 1;
-            }
-            if (shooterSpeed < 0) {
-                shooterSpeed = 0;
-            }
-            if(ShootingCommand.mode == "IntakeMode"){
-                leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
-                rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
-            } else{
-            leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
-            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed*0.85);
-           }
+    public void dualShoot(double shooterSpeed) {
+
+        if (shooterSpeed > 1) {
+            shooterSpeed = 1;
         }
-        else{
+        if (shooterSpeed < 0) {
+            shooterSpeed = 0;
+        }
+
+        if (ShootingCommand.mode == "IntakeMode") {
             leftShooter.set(VictorSPXControlMode.PercentOutput, 0);
             rightShooter.set(VictorSPXControlMode.PercentOutput, 0);
+        } else {
+            leftShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed);
+            rightShooter.set(VictorSPXControlMode.PercentOutput, shooterSpeed * 0.85);
         }
     }
 
-    public void moveConveyor(boolean buttonPressed){
+    public void moveConveyor(boolean buttonPressed) {
         if (buttonPressed) {
             swapSolenoidPosition();
         }

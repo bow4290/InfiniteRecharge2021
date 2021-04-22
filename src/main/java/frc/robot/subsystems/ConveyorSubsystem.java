@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+
 public class ConveyorSubsystem extends SubsystemBase {
     private final VictorSPX topConveyor;
     private final VictorSPX bottomConveyor;
@@ -13,7 +14,7 @@ public class ConveyorSubsystem extends SubsystemBase {
     public static DigitalInput conveyorButton1;
     public static DigitalInput conveyorButton2;
 
-    double speedFactor = 1.1;
+    double speedFactor = 1.1; //Moves top conveyor faster to prevent ball jam.
 
     public ConveyorSubsystem(int topMotorChannel, int bottomMotorChannel) {
         conveyorButton1 = new DigitalInput(Constants.conveyorButton1Port);
@@ -23,12 +24,12 @@ public class ConveyorSubsystem extends SubsystemBase {
     }
 
 
-    public void conveyBall(double conveyorSpeed){
+    public void conveyBall(double conveyorSpeed) {
         if (conveyorSpeed > 1) {
             conveyorSpeed = 1;
         }
-            bottomConveyor.set(VictorSPXControlMode.PercentOutput, conveyorSpeed);
-            topConveyor.setInverted(true);
-            topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor * conveyorSpeed);
+        bottomConveyor.set(VictorSPXControlMode.PercentOutput, conveyorSpeed);
+        topConveyor.setInverted(true);
+        topConveyor.set(VictorSPXControlMode.PercentOutput, speedFactor * conveyorSpeed);
     }
 }
