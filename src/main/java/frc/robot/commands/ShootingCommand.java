@@ -83,6 +83,8 @@ public class ShootingCommand extends CommandBase {
 
         if (RobotContainer.xboxController.getBumper(GenericHID.Hand.kRight)) {
             shootingSubsystem.dualShoot((shooterSpeed + shooterSpeedCorrection));
+        } else {
+            shootingSubsystem.dualShoot(0);
         }
     }
 
