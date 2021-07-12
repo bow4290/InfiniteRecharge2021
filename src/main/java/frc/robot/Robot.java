@@ -63,7 +63,8 @@ public class Robot extends TimedRobot {
 
         driveTrainSubsystem.driveGyro.calibrate();
 
-        autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem);
+        //autoCommandGroup = new AutoCommandGroup(driveTrainSubsystem, conveyorSubsystem, intakeSubsystem, shootingSubsystem);
+        autoCommandGroup = null;
 
         teleopVictorSPXDriveCommand = new VictorSPXDriveCommand(driveTrainSubsystem);
         teleopShootingCommand = new ShootingCommand(shootingSubsystem);
